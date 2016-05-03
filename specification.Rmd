@@ -329,7 +329,7 @@ table(yes) = yes;
 New variables may be declared in `$TABLE`.  See section \@ref(new-variables) for details.
 
 
-### `$OMEGA`
+### `$OMEGA` \ {#block-omega}
 See `?modMATRIX` for more details about options for this block.
 
 Use this block to enter matrices for subject-level random effects drawn from multivariate normal distribution.  
@@ -374,7 +374,7 @@ Notes:
 * Multiple `$OMEGA` blocks are allowed
 
 
-### `$SIGMA`
+### `$SIGMA` \ {#block-sigma}
 See `?modMATRIX` for more details about options for this block.
 
 Use this block to enter matrices for within-subject random effects drawn from multivariate normal distribution.  
@@ -454,6 +454,81 @@ $PARAM THETA1 = 0.1, THETA2 = 0.2, THETA3 = 0.3
 ```
 
 See also: \@ref(block-param) .
+
+
+## `$NMXML`  \ {#block-nmxml}
+The `$NMXML` block lets you read and incorporate results from a NONMEM run into 
+your `mrgsolve` model.  From the NONMEM run, `THETA` will be imported into your parameter
+list (see \@ref(block-param) and \@ref(component-param)), `OMEGA` will be captured as an `$OMEGA` block (\@ref(block-omega)) and `SIGMA` will be captured as a `$SIGMA` block (\@ref(block-sigma)).  Users may optionally omit any one of these from being imported.
+
+
+### An example
+
+There is a NONMEM run embedded in the `mrgsolve` package 
+```{r}
+path <- file.path(path.package("mrgsolve"),"nonmem")
+list.files(path, recursive=TRUE)
+
+```
+
+ 
+We can create a `mrgsolve` control stream that will import `THETA`, `OMEGA` and 
+`SIGMA` from that run using the `$NMXML` code block.
+
+```{r}
+code <- '
+$NMXML
+run = 1005
+project=path
+theta=TRUE, omega=TRUE,sigma=TRUE
+olabels = s(ECL, EVC, EKA)
+slabels = s(PROP, ADD)
+
+$MAIN
+double CL = THETA1*exp(ECL);
+double V2 = THETA2*exp(EVC);
+double KA = THETA3*exp(EKA);
+double Q = THETA4;
+double V3 = THETA5;
+
+$PKMODEL ncmt=2, depot=TRUE
+
+$CMT GUT CENT PERIPH
+
+$TABLE
+table(CP) = (CENT/V2)*(1+PROP) + ADD/5;
+
+$SET delta=4, end=96
+'
+```
+
+
+
+
+__NOTE__: in order to use this code, we need to install the `XML` package.
+
+```{r}
+mod <- mcode("nmxml", code, quiet=TRUE)
+
+mod
+
+param(mod)
+
+revar(mod)
+
+```
+An infusion into `GUT`:
+```{r}
+set.seed(2922)
+#+
+mod %>%
+  ev(amt=1000, rate=1000/36, cmt="GUT") %>%
+  mrgsim(nid=10) %>%
+  plot
+```
+
+
+
 
 ## Derive new variables {#new-variables}
 New `C++` variables may be derived in `$GLOBAL`, `$MAIN`, `$ODE` and `$TABLE`.  Because these are `C++` variables, the type of variable being used must be declared.  For the vast majority of applications, the `double` type is used (double-precision numeric value. 

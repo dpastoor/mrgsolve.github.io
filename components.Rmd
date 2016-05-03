@@ -33,7 +33,7 @@ The initial values for each compartment can be queried with the `init()` functio
 The `mrgsolve` model object stores the parameters for the series of 
 time points to be output for a a simulation.  This is the default output time grid that will be used if not over-ridden by another mechanism.  
 
-The elements of the simulation time grid are: `start`, `end`, `delta` and `add`.  `start`, `end`, `delta` are passed to `seq()` as `from`, `to`, and `by`, respectively. `add` is any arbitrary vector of  __add__itional times to simulate.  
+The elements of the simulation time grid are: `start`, `end`, `delta` and `add`.  `start`, `end`, `delta` are passed to `seq()` as `from`, `to`, and `by`, respectively. `add` is any arbitrary vector of additional times to simulate.  
 
 The simulation time grid in a model object may be queried with the `stime()` function or by printing the model object to the `R` console. 
 
@@ -77,7 +77,7 @@ The `ODE` function is where the user writes the model differential equations.  A
 The `TABLE` function is called __after__ the solver advances in time.  The purpose of `TABLE` is to allow the user to interact with the values of the state variables after advancing, potentially derive new variables, and to insert different outputs into the table of simulated results. 
 
 ## Random effect variances
-The `mrgsolve` model object keeps track of a arbitrary number of block matrices that are used to simulate variates from multivariate normal distributions.  Users can specify `OMEGA` matrices for simulating between-subject random effects (one draw per individual) or `SIGMA` matrices for simulating within-subject random effects (one draw per observation.  
+The `mrgsolve` model object keeps track of a arbitrary number of block matrices that are used to simulate variates from multivariate normal distributions.  Users can specify `OMEGA` matrices for simulating between-subject random effects (one draw per individual) or `SIGMA` matrices for simulating within-subject random effects (one draw per observation).  
 
 The user may use the `revar` function to query both `OMEGA` and `SIGMA`.
 

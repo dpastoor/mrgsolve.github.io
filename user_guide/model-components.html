@@ -171,14 +171,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.2.5" data-path="model-specification.html"><a href="model-specification.html#block-ode"><i class="fa fa-check"></i><b>4.2.5</b> <code>$ODE</code>  </a></li>
 <li class="chapter" data-level="4.2.6" data-path="model-specification.html"><a href="model-specification.html#table"><i class="fa fa-check"></i><b>4.2.6</b> <code id="block-table">$TABLE</code></a></li>
 <li class="chapter" data-level="4.2.7" data-path="model-specification.html"><a href="model-specification.html#block-capture"><i class="fa fa-check"></i><b>4.2.7</b> <code>$CAPTURE</code>  </a></li>
-<li class="chapter" data-level="4.2.8" data-path="model-specification.html"><a href="model-specification.html#omega-1"><i class="fa fa-check"></i><b>4.2.8</b> <code>$OMEGA</code></a></li>
-<li class="chapter" data-level="4.2.9" data-path="model-specification.html"><a href="model-specification.html#sigma-1"><i class="fa fa-check"></i><b>4.2.9</b> <code>$SIGMA</code></a></li>
+<li class="chapter" data-level="4.2.8" data-path="model-specification.html"><a href="model-specification.html#block-omega"><i class="fa fa-check"></i><b>4.2.8</b> <code>$OMEGA</code>  </a></li>
+<li class="chapter" data-level="4.2.9" data-path="model-specification.html"><a href="model-specification.html#block-sigma"><i class="fa fa-check"></i><b>4.2.9</b> <code>$SIGMA</code>  </a></li>
 <li class="chapter" data-level="4.2.10" data-path="model-specification.html"><a href="model-specification.html#set"><i class="fa fa-check"></i><b>4.2.10</b> <code>$SET</code></a></li>
 <li class="chapter" data-level="4.2.11" data-path="model-specification.html"><a href="model-specification.html#global"><i class="fa fa-check"></i><b>4.2.11</b> <code>$GLOBAL</code></a></li>
 <li class="chapter" data-level="4.2.12" data-path="model-specification.html"><a href="model-specification.html#pkmodel"><i class="fa fa-check"></i><b>4.2.12</b> <code>$PKMODEL</code></a></li>
 <li class="chapter" data-level="4.2.13" data-path="model-specification.html"><a href="model-specification.html#block-theta"><i class="fa fa-check"></i><b>4.2.13</b> <code>$THETA</code>  </a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="model-specification.html"><a href="model-specification.html#new-variables"><i class="fa fa-check"></i><b>4.3</b> Derive new variables</a></li>
+<li class="chapter" data-level="4.3" data-path="model-specification.html"><a href="model-specification.html#block-nmxml"><i class="fa fa-check"></i><b>4.3</b> <code>$NMXML</code>  </a><ul>
+<li class="chapter" data-level="4.3.1" data-path="model-specification.html"><a href="model-specification.html#an-example"><i class="fa fa-check"></i><b>4.3.1</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="model-specification.html"><a href="model-specification.html#new-variables"><i class="fa fa-check"></i><b>4.4</b> Derive new variables</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="input-data-sets.html"><a href="input-data-sets.html"><i class="fa fa-check"></i><b>5</b> Input data sets</a><ul>
 <li class="chapter" data-level="5.1" data-path="input-data-sets.html"><a href="input-data-sets.html#datasets"><i class="fa fa-check"></i><b>5.1</b> Overview</a></li>
@@ -254,7 +257,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="component-stime" class="section level2">
 <h2><span class="header-section-number">3.3</span> Simulation time grid</h2>
 <p>The <code>mrgsolve</code> model object stores the parameters for the series of time points to be output for a a simulation. This is the default output time grid that will be used if not over-ridden by another mechanism.</p>
-<p>The elements of the simulation time grid are: <code>start</code>, <code>end</code>, <code>delta</code> and <code>add</code>. <code>start</code>, <code>end</code>, <code>delta</code> are passed to <code>seq()</code> as <code>from</code>, <code>to</code>, and <code>by</code>, respectively. <code>add</code> is any arbitrary vector of __add__itional times to simulate.</p>
+<p>The elements of the simulation time grid are: <code>start</code>, <code>end</code>, <code>delta</code> and <code>add</code>. <code>start</code>, <code>end</code>, <code>delta</code> are passed to <code>seq()</code> as <code>from</code>, <code>to</code>, and <code>by</code>, respectively. <code>add</code> is any arbitrary vector of additional times to simulate.</p>
 <p>The simulation time grid in a model object may be queried with the <code>stime()</code> function or by printing the model object to the <code>R</code> console.</p>
 <div id="tgrid-objects" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> <code>tgrid</code> objects</h3>
@@ -291,7 +294,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="random-effect-variances" class="section level2">
 <h2><span class="header-section-number">3.6</span> Random effect variances</h2>
-<p>The <code>mrgsolve</code> model object keeps track of a arbitrary number of block matrices that are used to simulate variates from multivariate normal distributions. Users can specify <code>OMEGA</code> matrices for simulating between-subject random effects (one draw per individual) or <code>SIGMA</code> matrices for simulating within-subject random effects (one draw per observation.</p>
+<p>The <code>mrgsolve</code> model object keeps track of a arbitrary number of block matrices that are used to simulate variates from multivariate normal distributions. Users can specify <code>OMEGA</code> matrices for simulating between-subject random effects (one draw per individual) or <code>SIGMA</code> matrices for simulating within-subject random effects (one draw per observation).</p>
 <p>The user may use the <code>revar</code> function to query both <code>OMEGA</code> and <code>SIGMA</code>.</p>
 <div id="omega" class="section level3">
 <h3><span class="header-section-number">3.6.1</span> <code>OMEGA</code></h3>

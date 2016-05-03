@@ -171,14 +171,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.2.5" data-path="model-specification.html"><a href="model-specification.html#block-ode"><i class="fa fa-check"></i><b>4.2.5</b> <code>$ODE</code>  </a></li>
 <li class="chapter" data-level="4.2.6" data-path="model-specification.html"><a href="model-specification.html#table"><i class="fa fa-check"></i><b>4.2.6</b> <code id="block-table">$TABLE</code></a></li>
 <li class="chapter" data-level="4.2.7" data-path="model-specification.html"><a href="model-specification.html#block-capture"><i class="fa fa-check"></i><b>4.2.7</b> <code>$CAPTURE</code>  </a></li>
-<li class="chapter" data-level="4.2.8" data-path="model-specification.html"><a href="model-specification.html#omega-1"><i class="fa fa-check"></i><b>4.2.8</b> <code>$OMEGA</code></a></li>
-<li class="chapter" data-level="4.2.9" data-path="model-specification.html"><a href="model-specification.html#sigma-1"><i class="fa fa-check"></i><b>4.2.9</b> <code>$SIGMA</code></a></li>
+<li class="chapter" data-level="4.2.8" data-path="model-specification.html"><a href="model-specification.html#block-omega"><i class="fa fa-check"></i><b>4.2.8</b> <code>$OMEGA</code>  </a></li>
+<li class="chapter" data-level="4.2.9" data-path="model-specification.html"><a href="model-specification.html#block-sigma"><i class="fa fa-check"></i><b>4.2.9</b> <code>$SIGMA</code>  </a></li>
 <li class="chapter" data-level="4.2.10" data-path="model-specification.html"><a href="model-specification.html#set"><i class="fa fa-check"></i><b>4.2.10</b> <code>$SET</code></a></li>
 <li class="chapter" data-level="4.2.11" data-path="model-specification.html"><a href="model-specification.html#global"><i class="fa fa-check"></i><b>4.2.11</b> <code>$GLOBAL</code></a></li>
 <li class="chapter" data-level="4.2.12" data-path="model-specification.html"><a href="model-specification.html#pkmodel"><i class="fa fa-check"></i><b>4.2.12</b> <code>$PKMODEL</code></a></li>
 <li class="chapter" data-level="4.2.13" data-path="model-specification.html"><a href="model-specification.html#block-theta"><i class="fa fa-check"></i><b>4.2.13</b> <code>$THETA</code>  </a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="model-specification.html"><a href="model-specification.html#new-variables"><i class="fa fa-check"></i><b>4.3</b> Derive new variables</a></li>
+<li class="chapter" data-level="4.3" data-path="model-specification.html"><a href="model-specification.html#block-nmxml"><i class="fa fa-check"></i><b>4.3</b> <code>$NMXML</code>  </a><ul>
+<li class="chapter" data-level="4.3.1" data-path="model-specification.html"><a href="model-specification.html#an-example"><i class="fa fa-check"></i><b>4.3.1</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="model-specification.html"><a href="model-specification.html#new-variables"><i class="fa fa-check"></i><b>4.4</b> Derive new variables</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="input-data-sets.html"><a href="input-data-sets.html"><i class="fa fa-check"></i><b>5</b> Input data sets</a><ul>
 <li class="chapter" data-level="5.1" data-path="input-data-sets.html"><a href="input-data-sets.html#datasets"><i class="fa fa-check"></i><b>5.1</b> Overview</a></li>
@@ -409,7 +412,7 @@ g = <span class="fl">9.8</span></code></pre></div>
 </ul>
 <p>For users who are familiar with NONMEM, <code>$MAIN</code> is similar to <code>$PK</code>.</p>
 <p><code>$MAIN</code> is wrapped into a <code>C++</code> function and compiled / loaded by <code>mrgsolve</code>. The <code>MAIN</code> function gets called just prior to advancing the system from the current time to the next time for each record in the data set. <code>$MAIN</code> also gets called several times before starting the problem (<code>NEWIND == 0</code>) and just prior to simulating each individual (<code>NEWIND == 1</code>). Finally, <code>$MAIN</code> gets called every time the model initial conditions are queried with <code>init()</code>.</p>
-<p>New variables may be declared in <code>$MAIN</code>. See section <a href="model-specification.html#new-variables">4.3</a> for details.</p>
+<p>New variables may be declared in <code>$MAIN</code>. See section <a href="model-specification.html#new-variables">4.4</a> for details.</p>
 <p>Examples:</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$CMT CENT RESP
 
@@ -432,7 +435,7 @@ dxdt_GUT = -KA*GUT;
 dxdt_CENT = KA*GUT - KE*CENT;</code></pre></div>
 <p>It is important to make sure that there is a <code>dxdt_</code> expression defined for every compartment listed in <code>$CMT</code> or <code>$INIT</code>, even if it is <code>dxdt_CMT = 0;</code></p>
 <p>The <code>$ODE</code> function is called repeatedly during a simulation run. So it is wise to do as many calculations as possible outside of <code>$ODE</code>, usually in <code>$MAIN</code>. But remember that any calculation that depends on an amount in a compartment and helps determine the <code>dxdt_</code> expression in a model must be written in <code>$ODE</code>.</p>
-<p>New variables may be declared in <code>$ODE</code>. See section <a href="model-specification.html#new-variables">4.3</a> for details.</p>
+<p>New variables may be declared in <code>$ODE</code>. See section <a href="model-specification.html#new-variables">4.4</a> for details.</p>
 <p>For example:</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$CMT CENT RESP
 $PARAM VC = <span class="dv">100</span>, KE = <span class="fl">0.2</span>, KOUT = <span class="dv">2</span>, KIN = <span class="dv">100</span>
@@ -480,10 +483,10 @@ table(A) = A;
 table(B) = B;
 table(C) = C;
 table(yes) = yes;</code></pre></div>
-<p>New variables may be declared in <code>$TABLE</code>. See section <a href="model-specification.html#new-variables">4.3</a> for details.</p>
+<p>New variables may be declared in <code>$TABLE</code>. See section <a href="model-specification.html#new-variables">4.4</a> for details.</p>
 </div>
-<div id="omega-1" class="section level3">
-<h3><span class="header-section-number">4.2.8</span> <code>$OMEGA</code></h3>
+<div id="block-omega" class="section level3">
+<h3><span class="header-section-number">4.2.8</span> <code>$OMEGA</code>  </h3>
 <p>See <code>?modMATRIX</code> for more details about options for this block.</p>
 <p>Use this block to enter matrices for subject-level random effects drawn from multivariate normal distribution.</p>
 <p>By default, a <strong>diagonal</strong> matrix is assumed. So:</p>
@@ -510,8 +513,8 @@ $OMEGA name=<span class="st">&quot;PD&quot;</span>
 <li>Multiple <code>$OMEGA</code> blocks are allowed</li>
 </ul>
 </div>
-<div id="sigma-1" class="section level3">
-<h3><span class="header-section-number">4.2.9</span> <code>$SIGMA</code></h3>
+<div id="block-sigma" class="section level3">
+<h3><span class="header-section-number">4.2.9</span> <code>$SIGMA</code>  </h3>
 <p>See <code>?modMATRIX</code> for more details about options for this block.</p>
 <p>Use this block to enter matrices for within-subject random effects drawn from multivariate normal distribution.</p>
 <p>The <code>$SIGMA</code> block functions like the <code>$OMEGA</code> block. See <code>$OMEGA</code> for details.</p>
@@ -530,7 +533,7 @@ $OMEGA name=<span class="st">&quot;PD&quot;</span>
 <p>There are no artificial limit on what sort of <code>C++</code> code can go in <code>$GLOBAL</code>. However there are two more-common uses:</p>
 <ol style="list-style-type: decimal">
 <li>Write <code>#define</code> preprocessor statements</li>
-<li>Define global variables, usually variables other than <code>double</code>, <code>bool</code>, <code>int</code> (see <a href="model-specification.html#new-variables">4.3</a>)</li>
+<li>Define global variables, usually variables other than <code>double</code>, <code>bool</code>, <code>int</code> (see <a href="model-specification.html#new-variables">4.4</a>)</li>
 </ol>
 <p><strong>Preprocessor directives</strong> Preprocessor <code>#define</code> directives are direct substibutions that the <code>C++</code> preprocessor makes prior to compiling your code.</p>
 <p>For example:</p>
@@ -562,8 +565,103 @@ $PKMODEL ncmt=<span class="dv">2</span>, depot=TRUE</code></pre></div>
 <p>See also: <a href="model-specification.html#block-param">4.2.1</a> .</p>
 </div>
 </div>
+<div id="block-nmxml" class="section level2">
+<h2><span class="header-section-number">4.3</span> <code>$NMXML</code>  </h2>
+<p>The <code>$NMXML</code> block lets you read and incorporate results from a NONMEM run into your <code>mrgsolve</code> model. From the NONMEM run, <code>THETA</code> will be imported into your parameter list (see <a href="model-specification.html#block-param">4.2.1</a> and <a href="model-components.html#component-param">3.1</a>), <code>OMEGA</code> will be captured as an <code>$OMEGA</code> block (<a href="model-specification.html#block-omega">4.2.8</a>) and <code>SIGMA</code> will be captured as a <code>$SIGMA</code> block (<a href="model-specification.html#block-sigma">4.2.9</a>). Users may optionally omit any one of these from being imported.</p>
+<div id="an-example" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> An example</h3>
+<p>There is a NONMEM run embedded in the <code>mrgsolve</code> package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">path.package</span>(<span class="st">&quot;mrgsolve&quot;</span>),<span class="st">&quot;nonmem&quot;</span>)
+<span class="kw">list.files</span>(path, <span class="dt">recursive=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>##  [1] &quot;1005/1005.cat&quot;    &quot;1005/1005.coi&quot;    &quot;1005/1005.cor&quot;   
+##  [4] &quot;1005/1005.cov&quot;    &quot;1005/1005.cpu&quot;    &quot;1005/1005.ctl&quot;   
+##  [7] &quot;1005/1005.ext&quot;    &quot;1005/1005.grd&quot;    &quot;1005/1005.lst&quot;   
+## [10] &quot;1005/1005.phi&quot;    &quot;1005/1005.shk&quot;    &quot;1005/1005.shm&quot;   
+## [13] &quot;1005/1005.tab&quot;    &quot;1005/1005.xml&quot;    &quot;1005/1005par.tab&quot;
+## [16] &quot;1005/INTER&quot;</code></pre>
+<p>We can create a <code>mrgsolve</code> control stream that will import <code>THETA</code>, <code>OMEGA</code> and <code>SIGMA</code> from that run using the <code>$NMXML</code> code block.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">code &lt;-<span class="st"> &#39;</span>
+<span class="st">$NMXML</span>
+<span class="st">run = 1005</span>
+<span class="st">project=path</span>
+<span class="st">theta=TRUE, omega=TRUE,sigma=TRUE</span>
+<span class="st">olabels = s(ECL, EVC, EKA)</span>
+<span class="st">slabels = s(PROP, ADD)</span>
+
+<span class="st">$MAIN</span>
+<span class="st">double CL = THETA1*exp(ECL);</span>
+<span class="st">double V2 = THETA2*exp(EVC);</span>
+<span class="st">double KA = THETA3*exp(EKA);</span>
+<span class="st">double Q = THETA4;</span>
+<span class="st">double V3 = THETA5;</span>
+
+<span class="st">$PKMODEL ncmt=2, depot=TRUE</span>
+
+<span class="st">$CMT GUT CENT PERIPH</span>
+
+<span class="st">$TABLE</span>
+<span class="st">table(CP) = (CENT/V2)*(1+PROP) + ADD/5;</span>
+
+<span class="st">$SET delta=4, end=96</span>
+<span class="st">&#39;</span></code></pre></div>
+<p><strong>NOTE</strong>: in order to use this code, we need to install the <code>XML</code> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">mcode</span>(<span class="st">&quot;nmxml&quot;</span>, code, <span class="dt">quiet=</span><span class="ot">TRUE</span>)
+
+mod</code></pre></div>
+<pre><code>## 
+## 
+## -------- mrgsolve model object (unix) --------
+##   Project: /private/var/fol...dbsj0x4637ptj4hnd7kg900000gp/T/RtmplZvkhV
+##   source:        nmxml.cpp
+##   shared object: cde7687e2ece (loaded)
+## 
+##   compile date:  05/03 15:47
+##   Time:          start: 0 end: 96 delta: 4
+##   &gt;              add: &lt;none&gt;
+##   &gt;              tscale: 1
+## 
+##   Compartments:  GUT CENT PERIPH [3]
+##   Parameters:    THETA1 THETA2 THETA3 THETA4 THETA5 THETA6
+##   &gt;              THETA7 [7]
+##   Omega:         3x3 
+##   Sigma:         2x2 
+## 
+##   Solver:        atol: 1e-08 rtol: 1e-08
+##   &gt;              maxsteps: 2000 hmin: 0 hmax: 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">param</span>(mod)</code></pre></div>
+<pre><code>## 
+##  Model parameters (N=7):
+##  name   value  . name   value
+##  THETA1 9.51   | THETA5 113  
+##  THETA2 22.8   | THETA6 1.02 
+##  THETA3 0.0714 | THETA7 1.19 
+##  THETA4 3.47   | .      .</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">revar</span>(mod)</code></pre></div>
+<pre><code>## $omega
+## $...
+##              [,1]        [,2]        [,3]
+## ECL:   0.21387884  0.12077020 -0.01162777
+## EVC:   0.12077020  0.09451047 -0.03720637
+## EKA:  -0.01162777 -0.03720637  0.04656315
+## 
+## 
+## $sigma
+## $...
+##              [,1]      [,2]
+## PROP:  0.04917071 0.0000000
+## ADD:   0.00000000 0.2017688</code></pre>
+<p>An infusion into <code>GUT</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2922</span>)
+<span class="co">#+</span>
+mod %&gt;%
+<span class="st">  </span><span class="kw">ev</span>(<span class="dt">amt=</span><span class="dv">1000</span>, <span class="dt">rate=</span><span class="dv">1000</span>/<span class="dv">36</span>, <span class="dt">cmt=</span><span class="st">&quot;GUT&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">nid=</span><span class="dv">10</span>) %&gt;%
+<span class="st">  </span>plot</code></pre></div>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+</div>
+</div>
 <div id="new-variables" class="section level2">
-<h2><span class="header-section-number">4.3</span> Derive new variables</h2>
+<h2><span class="header-section-number">4.4</span> Derive new variables</h2>
 <p>New <code>C++</code> variables may be derived in <code>$GLOBAL</code>, <code>$MAIN</code>, <code>$ODE</code> and <code>$TABLE</code>. Because these are <code>C++</code> variables, the type of variable being used must be declared. For the vast majority of applications, the <code>double</code> type is used (double-precision numeric value.</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$MAIN
 <span class="dt">double</span> CLi = TVCL*exp(ETA(<span class="dv">1</span>));</code></pre></div>

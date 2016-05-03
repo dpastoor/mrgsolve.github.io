@@ -171,14 +171,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.2.5" data-path="model-specification.html"><a href="model-specification.html#block-ode"><i class="fa fa-check"></i><b>4.2.5</b> <code>$ODE</code>  </a></li>
 <li class="chapter" data-level="4.2.6" data-path="model-specification.html"><a href="model-specification.html#table"><i class="fa fa-check"></i><b>4.2.6</b> <code id="block-table">$TABLE</code></a></li>
 <li class="chapter" data-level="4.2.7" data-path="model-specification.html"><a href="model-specification.html#block-capture"><i class="fa fa-check"></i><b>4.2.7</b> <code>$CAPTURE</code>  </a></li>
-<li class="chapter" data-level="4.2.8" data-path="model-specification.html"><a href="model-specification.html#omega-1"><i class="fa fa-check"></i><b>4.2.8</b> <code>$OMEGA</code></a></li>
-<li class="chapter" data-level="4.2.9" data-path="model-specification.html"><a href="model-specification.html#sigma-1"><i class="fa fa-check"></i><b>4.2.9</b> <code>$SIGMA</code></a></li>
+<li class="chapter" data-level="4.2.8" data-path="model-specification.html"><a href="model-specification.html#block-omega"><i class="fa fa-check"></i><b>4.2.8</b> <code>$OMEGA</code>  </a></li>
+<li class="chapter" data-level="4.2.9" data-path="model-specification.html"><a href="model-specification.html#block-sigma"><i class="fa fa-check"></i><b>4.2.9</b> <code>$SIGMA</code>  </a></li>
 <li class="chapter" data-level="4.2.10" data-path="model-specification.html"><a href="model-specification.html#set"><i class="fa fa-check"></i><b>4.2.10</b> <code>$SET</code></a></li>
 <li class="chapter" data-level="4.2.11" data-path="model-specification.html"><a href="model-specification.html#global"><i class="fa fa-check"></i><b>4.2.11</b> <code>$GLOBAL</code></a></li>
 <li class="chapter" data-level="4.2.12" data-path="model-specification.html"><a href="model-specification.html#pkmodel"><i class="fa fa-check"></i><b>4.2.12</b> <code>$PKMODEL</code></a></li>
 <li class="chapter" data-level="4.2.13" data-path="model-specification.html"><a href="model-specification.html#block-theta"><i class="fa fa-check"></i><b>4.2.13</b> <code>$THETA</code>  </a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="model-specification.html"><a href="model-specification.html#new-variables"><i class="fa fa-check"></i><b>4.3</b> Derive new variables</a></li>
+<li class="chapter" data-level="4.3" data-path="model-specification.html"><a href="model-specification.html#block-nmxml"><i class="fa fa-check"></i><b>4.3</b> <code>$NMXML</code>  </a><ul>
+<li class="chapter" data-level="4.3.1" data-path="model-specification.html"><a href="model-specification.html#an-example"><i class="fa fa-check"></i><b>4.3.1</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="model-specification.html"><a href="model-specification.html#new-variables"><i class="fa fa-check"></i><b>4.4</b> Derive new variables</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="input-data-sets.html"><a href="input-data-sets.html"><i class="fa fa-check"></i><b>5</b> Input data sets</a><ul>
 <li class="chapter" data-level="5.1" data-path="input-data-sets.html"><a href="input-data-sets.html#datasets"><i class="fa fa-check"></i><b>5.1</b> Overview</a></li>
@@ -357,7 +360,7 @@ mod %&gt;%
 <span class="st">  </span><span class="kw">data_set</span>(data) %&gt;%
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">end=</span><span class="dv">240</span>) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(CP~time|<span class="kw">factor</span>(ID))</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 </div>
 </div>
 <div id="idata-set" class="section level2">
@@ -397,7 +400,7 @@ mod %&gt;%
 <span class="st">  </span><span class="kw">idata_set</span>(exidata) %&gt;%
 <span class="st">  </span><span class="kw">ev</span>(<span class="dt">amt=</span><span class="dv">100</span>) %&gt;%
 <span class="st">  </span>mrgsim %&gt;%<span class="st"> </span>plot</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <p>Because there were 10 subjects in the <code>idata_set</code>, we get 10 profiles in the output. Each “individual” or “unit” received the same 100 mg dose. We would use a <code>data_set</code> to assign different doses to different individuals.</p>
 </div>
 </div>
