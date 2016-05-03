@@ -197,6 +197,81 @@ plot(out, CENT~.)
 ## Updating parameters {#topics-parameter-update}
 
 
+## Time grid objects
+
+### Simulation times in `mrgsolve`
+
+```{r}
+mod <- mrgsolve:::house() %>% Req(CP) %>% ev(amt=1000,ii=24, addl=1000) 
+```
+
+
+`mrgsolve` keeps track of a simulation `start` and `end` time and a 
+fixed size step between `start` and `end` (called `delta`).  `mrgsolve`
+also keeps an arbitrary vector of simulation times called `add`. 
+
+```{r}
+mod %>%
+  mrgsim(end=4,delta=2,add=c(7,9,50)) %>%
+  as.data.frame
+```
+
+
+### `tgrid` objects
+ 
+The `tgrid` object abstracts this setup and allows us to make 
+complicated sampling designs from elementary building blocks.
+
+__Make a day 1 sampling with intensive sampling around the peak and sparser otherwise__
+```{r}
+peak1 <- tgrid(1,4,0.1)
+sparse1 <- tgrid(0,24,4)
+```
+ 
+__Use the `c` operator to combine simpler designs into more complicated designs__
+```{r}
+day1 <- c(peak1,sparse1)
+```
+
+Check this by calling `stime`
+```{r}
+stime(day1)
+```
+
+Pass this object in to `mrgsim` as `tgrid`.  It will override the default `start/end/delta/add` sequence.
+```{r}
+mod %>% 
+  mrgsim(tgrid=day1) %>%
+  plot(type='b')
+```
+
+ 
+__Now, look at both day 1 and day 10__:
+ 
+Adding a number to a `tgrid` object will offset those times by that amount.  
+
+```{r}
+des <- c(day1, day1+10*24)
+
+mod %>% 
+  mrgsim(tgrid=des) %>%
+  plot(type='b')
+
+
+```
+
+Pick up day 5 as well
+
+```{r}
+des <- c(des, day1+5*24)
+
+mod %>% 
+  mrgsim(tgrid=des) %>%
+  plot(type='b')
+```
+
+
+
 ## Individualized sampling designs {#topic-designs}
 
 ```{r}

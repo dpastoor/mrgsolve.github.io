@@ -204,7 +204,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.1.5" data-path="topics.html"><a href="topics.html#set-initial-conditions-via-idata"><i class="fa fa-check"></i><b>7.1.5</b> Set initial conditions via <code>idata</code></a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="topics.html"><a href="topics.html#topics-parameter-update"><i class="fa fa-check"></i><b>7.2</b> Updating parameters</a></li>
-<li class="chapter" data-level="7.3" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>7.3</b> Individualized sampling designs</a></li>
+<li class="chapter" data-level="7.3" data-path="topics.html"><a href="topics.html#time-grid-objects"><i class="fa fa-check"></i><b>7.3</b> Time grid objects</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="topics.html"><a href="topics.html#simulation-times-in-mrgsolve"><i class="fa fa-check"></i><b>7.3.1</b> Simulation times in <code>mrgsolve</code></a></li>
+<li class="chapter" data-level="7.3.2" data-path="topics.html"><a href="topics.html#tgrid-objects-1"><i class="fa fa-check"></i><b>7.3.2</b> <code>tgrid</code> objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>7.4</b> Individualized sampling designs</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -396,8 +400,61 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="topics-parameter-update" class="section level2">
 <h2><span class="header-section-number">7.2</span> Updating parameters</h2>
 </div>
+<div id="time-grid-objects" class="section level2">
+<h2><span class="header-section-number">7.3</span> Time grid objects</h2>
+<div id="simulation-times-in-mrgsolve" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Simulation times in <code>mrgsolve</code></h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span>mrgsolve:::<span class="kw">house</span>() %&gt;%<span class="st"> </span><span class="kw">Req</span>(CP) %&gt;%<span class="st"> </span><span class="kw">ev</span>(<span class="dt">amt=</span><span class="dv">1000</span>,<span class="dt">ii=</span><span class="dv">24</span>, <span class="dt">addl=</span><span class="dv">1000</span>) </code></pre></div>
+<p><code>mrgsolve</code> keeps track of a simulation <code>start</code> and <code>end</code> time and a fixed size step between <code>start</code> and <code>end</code> (called <code>delta</code>). <code>mrgsolve</code> also keeps an arbitrary vector of simulation times called <code>add</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%
+<span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">end=</span><span class="dv">4</span>,<span class="dt">delta=</span><span class="dv">2</span>,<span class="dt">add=</span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">50</span>)) %&gt;%
+<span class="st">  </span>as.data.frame</code></pre></div>
+<pre><code>.   ID time       CP
+. 1  1    0  0.00000
+. 2  1    0  0.00000
+. 3  1    2 42.47580
+. 4  1    4 42.28701
+. 5  1    7 36.75460
+. 6  1    9 33.26649
+. 7  1   50 60.97754</code></pre>
+</div>
+<div id="tgrid-objects-1" class="section level3">
+<h3><span class="header-section-number">7.3.2</span> <code>tgrid</code> objects</h3>
+<p>The <code>tgrid</code> object abstracts this setup and allows us to make complicated sampling designs from elementary building blocks.</p>
+<p><strong>Make a day 1 sampling with intensive sampling around the peak and sparser otherwise</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">peak1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="fl">0.1</span>)
+sparse1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">4</span>)</code></pre></div>
+<p><strong>Use the <code>c</code> operator to combine simpler designs into more complicated designs</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">day1 &lt;-<span class="st"> </span><span class="kw">c</span>(peak1,sparse1)</code></pre></div>
+<p>Check this by calling <code>stime</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stime</span>(day1)</code></pre></div>
+<pre><code>.  [1]  0.0  1.0  1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.0  2.1  2.2
+. [15]  2.3  2.4  2.5  2.6  2.7  2.8  2.9  3.0  3.1  3.2  3.3  3.4  3.5  3.6
+. [29]  3.7  3.8  3.9  4.0  8.0 12.0 16.0 20.0 24.0</code></pre>
+<p>Pass this object in to <code>mrgsim</code> as <code>tgrid</code>. It will override the default <code>start/end/delta/add</code> sequence.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>day1) %&gt;%
+<span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p><strong>Now, look at both day 1 and day 10</strong>:</p>
+<p>Adding a number to a <code>tgrid</code> object will offset those times by that amount.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">des &lt;-<span class="st"> </span><span class="kw">c</span>(day1, day1<span class="dv">+10</span>*<span class="dv">24</span>)
+
+mod %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>des) %&gt;%
+<span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p>Pick up day 5 as well</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">des &lt;-<span class="st"> </span><span class="kw">c</span>(des, day1<span class="dv">+5</span>*<span class="dv">24</span>)
+
+mod %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>des) %&gt;%
+<span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+</div>
+</div>
 <div id="topic-designs" class="section level2">
-<h2><span class="header-section-number">7.3</span> Individualized sampling designs</h2>
+<h2><span class="header-section-number">7.4</span> Individualized sampling designs</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span>mrgsolve:::<span class="kw">house</span>()
 
 
@@ -448,7 +505,7 @@ out &lt;-<span class="st"> </span>
 <span class="st">  </span>mrgsim 
 
 <span class="kw">plot</span>(out, CP~time|GRP)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
 
 <div id="refs" class="references">
 

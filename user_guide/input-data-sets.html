@@ -204,7 +204,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.1.5" data-path="topics.html"><a href="topics.html#set-initial-conditions-via-idata"><i class="fa fa-check"></i><b>7.1.5</b> Set initial conditions via <code>idata</code></a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="topics.html"><a href="topics.html#topics-parameter-update"><i class="fa fa-check"></i><b>7.2</b> Updating parameters</a></li>
-<li class="chapter" data-level="7.3" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>7.3</b> Individualized sampling designs</a></li>
+<li class="chapter" data-level="7.3" data-path="topics.html"><a href="topics.html#time-grid-objects"><i class="fa fa-check"></i><b>7.3</b> Time grid objects</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="topics.html"><a href="topics.html#simulation-times-in-mrgsolve"><i class="fa fa-check"></i><b>7.3.1</b> Simulation times in <code>mrgsolve</code></a></li>
+<li class="chapter" data-level="7.3.2" data-path="topics.html"><a href="topics.html#tgrid-objects-1"><i class="fa fa-check"></i><b>7.3.2</b> <code>tgrid</code> objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>7.4</b> Individualized sampling designs</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -262,7 +266,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><code>mrgsolve</code> distinguishes between two types of data sets: data sets that have <em>at least one observation record</em> (<code>evid=0</code>) and data sets that have <em>no records with <code>evid=0</code></em>.</p>
 <ul>
 <li><strong>Full data sets</strong> have a mix of observations and dosing events (likely, but not required). When <code>mrgsolve</code> finds one record with <code>evid=0</code>, it assumes that <strong>ALL</strong> output observation times are to come from the data set. In this case the simulation output time grid discussed in <a href="model-components.html#component-stime">3.3</a> is ignored and only observations found in the data set appear in the simulated output. Use full data sets when you want a highly customized sampling schedule or you are working with a clinical data set.</li>
-<li><strong>Condensed data sets</strong> have no records with <code>evid=0</code>. In this case, <code>mrgsolve</code> will fill the simulated output with observations at times specified by the output time grid ( section <a href="model-components.html#component-stime">3.3</a> and see section <a href="topics.html#topic-designs">7.3</a>). These are very convenient to use because there is less data assembly burden and output data sets can easily be created with very dense sampling scheme or highly customised sampling schemes with very little work. Use a condensed data set when you want a uniform set of sampling times for all subjects in the data set.</li>
+<li><strong>Condensed data sets</strong> have no records with <code>evid=0</code>. In this case, <code>mrgsolve</code> will fill the simulated output with observations at times specified by the output time grid ( section <a href="model-components.html#component-stime">3.3</a> and see section <a href="topics.html#topic-designs">7.4</a>). These are very convenient to use because there is less data assembly burden and output data sets can easily be created with very dense sampling scheme or highly customised sampling schemes with very little work. Use a condensed data set when you want a uniform set of sampling times for all subjects in the data set.</li>
 </ul>
 <p><strong>Example of condensed data set</strong> data(extran1)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(extran1)
