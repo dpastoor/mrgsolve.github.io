@@ -2,6 +2,48 @@
 
 This chapter details the `mrgsolve` model specification format.  
 
+## How / where to write a model
+There are two ways to write your model:
+
+### Separate file {#spec-separate-file}
+Open a text editor and type the model into a file with name that has the format `<model-name>.cpp`.  This filename format identifies a "name" for your model (`<model-name>`, the "stem" of the file name).  The extension __MUST__ be `.cpp` (`mrgsolve` curently assumes the extension).  Note: this whole file will be read and parsed, so everything in it must be valid `mrgsolve` model specification elements.  
+
+Use the `mread()` function to read and parse this file.  For the model called `mymodel` saved in `mymodel.cpp` (in the current working directory), issue the command:
+```{r,eval=FALSE}
+mod <- mread("mymodel")
+```
+
+`mread()` returns a model object from which you can simulated.
+
+
+
+### Inline / "code" {#spec-inline}
+Often it is more convenient to write a model right in your `R` script.  The model might look something like this:
+
+```{r}
+code <- '
+$PARAM CL = 1, VC = 20
+$PKMODEL ncmt=1
+'
+```
+
+Here, we created a character vector of length 1 and saved it to the `R` object called `code`.  The name of this object is irrelevant.  But `code` will be passed into `mrgsolve` as the model definition.  When `mrgsolve` gets a model like this along with a "name" for the model, mrgsolve will write the code to a file called `<model-name>.cpp` and read it right back in as if you had typed the code into this file (section \@ref(spec-separate-file)). 
+
+To parse and load this model, use the `mcode()` command:
+
+```{r,eval=FALSE}
+mod <- mcode("mymodel", code)
+```
+
+`mcode()` is a convenience wrapper for `mread()`.  `mcode` writes the code to `mymodel.cpp` in `tempdir()`, reads it back in, compiles and loads.
+
+The `mcode` call is equivalent to:
+```{r, eval=FALSE}
+mod <- mread("mymodel", tempdir(), code)
+```
+
+For help, see `?mread` , `?mcode` in the `R` help system after loading `mrgsolve`.
+
 ## Variables and Macros
 In the following section, we adopt the convention that `CMT` stands for a compartment in the model.
 
@@ -112,6 +154,10 @@ $TABLE
 table(CP) = CENT/VC;
 table(ETA1) = ETA(1);
 ```
+
+
+See: section \@ref(block-table) and also \@ref(block-capture)
+
 
 ### `F_CMT`
 For the `CMT` compartment, sets the bioavability fraction for that compartment. 
@@ -284,7 +330,7 @@ Notes:
 * There may be only one `$ODE` block in a model
 
 
-### `$TABLE` {#block-table}
+### `$TABLE` \ {#block-table}
 Use `$TABLE` to interact with parameters, compartment values, and other user-defined variables __after__ the system advances to the next time.  The value associated with any symbol may be inserted into the simulated output with the `table()` macro.  
 
 For example:
