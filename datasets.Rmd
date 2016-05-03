@@ -49,7 +49,10 @@ In addition to these special column names, `mrgsolve` will recognize columns in 
 __Example of condensed data set__
 data(extran1)
 
+```{r}
+data(extran1)
 extran1
+```
 
 
 __Augmenting observations in a clinical data set__
