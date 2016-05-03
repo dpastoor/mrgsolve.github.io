@@ -208,7 +208,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.1.4" data-path="topics.html"><a href="topics.html#remember-calling-init-will-let-you-check-to-see-what-is-going-on"><i class="fa fa-check"></i><b>7.1.4</b> Remember: calling <code>init</code> will let you check to see what is going on</a></li>
 <li class="chapter" data-level="7.1.5" data-path="topics.html"><a href="topics.html#set-initial-conditions-via-idata"><i class="fa fa-check"></i><b>7.1.5</b> Set initial conditions via <code>idata</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="topics.html"><a href="topics.html#topics-parameter-update"><i class="fa fa-check"></i><b>7.2</b> Updating parameters</a></li>
+<li class="chapter" data-level="7.2" data-path="topics.html"><a href="topics.html#topic-parameter-update"><i class="fa fa-check"></i><b>7.2</b> Updating parameters</a></li>
 <li class="chapter" data-level="7.3" data-path="topics.html"><a href="topics.html#time-grid-objects"><i class="fa fa-check"></i><b>7.3</b> Time grid objects</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="topics.html"><a href="topics.html#simulation-times-in-mrgsolve"><i class="fa fa-check"></i><b>7.3.1</b> Simulation times in <code>mrgsolve</code></a></li>
 <li class="chapter" data-level="7.3.2" data-path="topics.html"><a href="topics.html#tgrid-objects-1"><i class="fa fa-check"></i><b>7.3.2</b> <code>tgrid</code> objects</a></li>
@@ -241,6 +241,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Please see the <code>mrgsolve</code> help topic <code>?exdatasets</code> for examples of all of the data sets discussed in this chapter. The example data sets are embedded in the <code>mrgsolve</code> package and may be used at any time.</p>
 <div id="datasets" class="section level2">
 <h2><span class="header-section-number">5.1</span> Overview</h2>
+<p>Data sets are the primary mechanism for establishing the scope of your simulations in <code>mrsolve</code>, including individuals, interventions, observation times, and parameter values. For both <code>data_set</code> and <code>idata_set</code> (see below), you may include columns in the data sets that have the same names as the parameters in your model (section <a href="model-components.html#component-param">3.1</a>, <a href="model-specification.html#block-param">4.3.1</a>). <code>mrgsolve</code> can recognize these columns and update the parameter list as the simulation proceeds. This process is of key importance when planning and executing complex simulations and is further discussed in section <a href="topics.html#topic-parameter-update">7.2</a>.</p>
 </div>
 <div id="data-set" class="section level2">
 <h2><span class="header-section-number">5.2</span> Event data sets (<code>data</code>)</h2>
@@ -265,7 +266,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>addl</code> additional doses; a non-zero value in <code>addl</code> requires non-zero <code>ii</code> on the same record</li>
 <li><p><code>ss</code> steady state indicator; use 1 to implement steady-state dosing; 0 otherwise</p></li>
 </ul>
-<p>In addition to these special column names, <code>mrgsolve</code> will recognize columns in <code>data_set</code> that have the same name as items in the parameter list (see <a href="model-specification.html#block-param">4.3.1</a> and <a href="model-components.html#component-param">3.1</a>). When <code>mrgsolve</code> sees that the names match up, it will update the values of those matching names based on what it finds as it moves through the data set.</p>
+<p>In addition to these special column names, <code>mrgsolve</code> will recognize columns in <code>data_set</code> that have the same name as items in the parameter list (see <a href="model-specification.html#block-param">4.3.1</a> and <a href="model-components.html#component-param">3.1</a>). When <code>mrgsolve</code> sees that the names match up, it will update the values of those matching names based on what it finds as it moves through the data set (see section @(topic-parameter-update)).</p>
 <div id="two-types-of-data_set" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Two types of <code>data_set</code></h3>
 <p><code>mrgsolve</code> distinguishes between two types of data sets: data sets that have <em>at least one observation record</em> (<code>evid=0</code>) and data sets that have <em>no records with <code>evid=0</code></em>.</p>

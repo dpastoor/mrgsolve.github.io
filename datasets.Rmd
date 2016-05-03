@@ -11,7 +11,7 @@ specify interventions and input data items.
 Please see the `mrgsolve` help topic `?exdatasets` for examples of all of the data sets discussed in this chapter.  The example data sets are embedded in the `mrgsolve` package and may be used at any time.
 
 ## Overview {#datasets}
-
+Data sets are the primary mechanism for establishing the scope of your simulations in `mrsolve`, including individuals, interventions, observation times, and parameter values.  For both `data_set` and `idata_set` (see below), you may include columns in the data sets that have the same names as the parameters in your model (section \@ref(component-param), \@ref(block-param)).  `mrgsolve` can recognize these columns and update the parameter list as the simulation proceeds.  This process is of key importance when planning and executing complex simulations and is further discussed in section \@ref(topic-parameter-update).
 
 
 ## Event data sets (`data`) {#data-set}
@@ -38,7 +38,7 @@ Event data sets have several special column names that `mrgsolve` is always awar
 * `addl` additional doses; a non-zero value in `addl` requires non-zero `ii` on the same record
 * `ss` steady state indicator; use 1 to implement steady-state dosing; 0 otherwise
 
-In addition to these special column names, `mrgsolve` will recognize columns in `data_set` that have the same name as items in the parameter list (see \@ref(block-param) and \@ref(component-param)).  When `mrgsolve` sees that the names match up, it will update the values of those matching names based on what it finds as it moves through the data set.  
+In addition to these special column names, `mrgsolve` will recognize columns in `data_set` that have the same name as items in the parameter list (see \@ref(block-param) and \@ref(component-param)).  When `mrgsolve` sees that the names match up, it will update the values of those matching names based on what it finds as it moves through the data set (see section \ref@(topic-parameter-update)).  
 
 ### Two types of `data_set`
 `mrgsolve` distinguishes between two types of data sets: data sets that have *at least one observation record*  (`evid=0`) and data sets that have *no records with `evid=0`*.  

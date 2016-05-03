@@ -18,7 +18,7 @@ The data items in the parameter list are more than just values associated with a
 For example, when you want to include a covariate in the model, say weight (`WT`), you'll include a column in the data set called `WT` that will indicate the weight of this or that patient.  It is crutial that you also list `WT` in `$PARAM` with some default value.  It helps if that value is sensible too.  When `mrgsolve`
 receives the data set prior to simulating, the `WT` column is matched up with the `WT` parameter name.  As `mrgsolve` works its way through the input data set (from person to person or from time to time), the value of `WT` is updated so that the symbol `WT` in `$MAIN` or `$ODE` or `$TABLE` always points to the value of `WT`.  If the `WT` name is not in the parameter list, it won't matter if it is in the data set or not.  Only listing a name in `$PARAM` gets it "into the game".  
 
-Understanding the parameter update mechanism is very important for planning complicated simulations with `mrgsolve`.  Please review the information in \@ref(datasets) and in \@ref(topics-parameter-update).
+Understanding the parameter update mechanism is very important for planning complicated simulations with `mrgsolve`.  Please review the information in \@ref(datasets) and in \@ref(topic-parameter-update).
 
 
 ## Compartment list {#component-init}

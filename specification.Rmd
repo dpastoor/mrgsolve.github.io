@@ -218,6 +218,8 @@ Notes:
 
 See also: section \@ref(block-theta) and \@ref(block-fixed).
 
+See `?param` in the `R` help system after loading `mrgsolve`.
+
 ### `$FIXED`  \ {#block-fixed}
 Like `$PARAM`, `$FIXED` is used to specify `name=value` pairs.  Unlike `$PARAM`, however, the values associated with names in `$FIXED` are not able to be updated.  
 
@@ -257,6 +259,8 @@ $CMT GUT CENT RESPONSE
 ```{c,eval=FALSE}
 $INIT GUT  = 0, CENT = 0, RESPONSE = 25
 ```
+
+See `?init` in the `R` help system after loading `mrgsolve`.
 
 ### `$MAIN` {#block-main}
 This code block has two main purposes:

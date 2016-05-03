@@ -194,7 +194,7 @@ plot(out, CENT~.)
 ```
 
 
-## Updating parameters {#topics-parameter-update}
+## Updating parameters {#topic-parameter-update}
 
 
 ## Time grid objects
