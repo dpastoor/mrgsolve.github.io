@@ -13,7 +13,7 @@ Use the `mread()` function to read and parse this file.  For the model called `m
 mod <- mread("mymodel")
 ```
 
-`mread()` returns a model object from which you can simulated.
+`mread()` returns a model object from which you can simulate.
 
 
 

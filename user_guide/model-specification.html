@@ -246,7 +246,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Open a text editor and type the model into a file with name that has the format <code>&lt;model-name&gt;.cpp</code>. This filename format identifies a “name” for your model (<code>&lt;model-name&gt;</code>, the “stem” of the file name). The extension <strong>MUST</strong> be <code>.cpp</code> (<code>mrgsolve</code> curently assumes the extension). Note: this whole file will be read and parsed, so everything in it must be valid <code>mrgsolve</code> model specification elements.</p>
 <p>Use the <code>mread()</code> function to read and parse this file. For the model called <code>mymodel</code> saved in <code>mymodel.cpp</code> (in the current working directory), issue the command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">mread</span>(<span class="st">&quot;mymodel&quot;</span>)</code></pre></div>
-<p><code>mread()</code> returns a model object from which you can simulated.</p>
+<p><code>mread()</code> returns a model object from which you can simulate.</p>
 </div>
 <div id="spec-inline" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Inline / “code”</h3>
@@ -640,9 +640,9 @@ mod</code></pre></div>
 ## -------- mrgsolve model object (unix) --------
 ##   Project: /private/var/fol...dbsj0x4637ptj4hnd7kg900000gp/T/Rtmpp2j1bG
 ##   source:        nmxml.cpp
-##   shared object: d34258c96ddb (loaded)
+##   shared object: d3423ff24767 (loaded)
 ## 
-##   compile date:  05/03 16:24
+##   compile date:  05/03 16:26
 ##   Time:          start: 0 end: 96 delta: 4
 ##   &gt;              add: &lt;none&gt;
 ##   &gt;              tscale: 1
