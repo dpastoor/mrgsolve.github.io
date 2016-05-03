@@ -456,13 +456,13 @@ $PARAM THETA1 = 0.1, THETA2 = 0.2, THETA3 = 0.3
 See also: \@ref(block-param) .
 
 
-## `$NMXML`  \ {#block-nmxml}
+### `$NMXML`  \ {#block-nmxml}
 The `$NMXML` block lets you read and incorporate results from a NONMEM run into 
 your `mrgsolve` model.  From the NONMEM run, `THETA` will be imported into your parameter
 list (see \@ref(block-param) and \@ref(component-param)), `OMEGA` will be captured as an `$OMEGA` block (\@ref(block-omega)) and `SIGMA` will be captured as a `$SIGMA` block (\@ref(block-sigma)).  Users may optionally omit any one of these from being imported.
 
 
-### An example
+__An example__
 
 There is a NONMEM run embedded in the `mrgsolve` package 
 ```{r}
