@@ -214,6 +214,7 @@ $INIT GUT  = 0, CENT = 0, RESPONSE = 25
 
 ### `$MAIN` {#block-main}
 This code block has two main purposes:
+
 * derive new algebraic relationships between parameters, random, effects and other derived variables
 * Set the initial conditions for model compartments.
 
@@ -324,9 +325,6 @@ table(B) = B;
 table(C) = C;
 table(yes) = yes;
 ```
-
-
-
 
 New variables may be declared in `$TABLE`.  See section \@ref(new-variables) for details.
 

@@ -398,7 +398,11 @@ g = <span class="fl">9.8</span></code></pre></div>
 </div>
 <div id="main" class="section level3">
 <h3><span class="header-section-number">4.2.4</span> <code id="block-main">$MAIN</code></h3>
-<p>This code block has two main purposes: * derive new algebraic relationships between parameters, random, effects and other derived variables * Set the initial conditions for model compartments.</p>
+<p>This code block has two main purposes:</p>
+<ul>
+<li>derive new algebraic relationships between parameters, random, effects and other derived variables</li>
+<li>Set the initial conditions for model compartments.</li>
+</ul>
 <p>For users who are familiar with NONMEM, <code>$MAIN</code> is similar to <code>$PK</code>.</p>
 <p><code>$MAIN</code> is wrapped into a <code>C++</code> function and compiled / loaded by <code>mrgsolve</code>. The <code>MAIN</code> function gets called just prior to advancing the system from the current time to the next time for each record in the data set. <code>$MAIN</code> also gets called several times before starting the problem (<code>NEWIND == 0</code>) and just prior to simulating each individual (<code>NEWIND == 1</code>). Finally, <code>$MAIN</code> gets called every time the model initial conditions are queried with <code>init()</code>.</p>
 <p>New variables may be declared in <code>$MAIN</code>. See section <a href="model-specification.html#new-variables">4.3</a> for details.</p>
