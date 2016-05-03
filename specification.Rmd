@@ -215,8 +215,8 @@ $INIT GUT  = 0, CENT = 0, RESPONSE = 25
 ### `$MAIN` {#block-main}
 This code block has two main purposes:
 
-* derive new algebraic relationships between parameters, random, effects and other derived variables
-* Set the initial conditions for model compartments.
+* Derive new algebraic relationships between parameters, random, effects and other derived variables
+* Set the initial conditions for model compartments
 
 For users who are familiar with NONMEM, `$MAIN` is similar to `$PK`.
 
