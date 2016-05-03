@@ -17,7 +17,7 @@ mod <- mread("mymodel")
 
 
 
-### Inline / "code" {#spec-inline}
+### Inline / `code` \ {#spec-inline}
 Often it is more convenient to write a model right in your `R` script.  The model might look something like this:
 
 ```{r}
