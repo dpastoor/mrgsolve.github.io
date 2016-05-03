@@ -25,7 +25,7 @@
 
 <meta name="author" content="Metrum Research Group, LLC">
 
-<meta name="date" content="2016-05-02">
+<meta name="date" content="2016-05-03">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -133,11 +133,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.9" data-path="installation.html"><a href="installation.html#upgrading-to-a-new-version"><i class="fa fa-check"></i><b>3.9</b> Upgrading to a new version</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="model-components.html"><a href="model-components.html"><i class="fa fa-check"></i><b>4</b> Model components</a><ul>
-<li class="chapter" data-level="4.1" data-path="model-components.html"><a href="model-components.html#parameter-list"><i class="fa fa-check"></i><b>4.1</b> Parameter list</a><ul>
+<li class="chapter" data-level="4.1" data-path="model-components.html"><a href="model-components.html#component-param"><i class="fa fa-check"></i><b>4.1</b> Parameter list</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="model-components.html"><a href="model-components.html#central-role-of-parameters-in-planning-simulations"><i class="fa fa-check"></i><b>4.1.1</b> Central role of parameters in planning simulations</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="model-components.html"><a href="model-components.html#compartment-list"><i class="fa fa-check"></i><b>4.2</b> Compartment list</a></li>
-<li class="chapter" data-level="4.3" data-path="model-components.html"><a href="model-components.html#simulation-time-grid"><i class="fa fa-check"></i><b>4.3</b> Simulation time grid</a><ul>
+<li class="chapter" data-level="4.2" data-path="model-components.html"><a href="model-components.html#component-init"><i class="fa fa-check"></i><b>4.2</b> Compartment list</a></li>
+<li class="chapter" data-level="4.3" data-path="model-components.html"><a href="model-components.html#component-stime"><i class="fa fa-check"></i><b>4.3</b> Simulation time grid</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="model-components.html"><a href="model-components.html#tgrid-objects"><i class="fa fa-check"></i><b>4.3.1</b> <code>tgrid</code> objects</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="model-components.html"><a href="model-components.html#solver-settings"><i class="fa fa-check"></i><b>4.4</b> Solver settings</a></li>
@@ -167,30 +167,31 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.1.12" data-path="model-specification.html"><a href="model-specification.html#d_cmt"><i class="fa fa-check"></i><b>5.1.12</b> <code>D_CMT</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="model-specification.html"><a href="model-specification.html#code-blocks"><i class="fa fa-check"></i><b>5.2</b> Code blocks</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="model-specification.html"><a href="model-specification.html#param"><i class="fa fa-check"></i><b>5.2.1</b> <code>$PARAM</code></a></li>
-<li class="chapter" data-level="5.2.2" data-path="model-specification.html"><a href="model-specification.html#fixed"><i class="fa fa-check"></i><b>5.2.2</b> <code>$FIXED</code></a></li>
+<li class="chapter" data-level="5.2.1" data-path="model-specification.html"><a href="model-specification.html#block-param"><i class="fa fa-check"></i><b>5.2.1</b> <code>$PARAM</code>  </a></li>
+<li class="chapter" data-level="5.2.2" data-path="model-specification.html"><a href="model-specification.html#block-fixed"><i class="fa fa-check"></i><b>5.2.2</b> <code>$FIXED</code>  </a></li>
 <li class="chapter" data-level="5.2.3" data-path="model-specification.html"><a href="model-specification.html#cmt-and-init"><i class="fa fa-check"></i><b>5.2.3</b> <code>$CMT</code> and <code>$INIT</code></a></li>
-<li class="chapter" data-level="5.2.4" data-path="model-specification.html"><a href="model-specification.html#main"><i class="fa fa-check"></i><b>5.2.4</b> <code>$MAIN</code></a></li>
-<li class="chapter" data-level="5.2.5" data-path="model-specification.html"><a href="model-specification.html#ode"><i class="fa fa-check"></i><b>5.2.5</b> <code>$ODE</code></a></li>
-<li class="chapter" data-level="5.2.6" data-path="model-specification.html"><a href="model-specification.html#table"><i class="fa fa-check"></i><b>5.2.6</b> <code>$TABLE</code></a></li>
-<li class="chapter" data-level="5.2.7" data-path="model-specification.html"><a href="model-specification.html#capture"><i class="fa fa-check"></i><b>5.2.7</b> <code>$CAPTURE</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="model-specification.html"><a href="model-specification.html#main"><i class="fa fa-check"></i><b>5.2.4</b> <code id="block-main">$MAIN</code></a></li>
+<li class="chapter" data-level="5.2.5" data-path="model-specification.html"><a href="model-specification.html#block-ode"><i class="fa fa-check"></i><b>5.2.5</b> <code>$ODE</code>  </a></li>
+<li class="chapter" data-level="5.2.6" data-path="model-specification.html"><a href="model-specification.html#table"><i class="fa fa-check"></i><b>5.2.6</b> <code id="block-table">$TABLE</code></a></li>
+<li class="chapter" data-level="5.2.7" data-path="model-specification.html"><a href="model-specification.html#block-capture"><i class="fa fa-check"></i><b>5.2.7</b> <code>$CAPTURE</code>  </a></li>
 <li class="chapter" data-level="5.2.8" data-path="model-specification.html"><a href="model-specification.html#omega-1"><i class="fa fa-check"></i><b>5.2.8</b> <code>$OMEGA</code></a></li>
 <li class="chapter" data-level="5.2.9" data-path="model-specification.html"><a href="model-specification.html#sigma-1"><i class="fa fa-check"></i><b>5.2.9</b> <code>$SIGMA</code></a></li>
 <li class="chapter" data-level="5.2.10" data-path="model-specification.html"><a href="model-specification.html#set"><i class="fa fa-check"></i><b>5.2.10</b> <code>$SET</code></a></li>
 <li class="chapter" data-level="5.2.11" data-path="model-specification.html"><a href="model-specification.html#global"><i class="fa fa-check"></i><b>5.2.11</b> <code>$GLOBAL</code></a></li>
 <li class="chapter" data-level="5.2.12" data-path="model-specification.html"><a href="model-specification.html#pkmodel"><i class="fa fa-check"></i><b>5.2.12</b> <code>$PKMODEL</code></a></li>
-<li class="chapter" data-level="5.2.13" data-path="model-specification.html"><a href="model-specification.html#theta"><i class="fa fa-check"></i><b>5.2.13</b> <code>$THETA</code></a></li>
+<li class="chapter" data-level="5.2.13" data-path="model-specification.html"><a href="model-specification.html#block-theta"><i class="fa fa-check"></i><b>5.2.13</b> <code>$THETA</code>  </a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="model-specification.html"><a href="model-specification.html#new-variables"><i class="fa fa-check"></i><b>5.3</b> Derive new variables</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="input-data-sets.html"><a href="input-data-sets.html"><i class="fa fa-check"></i><b>6</b> Input data sets</a><ul>
 <li class="chapter" data-level="6.1" data-path="input-data-sets.html"><a href="input-data-sets.html#datasets"><i class="fa fa-check"></i><b>6.1</b> Overview</a></li>
-<li class="chapter" data-level="6.2" data-path="input-data-sets.html"><a href="input-data-sets.html#data-set"><i class="fa fa-check"></i><b>6.2</b> Event data sets</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="input-data-sets.html"><a href="input-data-sets.html#sorting"><i class="fa fa-check"></i><b>6.2.1</b> Sorting</a></li>
-<li class="chapter" data-level="6.2.2" data-path="input-data-sets.html"><a href="input-data-sets.html#creating-data-sets"><i class="fa fa-check"></i><b>6.2.2</b> Creating data sets</a></li>
-<li class="chapter" data-level="6.2.3" data-path="input-data-sets.html"><a href="input-data-sets.html#example"><i class="fa fa-check"></i><b>6.2.3</b> Example</a></li>
+<li class="chapter" data-level="6.2" data-path="input-data-sets.html"><a href="input-data-sets.html#data-set"><i class="fa fa-check"></i><b>6.2</b> Event data sets (<code>data</code>)</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="input-data-sets.html"><a href="input-data-sets.html#two-types-of-data_set"><i class="fa fa-check"></i><b>6.2.1</b> Two types of <code>data_set</code></a></li>
+<li class="chapter" data-level="6.2.2" data-path="input-data-sets.html"><a href="input-data-sets.html#sorting-requirements"><i class="fa fa-check"></i><b>6.2.2</b> Sorting requirements</a></li>
+<li class="chapter" data-level="6.2.3" data-path="input-data-sets.html"><a href="input-data-sets.html#creating-data-sets"><i class="fa fa-check"></i><b>6.2.3</b> Creating data sets</a></li>
+<li class="chapter" data-level="6.2.4" data-path="input-data-sets.html"><a href="input-data-sets.html#example"><i class="fa fa-check"></i><b>6.2.4</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="input-data-sets.html"><a href="input-data-sets.html#idata-set"><i class="fa fa-check"></i><b>6.3</b> Individual data sets</a><ul>
+<li class="chapter" data-level="6.3" data-path="input-data-sets.html"><a href="input-data-sets.html#idata-set"><i class="fa fa-check"></i><b>6.3</b> Individual data sets (<code>idata</code>)</a><ul>
 <li class="chapter" data-level="6.3.1" data-path="input-data-sets.html"><a href="input-data-sets.html#use-case"><i class="fa fa-check"></i><b>6.3.1</b> Use case</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="input-data-sets.html"><a href="input-data-sets.html#data-sets-the-parameter-list-and-parameter-updates"><i class="fa fa-check"></i><b>6.4</b> Data sets, the parameter list and parameter updates</a></li>
@@ -198,7 +199,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="simulated-output.html"><a href="simulated-output.html"><i class="fa fa-check"></i><b>7</b> Simulated output</a></li>
 <li class="chapter" data-level="8" data-path="topics.html"><a href="topics.html"><i class="fa fa-check"></i><b>8</b> Topics</a><ul>
-<li class="chapter" data-level="8.1" data-path="topics.html"><a href="topics.html#set-initial-conditions"><i class="fa fa-check"></i><b>8.1</b> Set initial conditions</a><ul>
+<li class="chapter" data-level="8.1" data-path="topics.html"><a href="topics.html#topic-init"><i class="fa fa-check"></i><b>8.1</b> Set initial conditions</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="topics.html"><a href="topics.html#summary"><i class="fa fa-check"></i><b>8.1.1</b> Summary</a></li>
 <li class="chapter" data-level="8.1.2" data-path="topics.html"><a href="topics.html#make-a-model-only-to-examine-init-behavior"><i class="fa fa-check"></i><b>8.1.2</b> Make a model only to examine <code>init</code> behavior</a></li>
 <li class="chapter" data-level="8.1.3" data-path="topics.html"><a href="topics.html#example-pkpd-model-with-initial-condition"><i class="fa fa-check"></i><b>8.1.3</b> Example PK/PD model with initial condition</a></li>
@@ -206,6 +207,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1.5" data-path="topics.html"><a href="topics.html#set-initial-conditions-via-idata"><i class="fa fa-check"></i><b>8.1.5</b> Set initial conditions via <code>idata</code></a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="topics.html"><a href="topics.html#topics-parameter-update"><i class="fa fa-check"></i><b>8.2</b> Updating parameters</a></li>
+<li class="chapter" data-level="8.3" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>8.3</b> Individualized sampling designs</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -219,7 +221,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">mrgsolve Users Guide</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><font color='DarkGreen'>mrgsolve Users Guide</font></a>
           </h1>
         </div>
 
@@ -229,7 +231,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="topics" class="section level1">
 <h1><span class="header-section-number">Chapter 8</span> Topics</h1>
-<div id="set-initial-conditions" class="section level2">
+<div id="topic-init" class="section level2">
 <h2><span class="header-section-number">8.1</span> Set initial conditions</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mrgsolve)
 <span class="kw">library</span>(dplyr)</code></pre></div>
@@ -289,14 +291,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>So, if we don’t update something in <code>$MAIN</code> the initial condition is as we set it in the base list</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span>mrgsim %&gt;%<span class="st"> </span>plot</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 <p><strong>Next, we update the base initial condition for <code>A</code> to 50</strong></p>
 <p>Note:</p>
 <ul>
 <li>The code in <code>$MAIN</code> still doesn’t get run because <code>IFLAG</code> is 0</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span><span class="kw">init</span>(<span class="dt">A =</span> <span class="dv">50</span>) %&gt;%<span class="st"> </span>mrgsim %&gt;%<span class="st"> </span>plot</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 <p><strong>Now, turn on <code>IFLAG</code></strong></p>
 <p>Note:</p>
 <ul>
@@ -304,9 +306,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>A_0</code> is set to the value of <code>BASE</code></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span><span class="kw">param</span>(<span class="dt">IFLAG=</span><span class="dv">1</span>) %&gt;%<span class="st"> </span>mrgsim %&gt;%<span class="st"> </span>plot</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span><span class="kw">param</span>(<span class="dt">IFLAG=</span><span class="dv">1</span>, <span class="dt">BASE=</span><span class="dv">300</span>) %&gt;%<span class="st"> </span>mrgsim %&gt;%<span class="st"> </span>plot</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span><span class="kw">param</span>(<span class="dt">IFLAG=</span><span class="dv">1</span>, <span class="dt">BASE=</span><span class="dv">300</span>) %&gt;%<span class="st"> </span>mrgsim %&gt;%<span class="st"> </span>plot</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 </div>
 <div id="example-pkpd-model-with-initial-condition" class="section level3">
 <h3><span class="header-section-number">8.1.3</span> Example PK/PD model with initial condition</h3>
@@ -327,7 +329,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">mread</span>(<span class="st">&quot;init2&quot;</span>, <span class="kw">tempdir</span>(), code)</code></pre></div>
 <p>The initial condition is set to 40 per the values of <code>KIN</code> and <code>KOUT</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span>mrgsim %&gt;%<span class="st"> </span>plot</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 <p>Even when we change <code>RESP_0</code> in <code>R</code>, the calculation in <code>$MAIN</code> gets the final say</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span><span class="kw">init</span>(<span class="dt">RESP=</span><span class="fl">1E9</span>) %&gt;%<span class="st"> </span>mrgsim</code></pre></div>
 <pre><code>. Model:  init2.cpp 
@@ -391,11 +393,65 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">idata_set</span>(idata) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">end=</span><span class="dv">40</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(out, CENT~.)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
 </div>
 </div>
 <div id="topics-parameter-update" class="section level2">
 <h2><span class="header-section-number">8.2</span> Updating parameters</h2>
+</div>
+<div id="topic-designs" class="section level2">
+<h2><span class="header-section-number">8.3</span> Individualized sampling designs</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span>mrgsolve:::<span class="kw">house</span>()
+
+
+df &lt;-<span class="st"> </span><span class="kw">expand.ev</span>(<span class="dt">ID=</span><span class="dv">1</span>:<span class="dv">3</span>, <span class="dt">amt=</span><span class="kw">c</span>(<span class="dv">50</span>,<span class="dv">100</span>))
+
+df</code></pre></div>
+<pre><code>.   ID amt evid cmt time
+. 1  1  50    1   1    0
+. 2  2  50    1   1    0
+. 3  3  50    1   1    0
+. 4  4 100    1   1    0
+. 5  5 100    1   1    0
+. 6  6 100    1   1    0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(exTheoph)
+df &lt;-<span class="st"> </span>exTheoph
+<span class="kw">head</span>(df)</code></pre></div>
+<pre><code>.   ID   WT Dose time  conc cmt  amt evid
+. 1  1 79.6 4.02 0.00  0.00   1 4.02    1
+. 2  1 79.6 4.02 0.25  2.84   0 0.00    0
+. 3  1 79.6 4.02 0.57  6.57   0 0.00    0
+. 4  1 79.6 4.02 1.12 10.50   0 0.00    0
+. 5  1 79.6 4.02 2.02  9.66   0 0.00    0
+. 6  1 79.6 4.02 3.82  8.58   0 0.00    0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span>
+mod %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">Req</span>(CP) %&gt;%
+<span class="st">  </span><span class="kw">carry.out</span>(a.u.g) %&gt;%
+<span class="st">  </span><span class="kw">data_set</span>(df) %&gt;%
+<span class="st">  </span>obsaug %&gt;%
+<span class="st">  </span>mrgsim 
+
+
+des1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>, <span class="dt">add=</span><span class="fl">0.2</span>)
+des2 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class="dv">0</span>,<span class="dv">96</span>,<span class="dv">1</span>)
+
+df %&lt;&gt;%<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">GRP =</span> <span class="kw">as.integer</span>(ID &gt;<span class="st"> </span><span class="dv">5</span>))
+id &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span><span class="kw">distinct</span>(ID) %&gt;%<span class="st"> </span><span class="kw">select</span>(ID,GRP)
+
+
+out &lt;-<span class="st"> </span>
+<span class="st">  </span>mod %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">Req</span>(CP) %&gt;%
+<span class="st">  </span><span class="kw">carry.out</span>(a.u.g,GRP) %&gt;%
+<span class="st">  </span><span class="kw">idata_set</span>(id) %&gt;%
+<span class="st">  </span><span class="kw">data_set</span>(df) %&gt;%
+<span class="st">  </span><span class="kw">design</span>(<span class="dt">descol=</span><span class="st">&quot;GRP&quot;</span>, <span class="dt">deslist=</span><span class="kw">list</span>(des1,des2)) %&gt;%
+<span class="st">  </span>obsaug %&gt;%
+<span class="st">  </span>mrgsim 
+
+<span class="kw">plot</span>(out, CP~time|GRP)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
 
 <div id="refs" class="references">
 

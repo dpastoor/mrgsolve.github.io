@@ -25,7 +25,7 @@
 
 <meta name="author" content="Metrum Research Group, LLC">
 
-<meta name="date" content="2016-05-02">
+<meta name="date" content="2016-05-03">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -133,11 +133,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.9" data-path="installation.html"><a href="installation.html#upgrading-to-a-new-version"><i class="fa fa-check"></i><b>3.9</b> Upgrading to a new version</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="model-components.html"><a href="model-components.html"><i class="fa fa-check"></i><b>4</b> Model components</a><ul>
-<li class="chapter" data-level="4.1" data-path="model-components.html"><a href="model-components.html#parameter-list"><i class="fa fa-check"></i><b>4.1</b> Parameter list</a><ul>
+<li class="chapter" data-level="4.1" data-path="model-components.html"><a href="model-components.html#component-param"><i class="fa fa-check"></i><b>4.1</b> Parameter list</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="model-components.html"><a href="model-components.html#central-role-of-parameters-in-planning-simulations"><i class="fa fa-check"></i><b>4.1.1</b> Central role of parameters in planning simulations</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="model-components.html"><a href="model-components.html#compartment-list"><i class="fa fa-check"></i><b>4.2</b> Compartment list</a></li>
-<li class="chapter" data-level="4.3" data-path="model-components.html"><a href="model-components.html#simulation-time-grid"><i class="fa fa-check"></i><b>4.3</b> Simulation time grid</a><ul>
+<li class="chapter" data-level="4.2" data-path="model-components.html"><a href="model-components.html#component-init"><i class="fa fa-check"></i><b>4.2</b> Compartment list</a></li>
+<li class="chapter" data-level="4.3" data-path="model-components.html"><a href="model-components.html#component-stime"><i class="fa fa-check"></i><b>4.3</b> Simulation time grid</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="model-components.html"><a href="model-components.html#tgrid-objects"><i class="fa fa-check"></i><b>4.3.1</b> <code>tgrid</code> objects</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="model-components.html"><a href="model-components.html#solver-settings"><i class="fa fa-check"></i><b>4.4</b> Solver settings</a></li>
@@ -167,30 +167,31 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.1.12" data-path="model-specification.html"><a href="model-specification.html#d_cmt"><i class="fa fa-check"></i><b>5.1.12</b> <code>D_CMT</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="model-specification.html"><a href="model-specification.html#code-blocks"><i class="fa fa-check"></i><b>5.2</b> Code blocks</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="model-specification.html"><a href="model-specification.html#param"><i class="fa fa-check"></i><b>5.2.1</b> <code>$PARAM</code></a></li>
-<li class="chapter" data-level="5.2.2" data-path="model-specification.html"><a href="model-specification.html#fixed"><i class="fa fa-check"></i><b>5.2.2</b> <code>$FIXED</code></a></li>
+<li class="chapter" data-level="5.2.1" data-path="model-specification.html"><a href="model-specification.html#block-param"><i class="fa fa-check"></i><b>5.2.1</b> <code>$PARAM</code>  </a></li>
+<li class="chapter" data-level="5.2.2" data-path="model-specification.html"><a href="model-specification.html#block-fixed"><i class="fa fa-check"></i><b>5.2.2</b> <code>$FIXED</code>  </a></li>
 <li class="chapter" data-level="5.2.3" data-path="model-specification.html"><a href="model-specification.html#cmt-and-init"><i class="fa fa-check"></i><b>5.2.3</b> <code>$CMT</code> and <code>$INIT</code></a></li>
-<li class="chapter" data-level="5.2.4" data-path="model-specification.html"><a href="model-specification.html#main"><i class="fa fa-check"></i><b>5.2.4</b> <code>$MAIN</code></a></li>
-<li class="chapter" data-level="5.2.5" data-path="model-specification.html"><a href="model-specification.html#ode"><i class="fa fa-check"></i><b>5.2.5</b> <code>$ODE</code></a></li>
-<li class="chapter" data-level="5.2.6" data-path="model-specification.html"><a href="model-specification.html#table"><i class="fa fa-check"></i><b>5.2.6</b> <code>$TABLE</code></a></li>
-<li class="chapter" data-level="5.2.7" data-path="model-specification.html"><a href="model-specification.html#capture"><i class="fa fa-check"></i><b>5.2.7</b> <code>$CAPTURE</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="model-specification.html"><a href="model-specification.html#main"><i class="fa fa-check"></i><b>5.2.4</b> <code id="block-main">$MAIN</code></a></li>
+<li class="chapter" data-level="5.2.5" data-path="model-specification.html"><a href="model-specification.html#block-ode"><i class="fa fa-check"></i><b>5.2.5</b> <code>$ODE</code>  </a></li>
+<li class="chapter" data-level="5.2.6" data-path="model-specification.html"><a href="model-specification.html#table"><i class="fa fa-check"></i><b>5.2.6</b> <code id="block-table">$TABLE</code></a></li>
+<li class="chapter" data-level="5.2.7" data-path="model-specification.html"><a href="model-specification.html#block-capture"><i class="fa fa-check"></i><b>5.2.7</b> <code>$CAPTURE</code>  </a></li>
 <li class="chapter" data-level="5.2.8" data-path="model-specification.html"><a href="model-specification.html#omega-1"><i class="fa fa-check"></i><b>5.2.8</b> <code>$OMEGA</code></a></li>
 <li class="chapter" data-level="5.2.9" data-path="model-specification.html"><a href="model-specification.html#sigma-1"><i class="fa fa-check"></i><b>5.2.9</b> <code>$SIGMA</code></a></li>
 <li class="chapter" data-level="5.2.10" data-path="model-specification.html"><a href="model-specification.html#set"><i class="fa fa-check"></i><b>5.2.10</b> <code>$SET</code></a></li>
 <li class="chapter" data-level="5.2.11" data-path="model-specification.html"><a href="model-specification.html#global"><i class="fa fa-check"></i><b>5.2.11</b> <code>$GLOBAL</code></a></li>
 <li class="chapter" data-level="5.2.12" data-path="model-specification.html"><a href="model-specification.html#pkmodel"><i class="fa fa-check"></i><b>5.2.12</b> <code>$PKMODEL</code></a></li>
-<li class="chapter" data-level="5.2.13" data-path="model-specification.html"><a href="model-specification.html#theta"><i class="fa fa-check"></i><b>5.2.13</b> <code>$THETA</code></a></li>
+<li class="chapter" data-level="5.2.13" data-path="model-specification.html"><a href="model-specification.html#block-theta"><i class="fa fa-check"></i><b>5.2.13</b> <code>$THETA</code>  </a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="model-specification.html"><a href="model-specification.html#new-variables"><i class="fa fa-check"></i><b>5.3</b> Derive new variables</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="input-data-sets.html"><a href="input-data-sets.html"><i class="fa fa-check"></i><b>6</b> Input data sets</a><ul>
 <li class="chapter" data-level="6.1" data-path="input-data-sets.html"><a href="input-data-sets.html#datasets"><i class="fa fa-check"></i><b>6.1</b> Overview</a></li>
-<li class="chapter" data-level="6.2" data-path="input-data-sets.html"><a href="input-data-sets.html#data-set"><i class="fa fa-check"></i><b>6.2</b> Event data sets</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="input-data-sets.html"><a href="input-data-sets.html#sorting"><i class="fa fa-check"></i><b>6.2.1</b> Sorting</a></li>
-<li class="chapter" data-level="6.2.2" data-path="input-data-sets.html"><a href="input-data-sets.html#creating-data-sets"><i class="fa fa-check"></i><b>6.2.2</b> Creating data sets</a></li>
-<li class="chapter" data-level="6.2.3" data-path="input-data-sets.html"><a href="input-data-sets.html#example"><i class="fa fa-check"></i><b>6.2.3</b> Example</a></li>
+<li class="chapter" data-level="6.2" data-path="input-data-sets.html"><a href="input-data-sets.html#data-set"><i class="fa fa-check"></i><b>6.2</b> Event data sets (<code>data</code>)</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="input-data-sets.html"><a href="input-data-sets.html#two-types-of-data_set"><i class="fa fa-check"></i><b>6.2.1</b> Two types of <code>data_set</code></a></li>
+<li class="chapter" data-level="6.2.2" data-path="input-data-sets.html"><a href="input-data-sets.html#sorting-requirements"><i class="fa fa-check"></i><b>6.2.2</b> Sorting requirements</a></li>
+<li class="chapter" data-level="6.2.3" data-path="input-data-sets.html"><a href="input-data-sets.html#creating-data-sets"><i class="fa fa-check"></i><b>6.2.3</b> Creating data sets</a></li>
+<li class="chapter" data-level="6.2.4" data-path="input-data-sets.html"><a href="input-data-sets.html#example"><i class="fa fa-check"></i><b>6.2.4</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="input-data-sets.html"><a href="input-data-sets.html#idata-set"><i class="fa fa-check"></i><b>6.3</b> Individual data sets</a><ul>
+<li class="chapter" data-level="6.3" data-path="input-data-sets.html"><a href="input-data-sets.html#idata-set"><i class="fa fa-check"></i><b>6.3</b> Individual data sets (<code>idata</code>)</a><ul>
 <li class="chapter" data-level="6.3.1" data-path="input-data-sets.html"><a href="input-data-sets.html#use-case"><i class="fa fa-check"></i><b>6.3.1</b> Use case</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="input-data-sets.html"><a href="input-data-sets.html#data-sets-the-parameter-list-and-parameter-updates"><i class="fa fa-check"></i><b>6.4</b> Data sets, the parameter list and parameter updates</a></li>
@@ -198,7 +199,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="simulated-output.html"><a href="simulated-output.html"><i class="fa fa-check"></i><b>7</b> Simulated output</a></li>
 <li class="chapter" data-level="8" data-path="topics.html"><a href="topics.html"><i class="fa fa-check"></i><b>8</b> Topics</a><ul>
-<li class="chapter" data-level="8.1" data-path="topics.html"><a href="topics.html#set-initial-conditions"><i class="fa fa-check"></i><b>8.1</b> Set initial conditions</a><ul>
+<li class="chapter" data-level="8.1" data-path="topics.html"><a href="topics.html#topic-init"><i class="fa fa-check"></i><b>8.1</b> Set initial conditions</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="topics.html"><a href="topics.html#summary"><i class="fa fa-check"></i><b>8.1.1</b> Summary</a></li>
 <li class="chapter" data-level="8.1.2" data-path="topics.html"><a href="topics.html#make-a-model-only-to-examine-init-behavior"><i class="fa fa-check"></i><b>8.1.2</b> Make a model only to examine <code>init</code> behavior</a></li>
 <li class="chapter" data-level="8.1.3" data-path="topics.html"><a href="topics.html#example-pkpd-model-with-initial-condition"><i class="fa fa-check"></i><b>8.1.3</b> Example PK/PD model with initial condition</a></li>
@@ -206,6 +207,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1.5" data-path="topics.html"><a href="topics.html#set-initial-conditions-via-idata"><i class="fa fa-check"></i><b>8.1.5</b> Set initial conditions via <code>idata</code></a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="topics.html"><a href="topics.html#topics-parameter-update"><i class="fa fa-check"></i><b>8.2</b> Updating parameters</a></li>
+<li class="chapter" data-level="8.3" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>8.3</b> Individualized sampling designs</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -219,7 +221,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">mrgsolve Users Guide</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><font color='DarkGreen'>mrgsolve Users Guide</font></a>
           </h1>
         </div>
 
@@ -354,8 +356,8 @@ D_CENT = <span class="dv">2</span>;</code></pre></div>
 </div>
 <div id="code-blocks" class="section level2">
 <h2><span class="header-section-number">5.2</span> Code blocks</h2>
-<div id="param" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> <code>$PARAM</code></h3>
+<div id="block-param" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> <code>$PARAM</code>  </h3>
 <p>Define the parameter list in the current model.</p>
 <p>Example:</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$PARAM CL = <span class="dv">1</span>, VC = <span class="dv">20</span>, KA = <span class="fl">1.2</span>
@@ -366,10 +368,10 @@ SEX = <span class="dv">0</span>, N = sqrt(<span class="dv">25</span>)</code></pr
 <li>Multiple blocks are allowed</li>
 <li>Values are evaluated by the <code>R</code> interperter</li>
 </ul>
-<p>See also: section <a href="model-specification.html#theta">5.2.13</a> and <a href="model-specification.html#fixed">5.2.2</a>.</p>
+<p>See also: section <a href="model-specification.html#block-theta">5.2.13</a> and <a href="model-specification.html#block-fixed">5.2.2</a>.</p>
 </div>
-<div id="fixed" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> <code>$FIXED</code></h3>
+<div id="block-fixed" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> <code>$FIXED</code>  </h3>
 <p>Like <code>$PARAM</code>, <code>$FIXED</code> is used to specify <code>name=value</code> pairs. Unlike <code>$PARAM</code>, however, the values associated with names in <code>$FIXED</code> are not able to be updated.</p>
 <p>By default, names in <code>$FIXED</code> are associated with their value through a <code>C++</code> preprocessor <code>#define</code> statement.</p>
 <p>Usually, <code>$FIXED</code> is only used when there are a very large number of parameters (<span class="math inline">\(&gt;\)</span> 100 or 200). When some of these parameters never need to be updated, you can move them to a <code>$FIXED</code> block to get a modest gain in efficiency of the simulation.</p>
@@ -379,7 +381,7 @@ SEX = <span class="dv">0</span>, N = sqrt(<span class="dv">25</span>)</code></pr
 
 $FIXED
 g = <span class="fl">9.8</span></code></pre></div>
-<p>See also: section <a href="model-specification.html#param">5.2.1</a> and <a href="model-specification.html#theta">5.2.13</a>.</p>
+<p>See also: section <a href="model-specification.html#block-param">5.2.1</a> and <a href="model-specification.html#block-theta">5.2.13</a>.</p>
 <p>Notes:</p>
 <ul>
 <li>Multiple blocks are allowed</li>
@@ -398,7 +400,7 @@ g = <span class="fl">9.8</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$INIT GUT  = <span class="dv">0</span>, CENT = <span class="dv">0</span>, RESPONSE = <span class="dv">25</span></code></pre></div>
 </div>
 <div id="main" class="section level3">
-<h3><span class="header-section-number">5.2.4</span> <code>$MAIN</code></h3>
+<h3><span class="header-section-number">5.2.4</span> <code id="block-main">$MAIN</code></h3>
 <p>This code block has two main purposes: * derive new algebraic relationships between parameters, random, effects and other derived variables * Set the initial conditions for model compartments.</p>
 <p>For users who are familiar with NONMEM, <code>$MAIN</code> is similar to <code>$PK</code>.</p>
 <p><code>$MAIN</code> is wrapped into a <code>C++</code> function and compiled / loaded by <code>mrgsolve</code>. The <code>MAIN</code> function gets called just prior to advancing the system from the current time to the next time for each record in the data set. <code>$MAIN</code> also gets called several times before starting the problem (<code>NEWIND == 0</code>) and just prior to simulating each individual (<code>NEWIND == 1</code>). Finally, <code>$MAIN</code> gets called every time the model initial conditions are queried with <code>init()</code>.</p>
@@ -414,8 +416,8 @@ RESP_0 = KIN/KOUT;
 
 <span class="dt">double</span> ke = CL/VC;</code></pre></div>
 </div>
-<div id="ode" class="section level3">
-<h3><span class="header-section-number">5.2.5</span> <code>$ODE</code></h3>
+<div id="block-ode" class="section level3">
+<h3><span class="header-section-number">5.2.5</span> <code>$ODE</code>  </h3>
 <p>Use <code>$ODE</code> to define model differential equations. For all compartments assign the value of the differential equation to <code>dxdt_CMT</code> where <code>CMT</code> is the name of the compartment. The <code>dxdt_</code> equation may be a function of model parameters (via <code>$PARAM</code>), the current value of any compartment (<code>CMT</code>) or any user-derived variable.</p>
 <p>For example:</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$CMT GUT CENT
@@ -443,15 +445,15 @@ dxdt_RESP =  KIN*(<span class="dv">1</span> - INH) - RESP*KOUT;</code></pre></di
 </ul>
 </div>
 <div id="table" class="section level3">
-<h3><span class="header-section-number">5.2.6</span> <code>$TABLE</code></h3>
+<h3><span class="header-section-number">5.2.6</span> <code id="block-table">$TABLE</code></h3>
 <p>Use <code>$TABLE</code> to interact with parameters, compartment values, and other user-defined variables <strong>after</strong> the system advances to the next time. The value associated with any symbol may be inserted into the simulated output with the <code>table()</code> macro.</p>
 <p>For example:</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$TABLE
 table(CP) = CENT/VC;</code></pre></div>
 <p>This construct inserts a column called <code>CP</code> into the simulated output, calculated for each record based on the values of the amount in the central compartment (<code>CENT</code>) and the parameter (or variable) <code>VC</code>.</p>
 </div>
-<div id="capture" class="section level3">
-<h3><span class="header-section-number">5.2.7</span> <code>$CAPTURE</code></h3>
+<div id="block-capture" class="section level3">
+<h3><span class="header-section-number">5.2.7</span> <code>$CAPTURE</code>  </h3>
 <p>A convenience block to quickly identify variables that should be captured in the simulated output.</p>
 <p>For example:</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$PARAM A = <span class="dv">1</span>, B = <span class="dv">2</span>
@@ -544,15 +546,15 @@ bool cure = false;</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$CMT GUT CENT PERIPH
 $PKMODEL ncmt=<span class="dv">2</span>, depot=TRUE</code></pre></div>
 </div>
-<div id="theta" class="section level3">
-<h3><span class="header-section-number">5.2.13</span> <code>$THETA</code></h3>
+<div id="block-theta" class="section level3">
+<h3><span class="header-section-number">5.2.13</span> <code>$THETA</code>  </h3>
 <p>Use this code block as an efficient way to add to the parameter list where names are determined by a prefix and a number. By default, the prefix is <code>THETA</code> and the number sequentially numbers the input values.</p>
 <p>For example:</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$THETA
 <span class="fl">0.1</span> <span class="fl">0.2</span> <span class="fl">0.3</span></code></pre></div>
 <p>is equivalent to</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$PARAM THETA1 = <span class="fl">0.1</span>, THETA2 = <span class="fl">0.2</span>, THETA3 = <span class="fl">0.3</span></code></pre></div>
-<p>See also: <a href="model-specification.html#theta">5.2.13</a> .</p>
+<p>See also: <a href="model-specification.html#block-param">5.2.1</a> .</p>
 </div>
 </div>
 <div id="new-variables" class="section level2">
