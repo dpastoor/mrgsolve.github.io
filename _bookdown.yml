@@ -1,0 +1,5 @@
+book_filename: "user-guide"
+output_dir: "user_guide"
+chapter_name: "Chapter "
+rmd_files: ["index.Rmd","install.Rmd", "components.Rmd", "specification.Rmd",
+"datasets.Rmd", "output.Rmd", "topics.Rmd"]

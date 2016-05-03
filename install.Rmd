@@ -1,0 +1,124 @@
+# Installation
+
+## Installing packages in `R`
+See https://cran.r-project.org/web/packages/ or `R> help("INSTALL")` or `R> help("install.packages")` for help.
+
+
+## Required packages
+The following required packages must be installed before installing `mrgsolve`:
+
+  1. `BH`
+  1. `Rcpp`
+  1. `RcppArmadillo`
+  1. `dplyr`
+
+All of these required packages are available on `CRAN`.  `mrgsolve` imports from `dplyr` and links to `BH`, `Rcpp`, and `RcppArmadillo`.  For the purposes of this document, they will be referred to as dependencies insofar as they are required to install and run `mrgsolve`.  But note well that they are not technically dependencies the way `R` uses that term.  Only the package namespaces and not the packages themselves will be loaded when `mrgsolve` is loaded.
+
+There are minimum version numbers for each dependency.  R will issue an error during `mrgsolve` installation if insufficient versions of dependencies are currently installed. See the `DESCRIPTION` file in the `.tar.gz` archive for minimum dependency version numbers.  Also, note that each required package with respect to `mrgsolve` may have requirements of their own.  Install all required packages and their requirements as well  prior to installing `mrgsolve`.
+
+
+__NOTE__: `Rcpp` and `RcppArmadillo` __must be installed from source__ packages (e.g. `install.packages("Rcpp", type="source")`).  Also, whenever new versions of `Rcpp`, `RcppArmadillo` or `mrgsolve` are installed, it is good practice to re-install / re-compile all three of these packages (see `Compilers` below).
+
+## Suggested packages
+These packages may be needed to perform certain tasks in `mrgsolve`:
+
+  1. `lattice`
+  1. `testthat`
+  1. `XML`
+
+`R` users usually already have `lattice` installed on their system.  `testthat` and `XML` are only required for a few
+tasks and the majority of the simulation work can be done without them.
+
+
+## Compilers
+Current versions of `C++` and `FORTRAN` compilers are required to use `mrgsolve`.  Available compilers and requirements may vary by operating system, but  __the toolchain that needs to be in place is the usual toolchain required for ordinary use of `R`__ (either to compile `R` from source or to compile `R` packages from source).  There is very detailed and complete information on compilers to use with `R` on the `r-project` website (https://cran.r-project.org/doc/manuals/R-admin.html and see links below).  There are no special compiler requirements to get `mrgsolve` up and running; just install the compilers you would normally need to use with `R`
+and `mrgsolve` will compile and you will be able to compile your `mrgsolve` models.
+
+The compilers will be used to compile `C++` and `FORTRAN` code inside the `mrgsolve` package as well as user-created models.  It is imperative that `mrgsolve` be compiled with the same compiler used to compile the user-created model.  If different compilers are used, it is likely that a segmentation fault will happen. This behavior would be expected when different compilers are used.
+
+
+
+## Windows users
+See https://cran.r-project.org/doc/manuals/R-admin.html#The-Windows-toolset.  __Read this entire appendix very carefully__.  Follow the link to the Rtools website (https://cran.r-project.org/bin/windows/Rtools/) and read that page carefully as well.
+
+## Mac OSX users
+### If using `R` binary from CRAN
+A suitable `C++` compiler is available in Xcode (https://developer.apple.com/xcode/).  Be sure to download
+and install command line tools (`bash$ xcode-select --install`).  Always use the most up to date version.
+
+Xcode does not include a `FORTRAN` compiler.  There are different `FORTRAN` compiler requirements for Snow Leopard or Mavericks (or greater) `R` builds.  See the platform-specific FAQs below.
+
+Carefully read the following for information:
+
+  1. https://cran.r-project.org/doc/manuals/R-admin.html#OS-X
+  1. https://cran.r-project.org/doc/manuals/R-admin.html#Mavericks-and-later
+
+To get `gfortran` for Mac OSX specificially, first please note if you are using a Mavericks build or Snow Leopard build (your choice of gfortran compiler will depend on this).
+
+  1. `gfortran` for Mavericks build: 
+      * https://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
+      * And see: https://cran.r-project.org/doc/manuals/R-admin.html#FOOT54
+  1. `gfortran` for Snow Leopard build: 
+      * gfortran-4.2.3.dmg at https://cran.r-project.org/bin/macosx/tools/
+
+### If using `R` installed from `homebrew`
+  * We recommend and support using the CRAN binary and toolchain, but we understand that a pure homebrew implementation (R and toolchain) has worked.
+      * The key seems to be matching the `homebrew` `R` install with the `homebrew` `gcc` install. 
+  * If you are using the `homebrew` approach, please contact personnel from that project for help with compiler issues. 
+  
+
+
+## Unix users
+UNIX usually include `C++` and `FORTRAN` compliers. If not, install `gcc`. 
+
+
+## Example installation code
+
+### Setup
+Point the installation to your favorite `CRAN` repository:
+```{r,eval=TRUE}
+repos <- "http://cran.us.r-project.org"
+```
+
+### Install dependencies
+
+This little function will ensure that source packages are installed from `CRAN`; do __NOT__ install binary packages.
+```{r,eval=FALSE}
+install <- function(x,...) install.packages(x,type="source",repos=repos,...)
+```
+
+Install dependencies:
+````{r,eval=FALSE}
+install("Rcpp")
+install("RcppArmadillo")
+install("BH")
+install("dplyr")
+```
+
+### Install `mrgsolve`
+To install version `0.5.11` from the source tarball, run:
+```{r,eval=FALSE}
+install.packages("mrgsolve_0.5.11.tar.gz", repos=NULL, type="source")
+```
+Note that `repos` is set to `NULL` and we are telling `R` that the package is `source`, not `binary`.  Also, we assume that
+the `mrgsolve_0.5.11.tar.gz` file is in the current working directory.
+
+
+To install other versions of `mrgsolve`, use the appropriate version number in for the tarball that you are trying 
+to install (e.g. `mrgsolve_a.b.xyz.tar.gz`). 
+
+
+### Test the installation
+````{r,eval=FALSE}
+library(mrgsolve)
+?mrgsolve
+example("mrgsolve")
+````
+
+
+## Upgrading to a new version
+Users are encouraged to re-install or re-compile `Rcpp` and `RcppArmadillo` prior to upgrading to a new version of `mrgsolve`.  To upgrade `mrgsolve`, simply follow the install step above.
+
+<hr>
+<center>&copy; 2016 Metrum Research Group, LLC<br><a href="http://www.metrumrg.com">www.metrumrg.com</a></center>
+
