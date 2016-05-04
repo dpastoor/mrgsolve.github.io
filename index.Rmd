@@ -24,7 +24,7 @@ For more information: http://www.github.com/metrumresearchgroup/mrgsolve
 
 
 __The following environment was used to generate this documentation__:
-```{r,echo=FALSE}
+```{r,echo=FALSE, message=FALSE}
 library(mrgsolve)
 library(magrittr)
 library(dplyr)
