@@ -521,7 +521,7 @@ $MAIN CL = <span class="dv">3</span>; <span class="co">// ERROR</span></code></p
 . [3,]  1    2    0  3 1.7 10 23.1
 . [4,]  1    3    0  4 1.7 10 23.1
 . [5,]  1    4    0  5 1.7 10 23.1</code></pre>
-<p><strong>Parameters are carried back when first record isn’t at <code>time == 0</code>s</strong></p>
+<p><strong>Parameters are carried back when first record isn’t at `time == 0</strong></p>
 <p>What about this?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">expand.ev</span>(<span class="dt">amt=</span><span class="dv">100</span>,<span class="dt">time=</span><span class="dv">24</span>,<span class="dt">CL=</span><span class="dv">5</span>,<span class="dt">VC=</span><span class="dv">32</span>)
 data</code></pre></div>
@@ -559,6 +559,7 @@ data</code></pre></div>
 idata</code></pre></div>
 <pre><code>.   ID  CL   VC  KA KM
 . 1  1 2.1 23.1 1.7 10</code></pre>
+<p>Here, we’ll pass in <strong>both</strong> <code>data_set</code> and <code>idata_set</code> and they have conflicting values for the parameters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%
 <span class="st">  </span><span class="kw">data_set</span>(data) %&gt;%
 <span class="st">  </span><span class="kw">idata_set</span>(idata) %&gt;%
@@ -605,7 +606,7 @@ sparse1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class=
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>day1) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 <p><strong>Now, look at both day 1 and day 10</strong>:</p>
 <p>Adding a number to a <code>tgrid</code> object will offset those times by that amount.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">des &lt;-<span class="st"> </span><span class="kw">c</span>(day1, day1<span class="dv">+10</span>*<span class="dv">24</span>)
@@ -613,14 +614,14 @@ sparse1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class=
 mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>des) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 <p>Pick up day 5 as well</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">des &lt;-<span class="st"> </span><span class="kw">c</span>(des, day1<span class="dv">+5</span>*<span class="dv">24</span>)
 
 mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>des) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 </div>
 <div id="topic-designs" class="section level2">
 <h2><span class="header-section-number">6.4</span> Individualized sampling designs</h2>
@@ -674,7 +675,7 @@ out &lt;-<span class="st"> </span>
 <span class="st">  </span>mrgsim 
 
 <span class="kw">plot</span>(out, CP~time|GRP)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
 </div>
 <div id="some-helpful-c" class="section level2">
 <h2><span class="header-section-number">6.5</span> Some helpful <code>C++</code></h2>
