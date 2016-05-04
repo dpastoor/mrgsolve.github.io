@@ -210,7 +210,7 @@ $VCMT KYLE
 $PARAM CL = 1.1, VC=23.1, KA=1.7, KM=10
 $CAPTURE CL VC KA KM
 '
-mod <- mread("tmp", tempdir(), code, warn=FALSE)
+mod <- mcode("tmp", code, warn=FALSE)
 ```
 
 ```{r}
@@ -249,7 +249,8 @@ head(exidata)
 
 
 ```{r}
-out <- mod %>%
+out <- 
+  mod %>%
   idata_set(exidata) %>%
   mrgsim(end=-1 , add=c(0,2))
 ```
@@ -266,7 +267,8 @@ data <- expand.ev(amt=0, CL=c(1,2,3), VC=30)
 ```
 
 ```{r}
-out <- mod %>%
+out <- 
+  mod %>%
   data_set(data) %>% 
   obsonly %>%
   mrgsim(end=-1, add=c(0,2))
@@ -277,7 +279,8 @@ out
 
 This is how we do time-varying parameters:
 ```{r}
-data <- data_frame(CL=seq(1,5)) %>%
+data <- 
+  data_frame(CL=seq(1,5)) %>%
   mutate(evid=0,ID=1,cmt=1,time=CL-1,amt=0)
 ```
 

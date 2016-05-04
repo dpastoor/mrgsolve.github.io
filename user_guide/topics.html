@@ -423,7 +423,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">$PARAM CL = 1.1, VC=23.1, KA=1.7, KM=10</span>
 <span class="st">$CAPTURE CL VC KA KM</span>
 <span class="st">&#39;</span>
-mod &lt;-<span class="st"> </span><span class="kw">mread</span>(<span class="st">&quot;tmp&quot;</span>, <span class="kw">tempdir</span>(), code, <span class="dt">warn=</span><span class="ot">FALSE</span>)</code></pre></div>
+mod &lt;-<span class="st"> </span><span class="kw">mcode</span>(<span class="st">&quot;tmp&quot;</span>, code, <span class="dt">warn=</span><span class="ot">FALSE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">param</span>(mod)</code></pre></div>
 <pre><code>. 
 .  Model parameters (N=4):
@@ -457,7 +457,8 @@ mod &lt;-<span class="st"> </span><span class="kw">mread</span>(<span class="st"
 . 4  4 0.552 26.30 0.4950 1.18 0.977   2
 . 5  5 0.483  4.36 0.1220 2.35 0.483  10
 . 6  6 3.620 39.80 0.1260 1.89 4.240   1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span>mod %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span>
+<span class="st">  </span>mod %&gt;%
 <span class="st">  </span><span class="kw">idata_set</span>(exidata) %&gt;%
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">end=</span>-<span class="dv">1</span> , <span class="dt">add=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2</span>))</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out</code></pre></div>
@@ -476,7 +477,8 @@ mod &lt;-<span class="st"> </span><span class="kw">mread</span>(<span class="st"
 . [8,]  4    2    0 0.552 0.4950 10 26.3</code></pre>
 <p><strong>Parameters found in <code>data</code></strong> Like an <code>idata</code> set, we can put parameters on a <code>data</code> set</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">expand.ev</span>(<span class="dt">amt=</span><span class="dv">0</span>, <span class="dt">CL=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">VC=</span><span class="dv">30</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span>mod %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span>
+<span class="st">  </span>mod %&gt;%
 <span class="st">  </span><span class="kw">data_set</span>(data) %&gt;%<span class="st"> </span>
 <span class="st">  </span>obsonly %&gt;%
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">end=</span>-<span class="dv">1</span>, <span class="dt">add=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2</span>))</code></pre></div>
@@ -493,7 +495,8 @@ mod &lt;-<span class="st"> </span><span class="kw">mread</span>(<span class="st"
 . [5,]  3    0    0  3 1.7 10 30
 . [6,]  3    2    0  3 1.7 10 30</code></pre>
 <p>This is how we do time-varying parameters:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">CL=</span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>)) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">CL=</span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>)) %&gt;%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">evid=</span><span class="dv">0</span>,<span class="dt">ID=</span><span class="dv">1</span>,<span class="dt">cmt=</span><span class="dv">1</span>,<span class="dt">time=</span>CL<span class="dv">-1</span>,<span class="dt">amt=</span><span class="dv">0</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%
 <span class="st">  </span><span class="kw">data_set</span>(data) %&gt;%
