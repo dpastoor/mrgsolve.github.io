@@ -217,7 +217,7 @@ mod <- mcode("tmp", code, warn=FALSE)
 param(mod)
 ```
 
-__The base parameter set is the default__
+__The base parameter set is the default__:
 The base parameter set allows you to run the model without entering any other data; there are some default values in place.  
 
 The parameters can be changed or updated in `R`:
@@ -231,14 +231,21 @@ param(mod)
 But whatever you've done in `R` there that base set (with values) are there to use. 
 
 
-__Parameters can also be updated during the simulation run__
+__Parameters can also be updated during the simulation run__:
 
-* Parameters can be updated via `idata` set or `data` set
-* No changing values in the base parameter set once the simulation starts.
+Parameters can be updated by putting columns in `idata` set or `data_set` that have the same name as one of the parameters in the parameter list.  But there is no changing values in the base parameter set once the simulation starts.  That is, the following model specification will not compile:
 
-* `mrgsolve` always reverts to the base parameter set when starting work on a new individual.
+```{c,eval=FALSE}
+$PARAM CL = 2
 
-__Parameters found in `idata`__
+$MAIN CL = 3; // ERROR
+```
+
+You cannot over-write the value of a parameter in the model specification.  Let `mrgsolve` do the updating.
+
+`mrgsolve` always reverts to the base parameter set when starting work on a new individual.
+
+__Parameters found in `idata`__:
 
 When `mrgsolve` finds parameters in `idata`, it will update the base parameter list with those parameters prior to starting that individual.
 
