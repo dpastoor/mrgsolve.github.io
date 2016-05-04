@@ -404,9 +404,15 @@ mod %>% param(d[2,]) %>% param
 Here the second row in the data frame drives the update.  Other names are ignored.  
 
 A warning will be issued if an update is attempted, but no matching names are found
-```{r,warning=TRUE}
+```{r,eval=FALSE}
 mod %>% param(ZIP = 1, CODE = 2) %>% param
 ```
+
+```
+Warning message:
+Found nothing to update: param 
+```
+
 
 
 ## Time grid objects {#topic-tgrid}
