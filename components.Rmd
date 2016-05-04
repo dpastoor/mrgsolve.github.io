@@ -12,6 +12,8 @@ be declared at model compile time, but the value of each parameter may be update
 
 The parameters in a model object can be queried or updated with the `param()` function.
 
+See also: \@ref(block-param), `?param` in the `R` help system after loading `mrgsolve`.
+
 ### Central role of parameters in planning simulations
 The data items in the parameter list are more than just values associated with a name.  When an name is added to the parameter list, that name becomes a key word that `mrgsolve` will start to recognize in input data sets or when manipulting the model object.  
 
@@ -27,6 +29,8 @@ Like the parameter list, the compartment list is a series of name-value pairs.  
 Compartments are declared in one of two code blocks: `$INIT` and `$CMT`. Nominal initial values must be supplied for each compartment.  The main difference between `$INIT` and `$CMT` is that `$CMT` assumes a default initial value of 0 for each compartment; thus only compartment names are entered.  When using `$INIT`, both names and values must be explicitly stated for each compartment.  
 
 The initial values for each compartment can be queried with the `init()` function.  There are several different ways to set the initial conditions in a model. 
+
+See also: section \@ref(topic-init) and `?init` in the `R` help system after loading `mrgsolve`.
 
 ## Simulation time grid {#component-stime}
 
@@ -79,15 +83,15 @@ The `TABLE` function is called __after__ the solver advances in time.  The purpo
 ## Random effect variances
 The `mrgsolve` model object keeps track of a arbitrary number of block matrices that are used to simulate variates from multivariate normal distributions.  Users can specify `OMEGA` matrices for simulating between-subject random effects (one draw per individual) or `SIGMA` matrices for simulating within-subject random effects (one draw per observation).  
 
-The user may use the `revar` function to query both `OMEGA` and `SIGMA`.
+The user may use the `revar()` function to query both `OMEGA` and `SIGMA`.
 
 ### `OMEGA`
 The matrices are specified in `$OMEGA` blocks in the model specification file. 
 
-`OMEGA` may be queried or updated with the `omat` function. 
+`OMEGA` may be queried or updated with the `omat()` function. 
 
 ### `SIGMA`
 The matrices are specified in `$SIGMA` blocks in the model specification file.  
 
-`SIGMA` may be queried or updated by the `smat` function. 
+`SIGMA` may be queried or updated by the `smat()` function. 
 

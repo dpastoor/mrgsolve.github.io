@@ -243,6 +243,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The parameter list is an updatable set of name-value pairs. Referencing the name of an item in the parameter list will substitute the current value associated with that name. While the name “paramter” may have a certain connotation in the modeling world, in <code>mrgsolve</code> a “parameter” could be any category of numeric data: covariates (e.g. <code>WT</code>, <code>AGE</code>, <code>SEX</code>), flags, other numeric data that we commonly call “parameter” (e.g. <code>CL</code> or <code>VC</code>).</p>
 <p>The parameter list is declared in the code block <code>$PARAM</code>. While there may be multiple <code>$PARAM</code> blocks in a model, these are condensed to a single parameter list stored in the model object. The names and numbers of all parameters in the model must be declared at the time that the model is compiled. Also, a default value for each parameter must be declared at model compile time, but the value of each parameter may be updated in one of several ways.</p>
 <p>The parameters in a model object can be queried or updated with the <code>param()</code> function.</p>
+<p>See also: <a href="model-specification.html#block-param">4.3.1</a>, <code>?param</code> in the <code>R</code> help system after loading <code>mrgsolve</code>.</p>
 <div id="central-role-of-parameters-in-planning-simulations" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Central role of parameters in planning simulations</h3>
 <p>The data items in the parameter list are more than just values associated with a name. When an name is added to the parameter list, that name becomes a key word that <code>mrgsolve</code> will start to recognize in input data sets or when manipulting the model object.</p>
@@ -255,6 +256,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Like the parameter list, the compartment list is a series of name-value pairs. The compartment list defines the number, names, and initial values of each compartment in the model. The names, numbers, and order of the compartment in a model is established at the time of model compile and changes to the compartment list require re-compilation of the model.</p>
 <p>Compartments are declared in one of two code blocks: <code>$INIT</code> and <code>$CMT</code>. Nominal initial values must be supplied for each compartment. The main difference between <code>$INIT</code> and <code>$CMT</code> is that <code>$CMT</code> assumes a default initial value of 0 for each compartment; thus only compartment names are entered. When using <code>$INIT</code>, both names and values must be explicitly stated for each compartment.</p>
 <p>The initial values for each compartment can be queried with the <code>init()</code> function. There are several different ways to set the initial conditions in a model.</p>
+<p>See also: section <a href="topics.html#topic-init">7.1</a> and <code>?init</code> in the <code>R</code> help system after loading <code>mrgsolve</code>.</p>
 </div>
 <div id="component-stime" class="section level2">
 <h2><span class="header-section-number">3.3</span> Simulation time grid</h2>
@@ -297,16 +299,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="random-effect-variances" class="section level2">
 <h2><span class="header-section-number">3.6</span> Random effect variances</h2>
 <p>The <code>mrgsolve</code> model object keeps track of a arbitrary number of block matrices that are used to simulate variates from multivariate normal distributions. Users can specify <code>OMEGA</code> matrices for simulating between-subject random effects (one draw per individual) or <code>SIGMA</code> matrices for simulating within-subject random effects (one draw per observation).</p>
-<p>The user may use the <code>revar</code> function to query both <code>OMEGA</code> and <code>SIGMA</code>.</p>
+<p>The user may use the <code>revar()</code> function to query both <code>OMEGA</code> and <code>SIGMA</code>.</p>
 <div id="omega" class="section level3">
 <h3><span class="header-section-number">3.6.1</span> <code>OMEGA</code></h3>
 <p>The matrices are specified in <code>$OMEGA</code> blocks in the model specification file.</p>
-<p><code>OMEGA</code> may be queried or updated with the <code>omat</code> function.</p>
+<p><code>OMEGA</code> may be queried or updated with the <code>omat()</code> function.</p>
 </div>
 <div id="sigma" class="section level3">
 <h3><span class="header-section-number">3.6.2</span> <code>SIGMA</code></h3>
 <p>The matrices are specified in <code>$SIGMA</code> blocks in the model specification file.</p>
-<p><code>SIGMA</code> may be queried or updated by the <code>smat</code> function.</p>
+<p><code>SIGMA</code> may be queried or updated by the <code>smat()</code> function.</p>
 
 </div>
 </div>
