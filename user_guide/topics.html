@@ -432,7 +432,8 @@ mod &lt;-<span class="st"> </span><span class="kw">mcode</span>(<span class="st"
 .  KA   1.7   | VC   23.1</code></pre>
 <p><strong>The base parameter set is the default</strong></p>
 <p>The base parameter set allows you to run the model without entering any other data; there are some default values in place.</p>
-<p><strong>The parameters in the base lise can be changed or updated in <code>R</code></strong></p>
+<p><strong>The parameters in the base list can be changed or updated in <code>R</code></strong></p>
+<p>Use the <code>param()</code> function to both set and get:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&lt;&gt;%<span class="st"> </span><span class="kw">param</span>(<span class="dt">CL=</span><span class="fl">2.1</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">param</span>(mod)</code></pre></div>
 <pre><code>. 
@@ -440,7 +441,7 @@ mod &lt;-<span class="st"> </span><span class="kw">mcode</span>(<span class="st"
 .  name value . name value
 .  CL   2.1   | KM   10   
 .  KA   1.7   | VC   23.1</code></pre>
-<p>But whatever you’ve done in <code>R</code> there that base set (with values) are there to use.</p>
+<p>But whatever you’ve done in <code>R</code>, there is a base set (with values) to use.</p>
 <p><strong>Parameters can also be updated during the simulation run</strong></p>
 <p>Parameters can be updated by putting columns in <code>idata</code> set or <code>data_set</code> that have the same name as one of the parameters in the parameter list. But there is no changing values in the base parameter set once the simulation starts. That is, the following model specification will not compile:</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$PARAM CL = <span class="dv">2</span>
@@ -459,6 +460,12 @@ $MAIN CL = <span class="dv">3</span>; <span class="co">// ERROR</span></code></p
 . 4  4 0.552 26.30 0.4950 1.18 0.977   2
 . 5  5 0.483  4.36 0.1220 2.35 0.483  10
 . 6  6 3.620 39.80 0.1260 1.89 4.240   1</code></pre>
+<p>Notice that there are several columns in <code>exidata</code> that match up with the names in the parameter list</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(exidata)</code></pre></div>
+<pre><code>. [1] &quot;ID&quot;   &quot;CL&quot;   &quot;VC&quot;   &quot;KA&quot;   &quot;KOUT&quot; &quot;IC50&quot; &quot;FOO&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(<span class="kw">param</span>(mod))</code></pre></div>
+<pre><code>. [1] &quot;CL&quot; &quot;VC&quot; &quot;KA&quot; &quot;KM&quot;</code></pre>
+<p>The matching names tell <code>mrgsolve</code> to update, assigning each individual their individual parameter.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span>
 <span class="st">  </span>mod %&gt;%
 <span class="st">  </span><span class="kw">idata_set</span>(exidata) %&gt;%
@@ -598,7 +605,7 @@ sparse1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class=
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>day1) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
 <p><strong>Now, look at both day 1 and day 10</strong>:</p>
 <p>Adding a number to a <code>tgrid</code> object will offset those times by that amount.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">des &lt;-<span class="st"> </span><span class="kw">c</span>(day1, day1<span class="dv">+10</span>*<span class="dv">24</span>)
@@ -606,14 +613,14 @@ sparse1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class=
 mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>des) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 <p>Pick up day 5 as well</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">des &lt;-<span class="st"> </span><span class="kw">c</span>(des, day1<span class="dv">+5</span>*<span class="dv">24</span>)
 
 mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>des) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 </div>
 <div id="topic-designs" class="section level2">
 <h2><span class="header-section-number">6.4</span> Individualized sampling designs</h2>
@@ -667,7 +674,7 @@ out &lt;-<span class="st"> </span>
 <span class="st">  </span>mrgsim 
 
 <span class="kw">plot</span>(out, CP~time|GRP)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 </div>
 <div id="some-helpful-c" class="section level2">
 <h2><span class="header-section-number">6.5</span> Some helpful <code>C++</code></h2>

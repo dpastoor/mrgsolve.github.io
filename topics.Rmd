@@ -221,7 +221,9 @@ __The base parameter set is the default__
 
 The base parameter set allows you to run the model without entering any other data; there are some default values in place.  
 
-__The parameters in the base lise can be changed or updated in `R`__
+__The parameters in the base list can be changed or updated in `R`__
+
+Use the `param()` function to both set and get:
 
 ```{r}
 mod %<>% param(CL=2.1)
@@ -230,7 +232,7 @@ mod %<>% param(CL=2.1)
 ```{r}
 param(mod)
 ```
-But whatever you've done in `R` there that base set (with values) are there to use. 
+But whatever you've done in `R`, there is a base set (with values) to use. 
 
 
 __Parameters can also be updated during the simulation run__
@@ -255,6 +257,15 @@ When `mrgsolve` finds parameters in `idata`, it will update the base parameter l
 data(exidata)
 head(exidata)
 ```
+
+Notice that there are several columns in `exidata` that match up with the names in the parameter list
+```{r}
+names(exidata)
+
+names(param(mod))
+```
+
+The matching names tell `mrgsolve` to update, assigning each individual their individual parameter.
 
 
 ```{r}
