@@ -217,8 +217,7 @@ mod <- mcode("tmp", code, warn=FALSE)
 param(mod)
 ```
 
-__The base parameter set is the default__:
-The base parameter set allows you to run the model without entering any other data; there are some default values in place.  
+__The base parameter set is the default__: The base parameter set allows you to run the model without entering any other data; there are some default values in place.  
 
 __The parameters in the base lise can be changed or updated in `R`__:
 ```{r}
@@ -231,9 +230,7 @@ param(mod)
 But whatever you've done in `R` there that base set (with values) are there to use. 
 
 
-__Parameters can also be updated during the simulation run__:
-
-Parameters can be updated by putting columns in `idata` set or `data_set` that have the same name as one of the parameters in the parameter list.  But there is no changing values in the base parameter set once the simulation starts.  That is, the following model specification will not compile:
+__Parameters can also be updated during the simulation run__: Parameters can be updated by putting columns in `idata` set or `data_set` that have the same name as one of the parameters in the parameter list.  But there is no changing values in the base parameter set once the simulation starts.  That is, the following model specification will not compile:
 
 ```{c,eval=FALSE}
 $PARAM CL = 2
@@ -266,7 +263,7 @@ out <-
 out
 ```
 
-__Parameters found in `data`__
+__Parameters updated from `data_set`__:
 Like an `idata` set, we can put parameters on a `data` set
 
 ```{r}
