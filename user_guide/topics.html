@@ -430,8 +430,9 @@ mod &lt;-<span class="st"> </span><span class="kw">mcode</span>(<span class="st"
 .  name value . name value
 .  CL   1.1   | KM   10   
 .  KA   1.7   | VC   23.1</code></pre>
-<p><strong>The base parameter set is the default</strong>: The base parameter set allows you to run the model without entering any other data; there are some default values in place.</p>
-<p><strong>The parameters in the base lise can be changed or updated in <code>R</code></strong>:</p>
+<p><strong>The base parameter set is the default</strong>:</p>
+<p>The base parameter set allows you to run the model without entering any other data; there are some default values in place.</p>
+<p><strong>The parameters in the base lise can be changed or updated in <code>R</code></strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&lt;&gt;%<span class="st"> </span><span class="kw">param</span>(<span class="dt">CL=</span><span class="fl">2.1</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">param</span>(mod)</code></pre></div>
 <pre><code>. 
@@ -440,7 +441,8 @@ mod &lt;-<span class="st"> </span><span class="kw">mcode</span>(<span class="st"
 .  CL   2.1   | KM   10   
 .  KA   1.7   | VC   23.1</code></pre>
 <p>But whatever you’ve done in <code>R</code> there that base set (with values) are there to use.</p>
-<p><strong>Parameters can also be updated during the simulation run</strong>: Parameters can be updated by putting columns in <code>idata</code> set or <code>data_set</code> that have the same name as one of the parameters in the parameter list. But there is no changing values in the base parameter set once the simulation starts. That is, the following model specification will not compile:</p>
+<p><strong>Parameters can also be updated during the simulation run</strong>:</p>
+<p>Parameters can be updated by putting columns in <code>idata</code> set or <code>data_set</code> that have the same name as one of the parameters in the parameter list. But there is no changing values in the base parameter set once the simulation starts. That is, the following model specification will not compile:</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$PARAM CL = <span class="dv">2</span>
 
 $MAIN CL = <span class="dv">3</span>; <span class="co">// ERROR</span></code></pre></div>
@@ -475,7 +477,8 @@ $MAIN CL = <span class="dv">3</span>; <span class="co">// ERROR</span></code></p
 . [6,]  3    2    0 2.820 0.1180 10 23.8
 . [7,]  4    0    0 0.552 0.4950 10 26.3
 . [8,]  4    2    0 0.552 0.4950 10 26.3</code></pre>
-<p><strong>Parameters updated from <code>data_set</code></strong>: Like an <code>idata</code> set, we can put parameters on a <code>data</code> set</p>
+<p><strong>Parameters updated from <code>data_set</code></strong>:</p>
+<p>Like an <code>idata</code> set, we can put parameters on a <code>data</code> set</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">expand.ev</span>(<span class="dt">amt=</span><span class="dv">0</span>, <span class="dt">CL=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">VC=</span><span class="dv">30</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span>
 <span class="st">  </span>mod %&gt;%
