@@ -716,7 +716,7 @@ des2 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class="dv
 <pre><code>. [1]  0 24</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">range</span>(<span class="kw">stime</span>(des2))</code></pre></div>
 <pre><code>. [1]  0 96</code></pre>
-<p>Now, take the data set, derived a grouping column (<code>GRP</code>) and split the data set into two groups</p>
+<p>Now, derive an <code>idata_set</code> after adding a grouping column (<code>GRP</code>) that splits the data set into two groups</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df %&lt;&gt;%<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">GRP =</span> <span class="kw">as.integer</span>(ID &gt;<span class="st"> </span><span class="dv">5</span>))
 
 id &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span><span class="kw">distinct</span>(ID) %&gt;%<span class="st"> </span><span class="kw">select</span>(ID,GRP)
@@ -740,8 +740,8 @@ id</code></pre></div>
 <li>Pass in both the <code>idata_set</code> and the <code>data_set</code></li>
 <li>Call <code>design</code>
 <ul>
-<li>Identify <code>GRP</code> as <code>descol</code></li>
-<li>Pass in a list of designs; it must be at least two because there are two levels in `GRP</li>
+<li>Identify <code>GRP</code> as <code>descol</code>; the column <strong>must</strong> be in <code>idata_set</code></li>
+<li>Pass in a list of designs; it <strong>must</strong> be at least two because there are two levels in <code>GRP</code></li>
 </ul></li>
 </ul>
 <p>When we simulate, the individuals in <code>GRP 1</code> will get <code>des1</code> and those in <code>GRP 2</code> will get <code>des2</code></p>

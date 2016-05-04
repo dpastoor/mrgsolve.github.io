@@ -523,7 +523,7 @@ range(stime(des1))
 range(stime(des2))
 ```
 
-Now, take the data set, derived a grouping column (`GRP`) and split the data set into two groups
+Now, derive an `idata_set` after adding a grouping column (`GRP`) that splits the data set into two groups
 ```{r}
 df %<>% mutate(GRP = as.integer(ID > 5))
 
@@ -536,8 +536,8 @@ Now, we have two groups in `GRP` in `idata_set` and we have two `tgrid` objects.
 
 * Pass in both the `idata_set` and the `data_set`
 * Call `design`
-    * Identify `GRP` as `descol`
-    * Pass in a list of designs; it must be at least two because there are two levels in `GRP
+    * Identify `GRP` as `descol`; the column __must__ be in `idata_set`
+    * Pass in a list of designs; it __must__ be at least two because there are two levels in `GRP`
     
     
 When we simulate, the individuals in `GRP 1` will get `des1` and those in `GRP 2` will get `des2`
