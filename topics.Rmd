@@ -220,7 +220,7 @@ param(mod)
 __The base parameter set is the default__:
 The base parameter set allows you to run the model without entering any other data; there are some default values in place.  
 
-The parameters can be changed or updated in `R`:
+__The parameters in the base lise can be changed or updated in `R`__:
 ```{r}
 mod %<>% param(CL=2.1)
 ```
@@ -245,7 +245,7 @@ You cannot over-write the value of a parameter in the model specification.  Let 
 
 `mrgsolve` always reverts to the base parameter set when starting work on a new individual.
 
-__Parameters found in `idata`__:
+__Parameters updated from `idata_set`__:
 
 When `mrgsolve` finds parameters in `idata`, it will update the base parameter list with those parameters prior to starting that individual.
 

@@ -431,7 +431,7 @@ mod &lt;-<span class="st"> </span><span class="kw">mcode</span>(<span class="st"
 .  CL   1.1   | KM   10   
 .  KA   1.7   | VC   23.1</code></pre>
 <p><strong>The base parameter set is the default</strong>: The base parameter set allows you to run the model without entering any other data; there are some default values in place.</p>
-<p>The parameters can be changed or updated in <code>R</code>:</p>
+<p><strong>The parameters in the base lise can be changed or updated in <code>R</code></strong>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&lt;&gt;%<span class="st"> </span><span class="kw">param</span>(<span class="dt">CL=</span><span class="fl">2.1</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">param</span>(mod)</code></pre></div>
 <pre><code>. 
@@ -447,7 +447,7 @@ mod &lt;-<span class="st"> </span><span class="kw">mcode</span>(<span class="st"
 $MAIN CL = <span class="dv">3</span>; <span class="co">// ERROR</span></code></pre></div>
 <p>You cannot over-write the value of a parameter in the model specification. Let <code>mrgsolve</code> do the updating.</p>
 <p><code>mrgsolve</code> always reverts to the base parameter set when starting work on a new individual.</p>
-<p><strong>Parameters found in <code>idata</code></strong>:</p>
+<p><strong>Parameters updated from <code>idata_set</code></strong>:</p>
 <p>When <code>mrgsolve</code> finds parameters in <code>idata</code>, it will update the base parameter list with those parameters prior to starting that individual.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(exidata)
 <span class="kw">head</span>(exidata)</code></pre></div>
