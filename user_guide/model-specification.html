@@ -187,6 +187,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.5" data-path="model-specification.html"><a href="model-specification.html#examples"><i class="fa fa-check"></i><b>4.5</b> Examples</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="model-specification.html"><a href="model-specification.html#simple-pk-model"><i class="fa fa-check"></i><b>4.5.1</b> Simple PK model</a></li>
 <li class="chapter" data-level="4.5.2" data-path="model-specification.html"><a href="model-specification.html#pkpd-model"><i class="fa fa-check"></i><b>4.5.2</b> PK/PD model</a></li>
+<li class="chapter" data-level="4.5.3" data-path="model-specification.html"><a href="model-specification.html#population-pk-model-with-covariates-and-iov"><i class="fa fa-check"></i><b>4.5.3</b> Population PK model with covariates and IOV</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="input-data-sets.html"><a href="input-data-sets.html"><i class="fa fa-check"></i><b>5</b> Input data sets</a><ul>
@@ -645,11 +646,11 @@ $PKMODEL ncmt=<span class="dv">2</span>, depot=TRUE</code></pre></div>
 <pre><code>## 
 ## 
 ## -------- mrgsolve model object (unix) --------
-##   Project: /private/var/fol...dbsj0x4637ptj4hnd7kg900000gp/T/RtmpswNU2O
+##   Project: /private/var/fol...dbsj0x4637ptj4hnd7kg900000gp/T/RtmpjK4qy2
 ##   source:        nmxml.cpp
-##   shared object: 3ca4aeed367 (loaded)
+##   shared object: 4ff492a1093 (loaded)
 ## 
-##   compile date:  05/03 22:24
+##   compile date:  05/03 22:37
 ##   Time:          start: 0 end: 96 delta: 4
 ##   &gt;              add: &lt;none&gt;
 ##   &gt;              tscale: 1
@@ -781,6 +782,47 @@ dxdt_RESP = KIN*(<span class="dv">1</span>-INH) - KOUT*CENT;
 
 
 $CAPTURE CP</code></pre></div>
+</div>
+<div id="population-pk-model-with-covariates-and-iov" class="section level3">
+<h3><span class="header-section-number">4.5.3</span> Population PK model with covariates and IOV</h3>
+<p>Notes:</p>
+<ul>
+<li>Use <code>$SET</code> to set the simulation time grid from 0 to 240 by 0.1</li>
+<li>There are two <code>$OMEGA</code> matrices; we name them <code>IIV</code> and <code>IOV</code></li>
+<li>The IIV “etas” are labeled as <code>ECL/EVC/EKA</code>; these are aliases to <code>ETA(1)/ETA(2)/ETA(3)</code>. The <code>IOV</code> matrix is unlabeled; we must refer to <code>ETA(4)/ETA(5)</code> for this</li>
+<li>Because <code>ETA(1)</code> and <code>ETA(2)</code> are labeled, we can “capture” them as <code>ECL</code> and <code>EVC</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$PARAM TVCL = <span class="fl">1.3</span>, TVVC=<span class="dv">28</span>, TVKA=<span class="fl">0.6</span>, WT=<span class="dv">70</span>, OCC=<span class="dv">1</span>
+
+$SET delta=<span class="fl">0.1</span>, end=<span class="dv">240</span>
+
+$CMT GUT CENT
+
+$MAIN
+
+<span class="dt">double</span> IOV = ETA(<span class="dv">4</span>);
+<span class="kw">if</span>(OCC==<span class="dv">2</span>) IOV = ETA(<span class="dv">5</span>);
+
+<span class="dt">double</span> CLi = exp(log(TVCL) + <span class="fl">0.75</span>*log(WT/<span class="dv">70</span>) + ECL + IOV);
+<span class="dt">double</span> VCi = exp(log(TVVC) + EVC;
+<span class="dt">double</span> KAi = exp(log(TVKA) + EKA;
+
+$OMEGA name=<span class="st">&quot;IIV&quot;</span>
+labels=s(ECL,EVC,EKA)
+<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>
+$OMEGA name=<span class="st">&quot;IOV&quot;</span>
+<span class="dv">0</span> <span class="dv">0</span>
+
+$SIGMA <span class="dv">0</span>
+
+$ODE
+dxdt_GUT = -KAi*GUT;
+dxdt_CENT = KAi*GUT - (CLi/VCi)*CENT;
+
+$TABLE
+table(CP) = CENT/VCi;
+
+$CAPTURE IOV ECL EVC</code></pre></div>
 
 </div>
 </div>

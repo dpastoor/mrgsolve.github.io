@@ -706,7 +706,7 @@ Notes:
 * Because `ETA(1)` and `ETA(2)` are labeled, we can "capture" them as `ECL` and `EVC`
 
 
-```{r}
+```{c,eval=FALSE}
 $PARAM TVCL = 1.3, TVVC=28, TVKA=0.6, WT=70, OCC=1
 
 $SET delta=0.1, end=240
