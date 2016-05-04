@@ -342,3 +342,7 @@ double i = log10(7);
 double j = floor(4.2);
 double k = ceil(4.2);
 ```
+
+## How to update `$OMEGA` and `$SIGMA` matrices
+
+

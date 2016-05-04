@@ -704,6 +704,7 @@ Notes:
 * There are two `$OMEGA` matrices; we name them `IIV` and `IOV`
 * The IIV "etas" are labeled as `ECL/EVC/EKA`; these are aliases to `ETA(1)/ETA(2)/ETA(3)`.  The `IOV` matrix is unlabeled; we must refer to `ETA(4)/ETA(5)` for this
 * Because `ETA(1)` and `ETA(2)` are labeled, we can "capture" them as `ECL` and `EVC`
+* We added zeros for both `$OMEGA` matrices; all the etas will be zero until we populate those matrices (section \@ref(topic-matrix-update))
 
 
 ```{c,eval=FALSE}
