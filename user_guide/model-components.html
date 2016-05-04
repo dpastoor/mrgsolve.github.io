@@ -135,7 +135,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="model-components.html"><a href="model-components.html#component-init"><i class="fa fa-check"></i><b>3.2</b> Compartment list</a></li>
 <li class="chapter" data-level="3.3" data-path="model-components.html"><a href="model-components.html#component-stime"><i class="fa fa-check"></i><b>3.3</b> Simulation time grid</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="model-components.html"><a href="model-components.html#tgrid-objects"><i class="fa fa-check"></i><b>3.3.1</b> <code>tgrid</code> objects</a></li>
+<li class="chapter" data-level="3.3.1" data-path="model-components.html"><a href="model-components.html#component-tgrid"><i class="fa fa-check"></i><b>3.3.1</b> <code>tgrid</code> objects</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="model-components.html"><a href="model-components.html#solver-settings"><i class="fa fa-check"></i><b>3.4</b> Solver settings</a></li>
 <li class="chapter" data-level="3.5" data-path="model-components.html"><a href="model-components.html#functions"><i class="fa fa-check"></i><b>3.5</b> Functions</a><ul>
@@ -209,9 +209,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.1.5" data-path="topics.html"><a href="topics.html#set-initial-conditions-via-idata"><i class="fa fa-check"></i><b>7.1.5</b> Set initial conditions via <code>idata</code></a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="topics.html"><a href="topics.html#topic-parameter-update"><i class="fa fa-check"></i><b>7.2</b> Updating parameters</a></li>
-<li class="chapter" data-level="7.3" data-path="topics.html"><a href="topics.html#time-grid-objects"><i class="fa fa-check"></i><b>7.3</b> Time grid objects</a><ul>
+<li class="chapter" data-level="7.3" data-path="topics.html"><a href="topics.html#topic-tgrid"><i class="fa fa-check"></i><b>7.3</b> Time grid objects</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="topics.html"><a href="topics.html#simulation-times-in-mrgsolve"><i class="fa fa-check"></i><b>7.3.1</b> Simulation times in <code>mrgsolve</code></a></li>
-<li class="chapter" data-level="7.3.2" data-path="topics.html"><a href="topics.html#tgrid-objects-1"><i class="fa fa-check"></i><b>7.3.2</b> <code>tgrid</code> objects</a></li>
+<li class="chapter" data-level="7.3.2" data-path="topics.html"><a href="topics.html#tgrid-objects"><i class="fa fa-check"></i><b>7.3.2</b> <code>tgrid</code> objects</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>7.4</b> Individualized sampling designs</a></li>
 </ul></li>
@@ -263,9 +263,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The <code>mrgsolve</code> model object stores the parameters for the series of time points to be output for a a simulation. This is the default output time grid that will be used if not over-ridden by another mechanism.</p>
 <p>The elements of the simulation time grid are: <code>start</code>, <code>end</code>, <code>delta</code> and <code>add</code>. <code>start</code>, <code>end</code>, <code>delta</code> are passed to <code>seq()</code> as <code>from</code>, <code>to</code>, and <code>by</code>, respectively. <code>add</code> is any arbitrary vector of additional times to simulate.</p>
 <p>The simulation time grid in a model object may be queried with the <code>stime()</code> function or by printing the model object to the <code>R</code> console.</p>
-<div id="tgrid-objects" class="section level3">
+<p>See also section <a href="input-data-sets.html#data-set">5.2</a> for discussion of the simulation time grid and input data sets and <a href="model-components.html#component-tgrid">3.3.1</a> and <a href="topics.html#topic-tgrid">7.3</a> for using time grid objects .</p>
+<div id="component-tgrid" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> <code>tgrid</code> objects</h3>
 <p>A <code>tgrid</code> object has <code>start</code>, <code>end</code>, <code>delta</code> and <code>add</code> attributes. This object is independent of the model object. <code>tgrid</code> objects may be created and combined to create complex sampling designs.</p>
+<p>See section <a href="topics.html#topic-tgrid">7.3</a> for examples and usage.</p>
 </div>
 </div>
 <div id="solver-settings" class="section level2">

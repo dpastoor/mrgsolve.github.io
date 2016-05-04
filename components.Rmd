@@ -41,10 +41,14 @@ The elements of the simulation time grid are: `start`, `end`, `delta` and `add`.
 
 The simulation time grid in a model object may be queried with the `stime()` function or by printing the model object to the `R` console. 
 
+See also section \@ref(data-set) for discussion of the simulation time grid and input data sets and \@ref(component-tgrid) and \@ref(topic-tgrid) for using time grid objects . 
 
-### `tgrid` objects
+
+### `tgrid` objects {#component-tgrid}
 
 A `tgrid` object has `start`, `end`, `delta` and `add` attributes.  This object is independent of the model object.  `tgrid` objects may be created and combined to create complex sampling designs.
+
+See section \@ref(topic-tgrid) for examples and usage.
 
 ## Solver settings
 `mrgsolve` uses the `DLSODA` solver from `ODEPACK`. Several of the settings for that solver are stored in the model object and passed to the solver when the problem is started.  Settings include: `atol`, `rtol`, `maxsteps`, `hmax`, `hmin`, `ixpr`, `mxhnil`.  

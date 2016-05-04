@@ -197,7 +197,7 @@ plot(out, CENT~.)
 ## Updating parameters {#topic-parameter-update}
 
 
-## Time grid objects
+## Time grid objects {#topic-tgrid}
 
 ### Simulation times in `mrgsolve`
 
