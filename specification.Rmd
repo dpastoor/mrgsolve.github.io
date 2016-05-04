@@ -44,159 +44,6 @@ mod <- mread("mymodel", tempdir(), code)
 
 For help, see `?mread` , `?mcode` in the `R` help system after loading `mrgsolve`.
 
-## Variables and Macros
-In the following section, we adopt the convention that `CMT` stands for a compartment in the model.
-
-### `ID`
-The current subject identifier.
-
-### `TIME`
-Gives the time in the curent data set record.  This is usually only used in `$MAIN` or `$TABLE`.  Contrast with `SOLVERTIME`.
-
-### `SOLVERTIME`
-Gives the time of the current timestep taken by the solver.  This is can only be used in `$ODE`.  Contrast with `TIME`.
-
-### `EVID`
-`EVID` is an event id indicator.  `mrgsolve` recognized the following 
-event IDs:
-
-* 0 = an observation record
-* 1 = a bolus or infusion dose
-* 2 = other type event
-* 3 = system reset
-* 4 = system reset and dose
-* 8 = replace
-
-
-
-### `NEWIND`
-`NEWIND` is a new individual indicator, taking the following values:
-
-* 0 for the first record of the data set
-* 1 for the first record of a given individual
-* 2 for all other records
-
-For example:
-```{c, eval=FALSE}
-$GLOBAL 
-int counter = 0;
-
-$MAIN
-if(NEWIND <=1) {
-  counter  = 0;
-}
-```
-
-
-### `ETA(n)`
-`ETA(n)` is the value of the subject-level variate drawn from the model `OMEGA` matrix.  `ETA(1)` through `ETA(25)` have default values of zero so they may be used in a model even if appropriate `OMEGA` matrices have not been provided. 
-
-For example:
-```{c, eval=FALSE}
-$OMEGA
-1 2 3
-
-$MAIN
-double CL = TVCL*exp(ETA(1));
-double VC = TVVC*exp(ETA(2));
-double KA = TVKA*exp(ETA(3));
-```
-Here, we have a 3x3 `OMEGA` matrix. `ETA(1)`, `ETA(2)`, and `ETA(3)` will be populated with variates drawn from this matrix.  `ETA(4)` through `ETA(25)` will be populated with zero. 
-
-### `EPS(n)`
-`EPS(n)` holds the current value of the observation-level random variates drawn from `SIGMA`.  The basic setup is the same as detailed in `ETA(n)`.
-
-Example:
-```{c,eval=FALSE}
-$CMT CENT
-
-$PARAM CL=1, VC=20
-
-$SIGMA
-labels=s(ADD,PROP)
-25 0.0025
-
-$TABLE
-double DV = (CENT/VC)*(1+PROP) + ADD;
-
-```
-
-
-
-### `table(name) `
-This macro is used in `$TABLE` to insert derived variables or other information into the simulated data set.  
-
-For example:
-```{c,eval=FALSE}
-$TABLE
-table(CP) = CENT/VC;
-```
-In this example, a column will appear in the simulated data set that will be named `CP` and will take the value of the ratio of the amount in the central compartment divided by the central volume of distribution. 
-
-Notice that the `CP` value only exists in the `table` map.  It may be 
-accessed on the right hand side of an expression like this:
-```{c,eval=FALSE}
-$TABLE
-table(CP) = CENT/VC;
-table(logCP) = log(table(CP));
-```
-
-Note also that the name of the output column will appear exactly 
-as it does inside the `table` macro.  So:
-
-```{c,eval=FALSE}
-$TABLE
-// DON"T DO THIS
-// table("CP") = CENT/VC;
-// table(ETA(1)) = ETA(1);
-
-// DO THIS
-table(CP) = CENT/VC;
-table(ETA1) = ETA(1);
-```
-
-
-See: section \@ref(block-table) and also \@ref(block-capture)
-
-
-### `F_CMT` \ {#spec-f}
-For the `CMT` compartment, sets the bioavability fraction for that compartment. 
-
-Example:
-```{c,eval=FALSE}
-$MAIN
-F_CENT = 0.7;
-```
-
-
-### `ALAG_CMT` \ {#spec-alag}
-For the `CMT` compartment, sets the lag time for doses into that compartment. 
-
-Example:
-```{c,eval=FALSE}
-$MAIN
-ALAG_CENT = 0.25;
-```
-
-
-### `R_CMT` \ {#spec-r}
-For the `CMT` compartment, sets the infusion rate for that compartment.  The infusion rate is only set via `R_CMT` when `rate` in the data set or event object is set to `-1`. 
-
-Example:
-```{c,eval=FALSE}
-$MAIN
-R_CENT = 100;
-```
-
-
-### `D_CMT` \ {#spec-d}
-For the `CMT` compartment, sets the infusion duration for that compartment.  The infusion duration is only set via `D_CMT` when `rate` in the data set or event object is set to `-2`. 
-
-Example:
-```{c,eval=FALSE}
-$MAIN
-D_CENT = 2;
-```
 
 
 ## Code blocks {#code-blocks}
@@ -575,6 +422,163 @@ mod %>%
   ev(amt=1000, rate=1000/36, cmt="GUT") %>%
   mrgsim(nid=10) %>%
   plot
+```
+
+
+
+
+## Variables and Macros
+In the following section, we adopt the convention that `CMT` stands for a compartment in the model.
+
+### `ID`
+The current subject identifier.
+
+### `TIME`
+Gives the time in the curent data set record.  This is usually only used in `$MAIN` or `$TABLE`.  Contrast with `SOLVERTIME`.
+
+### `SOLVERTIME`
+Gives the time of the current timestep taken by the solver.  This is can only be used in `$ODE`.  Contrast with `TIME`.
+
+### `EVID`
+`EVID` is an event id indicator.  `mrgsolve` recognized the following 
+event IDs:
+
+* 0 = an observation record
+* 1 = a bolus or infusion dose
+* 2 = other type event
+* 3 = system reset
+* 4 = system reset and dose
+* 8 = replace
+
+
+
+### `NEWIND`
+`NEWIND` is a new individual indicator, taking the following values:
+
+* 0 for the first record of the data set
+* 1 for the first record of a given individual
+* 2 for all other records
+
+For example:
+```{c, eval=FALSE}
+$GLOBAL 
+int counter = 0;
+
+$MAIN
+if(NEWIND <=1) {
+  counter  = 0;
+}
+```
+
+
+### `ETA(n)`
+`ETA(n)` is the value of the subject-level variate drawn from the model `OMEGA` matrix.  `ETA(1)` through `ETA(25)` have default values of zero so they may be used in a model even if appropriate `OMEGA` matrices have not been provided. 
+
+For example:
+```{c, eval=FALSE}
+$OMEGA
+1 2 3
+
+$MAIN
+double CL = TVCL*exp(ETA(1));
+double VC = TVVC*exp(ETA(2));
+double KA = TVKA*exp(ETA(3));
+```
+Here, we have a 3x3 `OMEGA` matrix. `ETA(1)`, `ETA(2)`, and `ETA(3)` will be populated with variates drawn from this matrix.  `ETA(4)` through `ETA(25)` will be populated with zero. 
+
+### `EPS(n)`
+`EPS(n)` holds the current value of the observation-level random variates drawn from `SIGMA`.  The basic setup is the same as detailed in `ETA(n)`.
+
+Example:
+```{c,eval=FALSE}
+$CMT CENT
+
+$PARAM CL=1, VC=20
+
+$SIGMA
+labels=s(ADD,PROP)
+25 0.0025
+
+$TABLE
+double DV = (CENT/VC)*(1+PROP) + ADD;
+
+```
+
+
+
+### `table(name) `
+This macro is used in `$TABLE` to insert derived variables or other information into the simulated data set.  
+
+For example:
+```{c,eval=FALSE}
+$TABLE
+table(CP) = CENT/VC;
+```
+In this example, a column will appear in the simulated data set that will be named `CP` and will take the value of the ratio of the amount in the central compartment divided by the central volume of distribution. 
+
+Notice that the `CP` value only exists in the `table` map.  It may be 
+accessed on the right hand side of an expression like this:
+```{c,eval=FALSE}
+$TABLE
+table(CP) = CENT/VC;
+table(logCP) = log(table(CP));
+```
+
+Note also that the name of the output column will appear exactly 
+as it does inside the `table` macro.  So:
+
+```{c,eval=FALSE}
+$TABLE
+// DON"T DO THIS
+// table("CP") = CENT/VC;
+// table(ETA(1)) = ETA(1);
+
+// DO THIS
+table(CP) = CENT/VC;
+table(ETA1) = ETA(1);
+```
+
+
+See: section \@ref(block-table) and also \@ref(block-capture)
+
+
+### `F_CMT` \ {#spec-f}
+For the `CMT` compartment, sets the bioavability fraction for that compartment. 
+
+Example:
+```{c,eval=FALSE}
+$MAIN
+F_CENT = 0.7;
+```
+
+
+### `ALAG_CMT` \ {#spec-alag}
+For the `CMT` compartment, sets the lag time for doses into that compartment. 
+
+Example:
+```{c,eval=FALSE}
+$MAIN
+ALAG_CENT = 0.25;
+```
+
+
+### `R_CMT` \ {#spec-r}
+For the `CMT` compartment, sets the infusion rate for that compartment.  The infusion rate is only set via `R_CMT` when `rate` in the data set or event object is set to `-1`. 
+
+Example:
+```{c,eval=FALSE}
+$MAIN
+R_CENT = 100;
+```
+
+
+### `D_CMT` \ {#spec-d}
+For the `CMT` compartment, sets the infusion duration for that compartment.  The infusion duration is only set via `D_CMT` when `rate` in the data set or event object is set to `-2`. 
+
+Example:
+```{c,eval=FALSE}
+$MAIN
+D_CENT = 2;
 ```
 
 
