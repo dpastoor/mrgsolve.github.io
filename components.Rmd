@@ -59,13 +59,13 @@ There are three `C++` functions that `mrgsolve` creates and manages: `MAIN`, `OD
 function is created from an entire code block in the model specification 
 file.  The user is responsible for writing correct `C++` code in each of these blocks.  `mrgsolve` will parse these blocks and augment this code with the necessary elements to create the `C++` function. 
 
-These functions may be specified in any order in the model specification file, but there is a specific calling order that should be recognized.  During advance from time `T1` to `T2`, first `$MAIN` is called, then `$ODE` is called repeatedly as the solver finds the values of state variables at `T2`, and, once the solution is found, `$TABLE` is called to calculate derived quantities at `T2` and to specify variables that should be included in the model output.  So, it is helpful to write model specification files in the order:
+These functions may be specified in any order in the model specification file, but there is a __specific calling order__ for these functions.  Recognizing and understanding this calling order will help understand how the different pieces of the model specification fit together.  During advance from time `T1` to `T2`, first `$MAIN` is called, then `$ODE` is called repeatedly as the solver finds the values of state variables at `T2`, and, once the solution is found, `$TABLE` is called to calculate derived quantities at `T2` and to specify variables that should be included in the model output.  So, it is helpful to write model specification files in the order:
 
 1. `$MAIN`  - __before__ advancing the system
-2. `$ODE`   - the system __advance__
+2. `$ODE`   - the system __advances__ to `T2`
 3. `$TABLE` - __after__ advancing the system
 
-to remember the this calling order.  But the order in which they are coded will not affect model compilation or the simulation result. 
+But the order in which they are coded will not affect model compilation or the simulation result. 
 
 ### The `$MAIN` function
 
@@ -77,12 +77,21 @@ The `MAIN` function gets called at least once before the the solver advances fro
 
 In addition to getting called once per record, the `MAIN` function may be called several times prior to starting the simulation run.  The `MAIN` function is also called whenever the user queries the compartment list. 
 
+See \@ref(block-main) for details.
+
+
 ### The `$ODE` function
 
 The `ODE` function is where the user writes the model differential equations.  Any derived quantity that depends on a state variable and is used to to calculate the differentation must be calculated inside `$ODE`.  But, this function is called repeatedly during the simulation run, so any calculation that __can__ be moved out of `$ODE` (for example: to `$MAIN`) should be.  
 
+See \@ref(block-ode) for details.
+
+
 ### The `$TABLE` function
 The `TABLE` function is called __after__ the solver advances in time.  The purpose of `TABLE` is to allow the user to interact with the values of the state variables after advancing, potentially derive new variables, and to insert different outputs into the table of simulated results. 
+
+See \@ref(block-table) for details.
+
 
 ## Random effect variances
 The `mrgsolve` model object keeps track of a arbitrary number of block matrices that are used to simulate variates from multivariate normal distributions.  Users can specify `OMEGA` matrices for simulating between-subject random effects (one draw per individual) or `SIGMA` matrices for simulating within-subject random effects (one draw per observation).  

@@ -159,7 +159,7 @@ table(ETA1) = ETA(1);
 See: section \@ref(block-table) and also \@ref(block-capture)
 
 
-### `F_CMT`
+### `F_CMT` \ {#spec-f}
 For the `CMT` compartment, sets the bioavability fraction for that compartment. 
 
 Example:
@@ -169,7 +169,7 @@ F_CENT = 0.7;
 ```
 
 
-### `ALAG_CMT`
+### `ALAG_CMT` \ {#spec-alag}
 For the `CMT` compartment, sets the lag time for doses into that compartment. 
 
 Example:
@@ -179,7 +179,7 @@ ALAG_CENT = 0.25;
 ```
 
 
-### `R_CMT`
+### `R_CMT` \ {#spec-r}
 For the `CMT` compartment, sets the infusion rate for that compartment.  The infusion rate is only set via `R_CMT` when `rate` in the data set or event object is set to `-1`. 
 
 Example:
@@ -189,7 +189,7 @@ R_CENT = 100;
 ```
 
 
-### `D_CMT`
+### `D_CMT` \ {#spec-d}
 For the `CMT` compartment, sets the infusion duration for that compartment.  The infusion duration is only set via `D_CMT` when `rate` in the data set or event object is set to `-2`. 
 
 Example:
@@ -262,7 +262,7 @@ $INIT GUT  = 0, CENT = 0, RESPONSE = 25
 
 See `?init` in the `R` help system after loading `mrgsolve`.
 
-### `$MAIN` {#block-main}
+### `$MAIN`  \ {#block-main}
 This code block has two main purposes:
 
 * Derive new algebraic relationships between parameters, random, effects and other derived variables
