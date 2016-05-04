@@ -197,6 +197,7 @@ plot(out, CENT~.)
 ## Updating parameters {#topic-parameter-update}
 
 __Base parameter set__
+
 * Every model has a base set of "parameters"
 * These are named and set in `$PARAM`
 * Parameters can only get into the parameter list in `$PARAM` (or `$THETA`)
@@ -337,7 +338,7 @@ The data set always gets the last word.
 
 ## Time grid objects {#topic-tgrid}
 
-### Simulation times in `mrgsolve`
+__Simulation times in `mrgsolve`__
 
 ```{r}
 mod <- mrgsolve:::house() %>% Req(CP) %>% ev(amt=1000,ii=24, addl=1000) 
@@ -355,7 +356,7 @@ mod %>%
 ```
 
 
-### `tgrid` objects
+__`tgrid` objects__
  
 The `tgrid` object abstracts this setup and allows us to make 
 complicated sampling designs from elementary building blocks.

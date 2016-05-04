@@ -195,10 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.1.5" data-path="topics.html"><a href="topics.html#set-initial-conditions-via-idata"><i class="fa fa-check"></i><b>6.1.5</b> Set initial conditions via <code>idata</code></a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="topics.html"><a href="topics.html#topic-parameter-update"><i class="fa fa-check"></i><b>6.2</b> Updating parameters</a></li>
-<li class="chapter" data-level="6.3" data-path="topics.html"><a href="topics.html#topic-tgrid"><i class="fa fa-check"></i><b>6.3</b> Time grid objects</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="topics.html"><a href="topics.html#simulation-times-in-mrgsolve"><i class="fa fa-check"></i><b>6.3.1</b> Simulation times in <code>mrgsolve</code></a></li>
-<li class="chapter" data-level="6.3.2" data-path="topics.html"><a href="topics.html#tgrid-objects"><i class="fa fa-check"></i><b>6.3.2</b> <code>tgrid</code> objects</a></li>
-</ul></li>
+<li class="chapter" data-level="6.3" data-path="topics.html"><a href="topics.html#topic-tgrid"><i class="fa fa-check"></i><b>6.3</b> Time grid objects</a></li>
 <li class="chapter" data-level="6.4" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>6.4</b> Individualized sampling designs</a></li>
 <li class="chapter" data-level="6.5" data-path="topics.html"><a href="topics.html#some-helpful-c"><i class="fa fa-check"></i><b>6.5</b> Some helpful <code>C++</code></a></li>
 <li class="chapter" data-level="6.6" data-path="topics.html"><a href="topics.html#how-to-update-omega-and-sigma-matrices"><i class="fa fa-check"></i><b>6.6</b> How to update <code>$OMEGA</code> and <code>$SIGMA</code> matrices</a></li>
@@ -411,7 +408,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="topic-parameter-update" class="section level2">
 <h2><span class="header-section-number">6.2</span> Updating parameters</h2>
-<p><strong>Base parameter set</strong> * Every model has a base set of “parameters” * These are named and set in <code>$PARAM</code> * Parameters can only get into the parameter list in <code>$PARAM</code> (or <code>$THETA</code>) * No changing the names or numbers of parameters once the model is compiled * But, several ways to change the values</p>
+<p><strong>Base parameter set</strong></p>
+<ul>
+<li>Every model has a base set of “parameters”</li>
+<li>These are named and set in <code>$PARAM</code></li>
+<li>Parameters can only get into the parameter list in <code>$PARAM</code> (or <code>$THETA</code>)
+<ul>
+<li>No changing the names or numbers of parameters once the model is compiled</li>
+<li>But, several ways to change the values</li>
+</ul></li>
+</ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">code &lt;-<span class="st"> &#39;</span>
 <span class="st">$VCMT KYLE</span>
 <span class="st">$PARAM CL = 1.1, VC=23.1, KA=1.7, KM=10</span>
@@ -556,8 +562,7 @@ idata</code></pre></div>
 </div>
 <div id="topic-tgrid" class="section level2">
 <h2><span class="header-section-number">6.3</span> Time grid objects</h2>
-<div id="simulation-times-in-mrgsolve" class="section level3">
-<h3><span class="header-section-number">6.3.1</span> Simulation times in <code>mrgsolve</code></h3>
+<p><strong>Simulation times in <code>mrgsolve</code></strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span>mrgsolve:::<span class="kw">house</span>() %&gt;%<span class="st"> </span><span class="kw">Req</span>(CP) %&gt;%<span class="st"> </span><span class="kw">ev</span>(<span class="dt">amt=</span><span class="dv">1000</span>,<span class="dt">ii=</span><span class="dv">24</span>, <span class="dt">addl=</span><span class="dv">1000</span>) </code></pre></div>
 <p><code>mrgsolve</code> keeps track of a simulation <code>start</code> and <code>end</code> time and a fixed size step between <code>start</code> and <code>end</code> (called <code>delta</code>). <code>mrgsolve</code> also keeps an arbitrary vector of simulation times called <code>add</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%
@@ -571,9 +576,7 @@ idata</code></pre></div>
 . 5  1    7 36.75460
 . 6  1    9 33.26649
 . 7  1   50 60.97754</code></pre>
-</div>
-<div id="tgrid-objects" class="section level3">
-<h3><span class="header-section-number">6.3.2</span> <code>tgrid</code> objects</h3>
+<p><strong><code>tgrid</code> objects</strong></p>
 <p>The <code>tgrid</code> object abstracts this setup and allows us to make complicated sampling designs from elementary building blocks.</p>
 <p><strong>Make a day 1 sampling with intensive sampling around the peak and sparser otherwise</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">peak1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="fl">0.1</span>)
@@ -605,7 +608,6 @@ mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>des) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
 <p><img src="user-guide_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
-</div>
 </div>
 <div id="topic-designs" class="section level2">
 <h2><span class="header-section-number">6.4</span> Individualized sampling designs</h2>
