@@ -489,6 +489,6 @@ double j = floor(4.2);
 double k = ceil(4.2);
 ```
 
-## How to update `$OMEGA` and `$SIGMA` matrices
+## How to update `$OMEGA` and `$SIGMA` matrices {#topic-matrix-update}
 
 

@@ -198,7 +198,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.3" data-path="topics.html"><a href="topics.html#topic-tgrid"><i class="fa fa-check"></i><b>6.3</b> Time grid objects</a></li>
 <li class="chapter" data-level="6.4" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>6.4</b> Individualized sampling designs</a></li>
 <li class="chapter" data-level="6.5" data-path="topics.html"><a href="topics.html#some-helpful-c"><i class="fa fa-check"></i><b>6.5</b> Some helpful <code>C++</code></a></li>
-<li class="chapter" data-level="6.6" data-path="topics.html"><a href="topics.html#how-to-update-omega-and-sigma-matrices"><i class="fa fa-check"></i><b>6.6</b> How to update <code>$OMEGA</code> and <code>$SIGMA</code> matrices</a></li>
+<li class="chapter" data-level="6.6" data-path="topics.html"><a href="topics.html#topic-matrix-update"><i class="fa fa-check"></i><b>6.6</b> How to update <code>$OMEGA</code> and <code>$SIGMA</code> matrices</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>7</b> Installation</a><ul>
 <li class="chapter" data-level="7.1" data-path="install.html"><a href="install.html#installing-packages-in-r"><i class="fa fa-check"></i><b>7.1</b> Installing packages in <code>R</code></a></li>
@@ -644,11 +644,11 @@ $PKMODEL ncmt=<span class="dv">2</span>, depot=TRUE</code></pre></div>
 <pre><code>## 
 ## 
 ## -------- mrgsolve model object (unix) --------
-##   Project: /private/var/fol...dbsj0x4637ptj4hnd7kg900000gp/T/RtmpXLaZ73
+##   Project: /private/var/fol...dbsj0x4637ptj4hnd7kg900000gp/T/Rtmpwt2tSq
 ##   source:        nmxml.cpp
-##   shared object: dff24bc568d (loaded)
+##   shared object: ecc6b3ff2c6 (loaded)
 ## 
-##   compile date:  05/03 23:26
+##   compile date:  05/03 23:27
 ##   Time:          start: 0 end: 96 delta: 4
 ##   &gt;              add: &lt;none&gt;
 ##   &gt;              tscale: 1
@@ -789,7 +789,7 @@ $CAPTURE CP</code></pre></div>
 <li>There are two <code>$OMEGA</code> matrices; we name them <code>IIV</code> and <code>IOV</code></li>
 <li>The IIV “etas” are labeled as <code>ECL/EVC/EKA</code>; these are aliases to <code>ETA(1)/ETA(2)/ETA(3)</code>. The <code>IOV</code> matrix is unlabeled; we must refer to <code>ETA(4)/ETA(5)</code> for this</li>
 <li>Because <code>ETA(1)</code> and <code>ETA(2)</code> are labeled, we can “capture” them as <code>ECL</code> and <code>EVC</code></li>
-<li>We added zeros for both <code>$OMEGA</code> matrices; all the etas will be zero until we populate those matrices (section <a href="#topic-matrix-update"><strong>??</strong></a>)</li>
+<li>We added zeros for both <code>$OMEGA</code> matrices; all the etas will be zero until we populate those matrices (section <a href="topics.html#topic-matrix-update">6.6</a>)</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">$PARAM TVCL = <span class="fl">1.3</span>, TVVC=<span class="dv">28</span>, TVKA=<span class="fl">0.6</span>, WT=<span class="dv">70</span>, OCC=<span class="dv">1</span>
 
