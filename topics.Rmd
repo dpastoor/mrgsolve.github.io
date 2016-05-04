@@ -492,19 +492,19 @@ mod %>%
 
 ## Individualized sampling designs {#topic-designs}
 
-```{r}
+Here is a PopPK model and a full `data_set`.
 
+```{r}
 mod <- mrgsolve:::house()
 
-
-df <- expand.ev(ID=1:3, amt=c(50,100))
-
-df
-
 data(exTheoph)
-df <- exTheoph
-head(df)
 
+df <- exTheoph
+
+head(df)
+```
+
+```{r}
 out <- 
 mod %>% 
   Req(CP) %>%
@@ -512,15 +512,38 @@ mod %>%
   data_set(df) %>%
   obsaug %>%
   mrgsim 
+```
 
+Now, define two time grid objects: `des1` runs from 0 to 24 and `des2` runs from 0 to 96, both every hour.
+```{r}
 
-des1 <- tgrid(0,24,1, add=0.2)
+des1 <- tgrid(0,24,1)
 des2 <- tgrid(0,96,1)
 
+range(stime(des1))
+range(stime(des2))
+```
+
+Now, take the data set, derived a grouping column (`GRP`) and split the data set into two groups
+```{r}
 df %<>% mutate(GRP = as.integer(ID > 5))
+
 id <- df %>% distinct(ID) %>% select(ID,GRP)
 
+id
+```
 
+Now, we have two groups in `GRP` in `idata_set` and we have two `tgrid` objects.  
+
+* Pass in both the `idata_set` and the `data_set`
+* Call `design`
+    * Identify `GRP` as `descol`
+    * Pass in a list of designs; it must be at least two because there are two levels in `GRP
+    
+    
+When we simulate, the individuals in `GRP 1` will get `des1` and those in `GRP 2` will get `des2`
+
+```{r}
 out <- 
   mod %>% 
   Req(CP) %>%
@@ -533,6 +556,7 @@ out <-
 
 plot(out, CP~time|GRP)
 ```
+
 
 ## Some helpful `C++`
 
@@ -563,4 +587,4 @@ double k = ceil(4.2);
 
 ## How to update `$OMEGA` and `$SIGMA` matrices {#topic-matrix-update}
 
-
+Coming soon.

@@ -25,7 +25,7 @@
 
 <meta name="author" content="Metrum Research Group, LLC">
 
-<meta name="date" content="2016-05-03">
+<meta name="date" content="2016-05-04">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -674,21 +674,13 @@ mod %&gt;%<span class="st"> </span>
 </div>
 <div id="topic-designs" class="section level2">
 <h2><span class="header-section-number">6.4</span> Individualized sampling designs</h2>
+<p>Here is a PopPK model and a full <code>data_set</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span>mrgsolve:::<span class="kw">house</span>()
 
+<span class="kw">data</span>(exTheoph)
 
-df &lt;-<span class="st"> </span><span class="kw">expand.ev</span>(<span class="dt">ID=</span><span class="dv">1</span>:<span class="dv">3</span>, <span class="dt">amt=</span><span class="kw">c</span>(<span class="dv">50</span>,<span class="dv">100</span>))
-
-df</code></pre></div>
-<pre><code>.   ID amt evid cmt time
-. 1  1  50    1   1    0
-. 2  2  50    1   1    0
-. 3  3  50    1   1    0
-. 4  4 100    1   1    0
-. 5  5 100    1   1    0
-. 6  6 100    1   1    0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(exTheoph)
 df &lt;-<span class="st"> </span>exTheoph
+
 <span class="kw">head</span>(df)</code></pre></div>
 <pre><code>.   ID   WT Dose time  conc cmt  amt evid
 . 1  1 79.6 4.02 0.00  0.00   1 4.02    1
@@ -703,17 +695,45 @@ mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">carry.out</span>(a.u.g) %&gt;%
 <span class="st">  </span><span class="kw">data_set</span>(df) %&gt;%
 <span class="st">  </span>obsaug %&gt;%
-<span class="st">  </span>mrgsim 
-
-
-des1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>, <span class="dt">add=</span><span class="fl">0.2</span>)
+<span class="st">  </span>mrgsim </code></pre></div>
+<p>Now, define two time grid objects: <code>des1</code> runs from 0 to 24 and <code>des2</code> runs from 0 to 96, both every hour.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">des1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>)
 des2 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class="dv">0</span>,<span class="dv">96</span>,<span class="dv">1</span>)
 
-df %&lt;&gt;%<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">GRP =</span> <span class="kw">as.integer</span>(ID &gt;<span class="st"> </span><span class="dv">5</span>))
+<span class="kw">range</span>(<span class="kw">stime</span>(des1))</code></pre></div>
+<pre><code>. [1]  0 24</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">range</span>(<span class="kw">stime</span>(des2))</code></pre></div>
+<pre><code>. [1]  0 96</code></pre>
+<p>Now, take the data set, derived a grouping column (<code>GRP</code>) and split the data set into two groups</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df %&lt;&gt;%<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">GRP =</span> <span class="kw">as.integer</span>(ID &gt;<span class="st"> </span><span class="dv">5</span>))
+
 id &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span><span class="kw">distinct</span>(ID) %&gt;%<span class="st"> </span><span class="kw">select</span>(ID,GRP)
 
-
-out &lt;-<span class="st"> </span>
+id</code></pre></div>
+<pre><code>.    ID GRP
+. 1   1   0
+. 2   2   0
+. 3   3   0
+. 4   4   0
+. 5   5   0
+. 6   6   1
+. 7   7   1
+. 8   8   1
+. 9   9   1
+. 10 10   1
+. 11 11   1
+. 12 12   1</code></pre>
+<p>Now, we have two groups in <code>GRP</code> in <code>idata_set</code> and we have two <code>tgrid</code> objects.</p>
+<ul>
+<li>Pass in both the <code>idata_set</code> and the <code>data_set</code></li>
+<li>Call <code>design</code>
+<ul>
+<li>Identify <code>GRP</code> as <code>descol</code></li>
+<li>Pass in a list of designs; it must be at least two because there are two levels in `GRP</li>
+</ul></li>
+</ul>
+<p>When we simulate, the individuals in <code>GRP 1</code> will get <code>des1</code> and those in <code>GRP 2</code> will get <code>des2</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span>
 <span class="st">  </span>mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">Req</span>(CP) %&gt;%
 <span class="st">  </span><span class="kw">carry.out</span>(a.u.g,GRP) %&gt;%
@@ -724,7 +744,7 @@ out &lt;-<span class="st"> </span>
 <span class="st">  </span>mrgsim 
 
 <span class="kw">plot</span>(out, CP~time|GRP)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 </div>
 <div id="some-helpful-c" class="section level2">
 <h2><span class="header-section-number">6.5</span> Some helpful <code>C++</code></h2>
@@ -753,6 +773,7 @@ out &lt;-<span class="st"> </span>
 </div>
 <div id="topic-matrix-update" class="section level2">
 <h2><span class="header-section-number">6.6</span> How to update <code>$OMEGA</code> and <code>$SIGMA</code> matrices</h2>
+<p>Coming soon.</p>
 
 </div>
 </div>
