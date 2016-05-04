@@ -184,6 +184,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.3.14" data-path="model-specification.html"><a href="model-specification.html#block-nmxml"><i class="fa fa-check"></i><b>4.3.14</b> <code>$NMXML</code>  </a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="model-specification.html"><a href="model-specification.html#new-variables"><i class="fa fa-check"></i><b>4.4</b> Derive new variables</a></li>
+<li class="chapter" data-level="4.5" data-path="model-specification.html"><a href="model-specification.html#examples"><i class="fa fa-check"></i><b>4.5</b> Examples</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="model-specification.html"><a href="model-specification.html#simple-pk-model"><i class="fa fa-check"></i><b>4.5.1</b> Simple PK model</a></li>
+<li class="chapter" data-level="4.5.2" data-path="model-specification.html"><a href="model-specification.html#pkpd-model"><i class="fa fa-check"></i><b>4.5.2</b> PK/PD model</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="input-data-sets.html"><a href="input-data-sets.html"><i class="fa fa-check"></i><b>5</b> Input data sets</a><ul>
 <li class="chapter" data-level="5.1" data-path="input-data-sets.html"><a href="input-data-sets.html#datasets"><i class="fa fa-check"></i><b>5.1</b> Overview</a></li>
@@ -214,6 +218,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.3.2" data-path="topics.html"><a href="topics.html#tgrid-objects"><i class="fa fa-check"></i><b>7.3.2</b> <code>tgrid</code> objects</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>7.4</b> Individualized sampling designs</a></li>
+<li class="chapter" data-level="7.5" data-path="topics.html"><a href="topics.html#some-helpful-c"><i class="fa fa-check"></i><b>7.5</b> Some helpful <code>C++</code></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -248,14 +253,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">3.1.1</span> Central role of parameters in planning simulations</h3>
 <p>The data items in the parameter list are more than just values associated with a name. When an name is added to the parameter list, that name becomes a key word that <code>mrgsolve</code> will start to recognize in input data sets or when manipulting the model object.</p>
 <p>For example, when you want to include a covariate in the model, say weight (<code>WT</code>), you’ll include a column in the data set called <code>WT</code> that will indicate the weight of this or that patient. It is crutial that you also list <code>WT</code> in <code>$PARAM</code> with some default value. It helps if that value is sensible too. When <code>mrgsolve</code> receives the data set prior to simulating, the <code>WT</code> column is matched up with the <code>WT</code> parameter name. As <code>mrgsolve</code> works its way through the input data set (from person to person or from time to time), the value of <code>WT</code> is updated so that the symbol <code>WT</code> in <code>$MAIN</code> or <code>$ODE</code> or <code>$TABLE</code> always points to the value of <code>WT</code>. If the <code>WT</code> name is not in the parameter list, it won’t matter if it is in the data set or not. Only listing a name in <code>$PARAM</code> gets it “into the game”.</p>
-<p>Understanding the parameter update mechanism is very important for planning complicated simulations with <code>mrgsolve</code>. Please review the information in <a href="input-data-sets.html#datasets">5.1</a> and in <a href="topics.html#topic-parameter-update">7.2</a>.</p>
+<p>Understanding the parameter update mechanism is very important for planning complicated simulations with <code>mrgsolve</code>. Please see the information in <a href="input-data-sets.html#datasets">5.1</a> and in <a href="topics.html#topic-parameter-update">7.2</a>.</p>
 </div>
 </div>
 <div id="component-init" class="section level2">
 <h2><span class="header-section-number">3.2</span> Compartment list</h2>
 <p>Like the parameter list, the compartment list is a series of name-value pairs. The compartment list defines the number, names, and initial values of each compartment in the model. The names, numbers, and order of the compartment in a model is established at the time of model compile and changes to the compartment list require re-compilation of the model.</p>
 <p>Compartments are declared in one of two code blocks: <code>$INIT</code> and <code>$CMT</code>. Nominal initial values must be supplied for each compartment. The main difference between <code>$INIT</code> and <code>$CMT</code> is that <code>$CMT</code> assumes a default initial value of 0 for each compartment; thus only compartment names are entered. When using <code>$INIT</code>, both names and values must be explicitly stated for each compartment.</p>
-<p>The initial values for each compartment can be queried with the <code>init()</code> function. There are several different ways to set the initial conditions in a model.</p>
+<p>The initial values for each compartment can be queried with the <code>init()</code> function. There are several different ways to set the initial conditions in a model; section <a href="topics.html#topic-init">7.1</a> illustrates several of these..</p>
 <p>See also: section <a href="topics.html#topic-init">7.1</a> and <code>?init</code> in the <code>R</code> help system after loading <code>mrgsolve</code>.</p>
 </div>
 <div id="component-stime" class="section level2">

@@ -630,7 +630,71 @@ localdouble CLi = TVCL*exp(ETA(1));
 ```
 
 
+## Examples
+The following sections show example model specification.  The intention is to show how the different blocks, macros and variables can work together to make a functional model.  Some models are given purely for illustrative purpose and may not be particularly useful in application.
 
+### Simple PK model
+
+Notes:
+
+* Basic PK parameters are declared in `$PARAM`
+* Two compartments `GUT` and `CENT` are declared in `$CMT`; using `$CMT` assumes that both compartments start with 0 mass
+* Because we declared `GUT` and `CENT` as compartments, we write `dxdt_` equations for both in `$ODE`
+* In `$ODE`, we refer to parameters (`CL/VC/KA`) and the amounts in each compartment at any particular time (`GUT` and `CENT`)
+* `$ODE` should be `C++` code; each line ends in `;`
+* The `table()` macro is used in `$TABLE` to insert the concentration in the central compartment `CENT/VC` into the simulated output
+
+```{c, eval=FALSE}
+$PARAM CL = 1, VC = 30, KA = 1.3
+
+$CMT GUT CENT
+
+$ODE
+
+dxdt_GUT = -KA*GUT;
+dxdt_CENT = KA*GUT - (CL/VC)*CENT;
+
+$TABLE
+table(CP) = CENT/VC;
+
+```
+
+
+### PK/PD model
+
+Notes:
+
+* We use a preprocessor `#define` directive in `$GLOBAL`; everywhere in the model where a `CP` token is found, the expression `(CENT/VC)` ... with parentheses ... is inserted
+* We write the initial value for the `RESP` compartment in `$MAIN` as a funciton of two parameters `KIN/KOUT`
+* A new variable - `INH`- is declared and used in `$ODE`
+* Since `CP` is defined as `CENT/VC`, we can "capture" that name/value in `$CAPTURE`; this is short-cut syntax for `table(CP) = CP;` in `$TABLE`
+* Both `$MAIN` and `$ODE` are `C++` code blocks; don't forget to add the `;` at the end of each statement
+
+```{c, eval=FALSE}
+$PARAM CL = 1, VC = 30, KA = 1.3
+KIN = 100, KOUT = 2, IC50 = 2
+
+$GLOBAL
+#define CP (CENT/VC)
+
+
+$CMT GUT CENT RESP
+
+$MAIN
+RESP_0 = KIN/KOUT;
+
+$ODE
+
+double INH = CP/(IC50+CP);
+
+dxdt_GUT = -KA*GUT;
+dxdt_CENT = KA*GUT - (CL/VC)*CENT;
+dxdt_RESP = KIN*(1-INH) - KOUT*CENT;
+
+
+$CAPTURE CP
+
+```
 
 
 

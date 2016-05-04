@@ -315,3 +315,30 @@ out <-
 
 plot(out, CP~time|GRP)
 ```
+
+## Some helpful `C++`
+
+```{c,eval=FALSE}
+
+// If
+if(a == 2) b = 2;
+
+// If else
+if(b <= 2) {
+  c=3;
+} else {
+  c=4;
+}
+
+// x <- ifelse(c == 4, 8, 10)
+double x = c == 4 ? 8 : 10;
+
+double d = pow(base,exponent);
+double e = exp(3);
+double f = fabs(-4);
+double g = sqrt(5);
+double h = log(6);
+double i = log10(7);
+double j = floor(4.2);
+double k = ceil(4.2);
+```
