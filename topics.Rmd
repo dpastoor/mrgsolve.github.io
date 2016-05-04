@@ -196,6 +196,144 @@ plot(out, CENT~.)
 
 ## Updating parameters {#topic-parameter-update}
 
+__Base parameter set__
+* Every model has a base set of "parameters"
+* These are named and set in `$PARAM`
+* Parameters can only get into the parameter list in `$PARAM` (or `$THETA`)
+    * No changing the names or numbers of parameters once the model is compiled
+    * But, several ways to change the values
+
+```{r,message=FALSE}
+code <- '
+$VCMT KYLE
+$PARAM CL = 1.1, VC=23.1, KA=1.7, KM=10
+$CAPTURE CL VC KA KM
+'
+mod <- mread("tmp", tempdir(), code, warn=FALSE)
+```
+
+```{r}
+param(mod)
+```
+
+__The base parameter set is the default__
+The base parameter set allows you to run the model without entering any other data; there are some default values in place.  
+
+The parameters can be changed or updated in `R`:
+```{r}
+mod %<>% param(CL=2.1)
+```
+
+```{r}
+param(mod)
+```
+But whatever you've done in `R` there that base set (with values) are there to use. 
+
+
+__Parameters can also be updated during the simulation run__
+
+* Parameters can be updated via `idata` set or `data` set
+* No changing values in the base parameter set once the simulation starts.
+
+* `mrgsolve` always reverts to the base parameter set when starting work on a new individual.
+
+__Parameters found in `idata`__
+
+When `mrgsolve` finds parameters in `idata`, it will update the base parameter list with those parameters prior to starting that individual.
+
+```{r}
+data(exidata)
+head(exidata)
+```
+
+
+```{r}
+out <- mod %>%
+  idata_set(exidata) %>%
+  mrgsim(end=-1 , add=c(0,2))
+```
+
+```{r}
+out
+```
+
+__Parameters found in `data`__
+Like an `idata` set, we can put parameters on a `data` set
+
+```{r}
+data <- expand.ev(amt=0, CL=c(1,2,3), VC=30)
+```
+
+```{r}
+out <- mod %>%
+  data_set(data) %>% 
+  obsonly %>%
+  mrgsim(end=-1, add=c(0,2))
+```
+```{r}
+out
+```
+
+This is how we do time-varying parameters:
+```{r}
+data <- data_frame(CL=seq(1,5)) %>%
+  mutate(evid=0,ID=1,cmt=1,time=CL-1,amt=0)
+```
+
+```{r}
+mod %>%
+  data_set(data) %>%
+  mrgsim(end=-1)
+```
+
+
+
+__Parameters are carried back when first record isn't at `time == 0`s__
+
+What about this?
+
+```{r}
+data <- expand.ev(amt=100,time=24,CL=5,VC=32)
+data
+```
+
+The first `data` record happens at `time==24`
+
+```{r}
+mod %>% 
+  data_set(data) %>%
+  mrgsim(end=-1, add=c(0,2))
+```
+
+Since the data set doesn't start until `time==5`, we might think that `CL` doesn't change from the base parameter set until then.  
+
+But by default, `mrgsolve` carries those parameter values back to the start of the simulation.  This is by design ... by far the more useful configuration.
+
+If you wanted the base parameter set in play until that first data set record, do this:
+
+```{r}
+mod %>%
+  data_set(data) %>%
+  mrgsim(end=-1,add=c(0,2), filbak=FALSE)
+```
+
+Will this work? 
+
+```{r}
+
+idata <- do.call("expand.idata", as.list(param(mod)))
+
+idata
+
+mod %>%
+  data_set(data) %>%
+  idata_set(idata) %>%
+  mrgsim(end=-1,add=c(0,2))
+```
+
+The data set always gets the last word.
+
+
 
 ## Time grid objects {#topic-tgrid}
 
