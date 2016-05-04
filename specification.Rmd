@@ -696,8 +696,49 @@ $CAPTURE CP
 
 ```
 
+### Population PK model with covariates and IOV
+
+Notes:
+
+* Use `$SET` to set the simulation time grid from 0 to 240 by 0.1
+* There are two `$OMEGA` matrices; we name them `IIV` and `IOV`
+* The IIV "etas" are labeled as `ECL/EVC/EKA`; these are aliases to `ETA(1)/ETA(2)/ETA(3)`.  The `IOV` matrix is unlabeled; we must refer to `ETA(4)/ETA(5)` for this
+* Because `ETA(1)` and `ETA(2)` are labeled, we can "capture" them as `ECL` and `EVC`
 
 
+```{r}
+$PARAM TVCL = 1.3, TVVC=28, TVKA=0.6, WT=70, OCC=1
+
+$SET delta=0.1, end=240
+
+$CMT GUT CENT
+
+$MAIN
+
+double IOV = ETA(4);
+if(OCC==2) IOV = ETA(5);
+
+double CLi = exp(log(TVCL) + 0.75*log(WT/70) + ECL + IOV);
+double VCi = exp(log(TVVC) + EVC;
+double KAi = exp(log(TVKA) + EKA;
+
+$OMEGA name="IIV"
+labels=s(ECL,EVC,EKA)
+0 0 0
+$OMEGA name="IOV"
+0 0
+
+$SIGMA 0
+
+$ODE
+dxdt_GUT = -KAi*GUT;
+dxdt_CENT = KAi*GUT - (CLi/VCi)*CENT;
+
+$TABLE
+table(CP) = CENT/VCi;
+
+$CAPTURE IOV ECL EVC
+```
 
 
 
