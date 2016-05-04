@@ -646,11 +646,11 @@ $PKMODEL ncmt=<span class="dv">2</span>, depot=TRUE</code></pre></div>
 <pre><code>## 
 ## 
 ## -------- mrgsolve model object (unix) --------
-##   Project: /private/var/fol...dbsj0x4637ptj4hnd7kg900000gp/T/RtmpjK4qy2
+##   Project: /private/var/fol...dbsj0x4637ptj4hnd7kg900000gp/T/Rtmp8r9bsn
 ##   source:        nmxml.cpp
-##   shared object: 4ff492a1093 (loaded)
+##   shared object: 5a069e4b2a3 (loaded)
 ## 
-##   compile date:  05/03 22:37
+##   compile date:  05/03 22:38
 ##   Time:          start: 0 end: 96 delta: 4
 ##   &gt;              add: &lt;none&gt;
 ##   &gt;              tscale: 1
@@ -731,7 +731,7 @@ localdouble CLi = TVCL*exp(ETA(<span class="dv">1</span>));</code></pre></div>
 <h3><span class="header-section-number">4.5.1</span> Simple PK model</h3>
 <p>Notes:</p>
 <ul>
-<li>Basic PK parameters are declared in <code>$PARAM</code></li>
+<li>Basic PK parameters are declared in <code>$PARAM</code>; every parameter needs to be assigned a value</li>
 <li>Two compartments <code>GUT</code> and <code>CENT</code> are declared in <code>$CMT</code>; using <code>$CMT</code> assumes that both compartments start with 0 mass</li>
 <li>Because we declared <code>GUT</code> and <code>CENT</code> as compartments, we write <code>dxdt_</code> equations for both in <code>$ODE</code></li>
 <li>In <code>$ODE</code>, we refer to parameters (<code>CL/VC/KA</code>) and the amounts in each compartment at any particular time (<code>GUT</code> and <code>CENT</code>)</li>

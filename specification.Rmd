@@ -637,7 +637,7 @@ The following sections show example model specification.  The intention is to sh
 
 Notes:
 
-* Basic PK parameters are declared in `$PARAM`
+* Basic PK parameters are declared in `$PARAM`; every parameter needs to be assigned a value
 * Two compartments `GUT` and `CENT` are declared in `$CMT`; using `$CMT` assumes that both compartments start with 0 mass
 * Because we declared `GUT` and `CENT` as compartments, we write `dxdt_` equations for both in `$ODE`
 * In `$ODE`, we refer to parameters (`CL/VC/KA`) and the amounts in each compartment at any particular time (`GUT` and `CENT`)
