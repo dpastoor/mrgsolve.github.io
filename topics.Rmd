@@ -505,7 +505,6 @@ head(df)
 ```
 
 ```{r}
-out <- 
 mod %>% 
   Req(CP) %>%
   carry.out(a.u.g) %>%
