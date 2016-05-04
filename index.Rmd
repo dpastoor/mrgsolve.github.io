@@ -18,6 +18,8 @@ description: "A guide to using mrgsolve."
 
 This user guide is currently under development and should be considered __DRAFT__.  
 
+See section \@ref(install) for help installing `mrgsolve`.
+
 For more information: http://www.github.com/metrumresearchgroup/mrgsolve
 
 

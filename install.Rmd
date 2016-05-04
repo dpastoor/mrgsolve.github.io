@@ -1,4 +1,4 @@
-# Installation
+# Installation {#install}
 
 ## Installing packages in `R`
 See https://cran.r-project.org/web/packages/ or `R> help("INSTALL")` or `R> help("install.packages")` for help.
