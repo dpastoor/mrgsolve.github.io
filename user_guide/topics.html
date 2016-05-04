@@ -194,7 +194,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.1.4" data-path="topics.html"><a href="topics.html#remember-calling-init-will-let-you-check-to-see-what-is-going-on"><i class="fa fa-check"></i><b>6.1.4</b> Remember: calling <code>init</code> will let you check to see what is going on</a></li>
 <li class="chapter" data-level="6.1.5" data-path="topics.html"><a href="topics.html#set-initial-conditions-via-idata"><i class="fa fa-check"></i><b>6.1.5</b> Set initial conditions via <code>idata</code></a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="topics.html"><a href="topics.html#topic-parameter-update"><i class="fa fa-check"></i><b>6.2</b> Updating parameters</a></li>
+<li class="chapter" data-level="6.2" data-path="topics.html"><a href="topics.html#topic-parameter-update"><i class="fa fa-check"></i><b>6.2</b> Updating parameters</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="topics.html"><a href="topics.html#parameter-update-hierarchy"><i class="fa fa-check"></i><b>6.2.1</b> Parameter update hierarchy</a></li>
+</ul></li>
 <li class="chapter" data-level="6.3" data-path="topics.html"><a href="topics.html#topic-tgrid"><i class="fa fa-check"></i><b>6.3</b> Time grid objects</a></li>
 <li class="chapter" data-level="6.4" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>6.4</b> Individualized sampling designs</a></li>
 <li class="chapter" data-level="6.5" data-path="topics.html"><a href="topics.html#some-helpful-c"><i class="fa fa-check"></i><b>6.5</b> Some helpful <code>C++</code></a></li>
@@ -408,6 +410,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="topic-parameter-update" class="section level2">
 <h2><span class="header-section-number">6.2</span> Updating parameters</h2>
+<p>The parameter list was introduced in section <a href="model-components.html#component-param">2.1</a> and the <code>$PARAM</code> code block was shown in <a href="model-specification.html#block-param">3.3.1</a>.</p>
+<div id="parameter-update-hierarchy" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Parameter update hierarchy</h3>
 <p><strong>Base parameter set</strong></p>
 <ul>
 <li>Every model has a base set of “parameters”</li>
@@ -521,7 +526,7 @@ $MAIN CL = <span class="dv">3</span>; <span class="co">// ERROR</span></code></p
 . [3,]  1    2    0  3 1.7 10 23.1
 . [4,]  1    3    0  4 1.7 10 23.1
 . [5,]  1    4    0  5 1.7 10 23.1</code></pre>
-<p><strong>Parameters are carried back when first record isn’t at `time == 0</strong></p>
+<p><strong>Parameters are carried back when first record isn’t at <code>time == 0</code></strong></p>
 <p>What about this?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">expand.ev</span>(<span class="dt">amt=</span><span class="dv">100</span>,<span class="dt">time=</span><span class="dv">24</span>,<span class="dt">CL=</span><span class="dv">5</span>,<span class="dt">VC=</span><span class="dv">32</span>)
 data</code></pre></div>
@@ -573,6 +578,7 @@ idata</code></pre></div>
 . [2,]  1    2    0  5 1.7 10 32
 . [3,]  1   24  100  5 1.7 10 32</code></pre>
 <p>The data set always gets the last word.</p>
+</div>
 </div>
 <div id="topic-tgrid" class="section level2">
 <h2><span class="header-section-number">6.3</span> Time grid objects</h2>

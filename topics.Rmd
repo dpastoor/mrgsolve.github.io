@@ -196,6 +196,10 @@ plot(out, CENT~.)
 
 ## Updating parameters {#topic-parameter-update}
 
+The parameter list was introduced in section \@ref(component-param) and the `$PARAM` code block was shown in \@ref(block-param).
+
+### Parameter update hierarchy
+
 __Base parameter set__
 
 * Every model has a base set of "parameters"
@@ -313,7 +317,7 @@ mod %>%
 
 
 
-__Parameters are carried back when first record isn't at `time == 0__
+__Parameters are carried back when first record isn't at `time == 0`__
 
 What about this?
 
