@@ -368,6 +368,46 @@ mod %>%
 The data set always gets the last word.
 
 
+### Updating the base parameter list
+
+From the previous section
+```{r}
+param(mod)
+```
+
+__Update with `name-value` pairs__
+
+We can call `param()` to update the model object, directly naming the parameter to update and the new value to take
+
+```{r}
+mod %>% param(CL = 777, KM = 999) %>% param
+```
+
+The parameter list can also be updated by scanning the names in a list
+
+```{r}
+what <- list(CL = 555, VC = 888, KYLE = 123, MN = 100)
+
+mod %>% param(what) %>% param
+```
+
+`mrgsolve` looks at the names to drive the update.  `KYLE` (a compartment name) and `MN` (not in the model anywhere) are ignored.
+
+Alternatively, we can pick a row from a data frame to provide the input for the update
+```{r}
+d <- data_frame(CL=c(9,10), VC=c(11,12), KTB=c(13,14))
+
+mod %>% param(d[2,]) %>% param
+
+```
+
+Here the second row in the data frame drives the update.  Other names are ignored.  
+
+A warning will be issued if an update is attempted, but no matching names are found
+```{r}
+mod %>% param(ZIP = 1, CODE = 2) %>% param
+```
+
 
 ## Time grid objects {#topic-tgrid}
 

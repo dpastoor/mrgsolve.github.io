@@ -196,6 +196,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="topics.html"><a href="topics.html#topic-parameter-update"><i class="fa fa-check"></i><b>6.2</b> Updating parameters</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="topics.html"><a href="topics.html#parameter-update-hierarchy"><i class="fa fa-check"></i><b>6.2.1</b> Parameter update hierarchy</a></li>
+<li class="chapter" data-level="6.2.2" data-path="topics.html"><a href="topics.html#updating-the-base-parameter-list"><i class="fa fa-check"></i><b>6.2.2</b> Updating the base parameter list</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="topics.html"><a href="topics.html#topic-tgrid"><i class="fa fa-check"></i><b>6.3</b> Time grid objects</a></li>
 <li class="chapter" data-level="6.4" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>6.4</b> Individualized sampling designs</a></li>
@@ -579,6 +580,51 @@ idata</code></pre></div>
 . [3,]  1   24  100  5 1.7 10 32</code></pre>
 <p>The data set always gets the last word.</p>
 </div>
+<div id="updating-the-base-parameter-list" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Updating the base parameter list</h3>
+<p>From the previous section</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">param</span>(mod)</code></pre></div>
+<pre><code>. 
+.  Model parameters (N=4):
+.  name value . name value
+.  CL   2.1   | KM   10   
+.  KA   1.7   | VC   23.1</code></pre>
+<p><strong>Update with <code>name-value</code> pairs</strong></p>
+<p>We can call <code>param()</code> to update the model object, directly naming the parameter to update and the new value to take</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span><span class="kw">param</span>(<span class="dt">CL =</span> <span class="dv">777</span>, <span class="dt">KM =</span> <span class="dv">999</span>) %&gt;%<span class="st"> </span>param</code></pre></div>
+<pre><code>. 
+.  Model parameters (N=4):
+.  name value . name value
+.  CL   777   | KM   999  
+.  KA   1.7   | VC   23.1</code></pre>
+<p>The parameter list can also be updated by scanning the names in a list</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">what &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">CL =</span> <span class="dv">555</span>, <span class="dt">VC =</span> <span class="dv">888</span>, <span class="dt">KYLE =</span> <span class="dv">123</span>, <span class="dt">MN =</span> <span class="dv">100</span>)
+
+mod %&gt;%<span class="st"> </span><span class="kw">param</span>(what) %&gt;%<span class="st"> </span>param</code></pre></div>
+<pre><code>. 
+.  Model parameters (N=4):
+.  name value . name value
+.  CL   555   | KM   10   
+.  KA   1.7   | VC   888</code></pre>
+<p><code>mrgsolve</code> looks at the names to drive the update. <code>KYLE</code> (a compartment name) and <code>MN</code> (not in the model anywhere) are ignored.</p>
+<p>Alternatively, we can pick a row from a data frame to provide the input for the update</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">CL=</span><span class="kw">c</span>(<span class="dv">9</span>,<span class="dv">10</span>), <span class="dt">VC=</span><span class="kw">c</span>(<span class="dv">11</span>,<span class="dv">12</span>), <span class="dt">KTB=</span><span class="kw">c</span>(<span class="dv">13</span>,<span class="dv">14</span>))
+
+mod %&gt;%<span class="st"> </span><span class="kw">param</span>(d[<span class="dv">2</span>,]) %&gt;%<span class="st"> </span>param</code></pre></div>
+<pre><code>. 
+.  Model parameters (N=4):
+.  name value . name value
+.  CL   10    | KM   10   
+.  KA   1.7   | VC   12</code></pre>
+<p>Here the second row in the data frame drives the update. Other names are ignored.</p>
+<p>A warning will be issued if an update is attempted, but no matching names are found</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span><span class="kw">param</span>(<span class="dt">ZIP =</span> <span class="dv">1</span>, <span class="dt">CODE =</span> <span class="dv">2</span>) %&gt;%<span class="st"> </span>param</code></pre></div>
+<pre><code>. 
+.  Model parameters (N=4):
+.  name value . name value
+.  CL   2.1   | KM   10   
+.  KA   1.7   | VC   23.1</code></pre>
+</div>
 </div>
 <div id="topic-tgrid" class="section level2">
 <h2><span class="header-section-number">6.3</span> Time grid objects</h2>
@@ -612,7 +658,7 @@ sparse1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class=
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>day1) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 <p><strong>Now, look at both day 1 and day 10</strong>:</p>
 <p>Adding a number to a <code>tgrid</code> object will offset those times by that amount.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">des &lt;-<span class="st"> </span><span class="kw">c</span>(day1, day1<span class="dv">+10</span>*<span class="dv">24</span>)
@@ -620,14 +666,14 @@ sparse1 &lt;-<span class="st"> </span><span class="kw">tgrid</span>(<span class=
 mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>des) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <p>Pick up day 5 as well</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">des &lt;-<span class="st"> </span><span class="kw">c</span>(des, day1<span class="dv">+5</span>*<span class="dv">24</span>)
 
 mod %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mrgsim</span>(<span class="dt">tgrid=</span>des) %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">type=</span><span class="st">&#39;b&#39;</span>)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
 </div>
 <div id="topic-designs" class="section level2">
 <h2><span class="header-section-number">6.4</span> Individualized sampling designs</h2>
@@ -681,7 +727,7 @@ out &lt;-<span class="st"> </span>
 <span class="st">  </span>mrgsim 
 
 <span class="kw">plot</span>(out, CP~time|GRP)</code></pre></div>
-<p><img src="user-guide_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<p><img src="user-guide_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
 </div>
 <div id="some-helpful-c" class="section level2">
 <h2><span class="header-section-number">6.5</span> Some helpful <code>C++</code></h2>
