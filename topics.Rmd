@@ -198,6 +198,13 @@ plot(out, CENT~.)
 
 The parameter list was introduced in section \@ref(component-param) and the `$PARAM` code block was shown in \@ref(block-param).
 
+As an overview:  parameters may be updated either by the user (in `R`) or by `mrgsolve` (in the `C++` simulation engine, as the simulation proceeds). 
+
+* To update in `R`, use the `param()` function (see examples below)
+* To have `mrgsolve` update the parameters, attach columns to your data set (either `data_set` or `idata_set`) with the same name as items in the parameter list
+
+Both of these methods are discussed and illustrated in the following sections.
+
 ### Parameter update hierarchy
 
 __Base parameter set__
@@ -236,8 +243,7 @@ mod %<>% param(CL=2.1)
 ```{r}
 param(mod)
 ```
-But whatever you've done in `R`, there is a base set (with values) to use. 
-
+But whatever you've done in `R`, there is a base set (with values) to use. See section \@ref(topic-parameter-update-base) for a more detailed discussion of using `param()` to updated the base list.
 
 __Parameters can also be updated during the simulation run__
 
@@ -368,7 +374,7 @@ mod %>%
 The data set always gets the last word.
 
 
-### Updating the base parameter list
+### Updating the base parameter list {#topic-parameter-update-base}
 
 From the previous section
 ```{r}
@@ -584,6 +590,170 @@ double j = floor(4.2);
 double k = ceil(4.2);
 ```
 
-## How to update `$OMEGA` and `$SIGMA` matrices {#topic-matrix-update}
+## Updating `$OMEGA` and `$SIGMA` \  {#topic-matrix-update}
 
-Coming soon.
+Like the values of parameters in the parameter list, we may want to update the 
+values in `$OMEGA` and `$SIGMA` matrices.  We can do so without re-compiling the 
+model.
+
+### Matrix helper functions
+
+`mrgsolve` keeps `$OMEGA` and `$SIGMA` in block matrices (regardless of whether the off-diagonal elements are zeros or not).  Recall that in the model specification file
+we can enter data for `$OMEGA` and `$SIGMA` as the lower triangle of the matrix (see section \@ref(block-omega)).  In `R`, we need to provide a matrix (as an `R` object).  `mrgsolve` provides some convenience functions to help ... allowing the user to enter lower diagonals instead of the full matrix. 
+
+
+`dmat()` for diagonal matrix
+```{r}
+dmat(1,2,3)
+```
+
+`bmat()` for block matrix
+```{r}
+dmat(1,2,3)
+```
+
+`cmat()` for a block matrix where the diagonal elements are variances and the off-diagonals are taken to be correlations, not covariances
+```{r}
+cmat(0.1, 0.87,0.3)
+```
+`mrgsolve` will convert the correlations to covariances. 
+
+
+`mrgsolve` also provides `as_bmat()` and `as_dmat()` for converting other `R` objects to matrices or lists of matrices.  
+
+Consider this list with named elements holding the data for a matrix:
+```{r}
+m <- list(OMEGA1.1 = 0.9, OMEGA2.1 = 0.3, OMEGA2.2 = 0.4)
+```
+
+These data could form either a 3x3 diagonal matrix or a 2x2 block matrix.  But the names suggest a 2x2 form.  `as_bmat()` can make the matrix like this
+
+```{r}
+as_bmat(m, "OMEGA")
+```
+
+The second argument is a regular expression that `mrgsolve` uses to find elements in the list to use for building the matrix.
+
+Frequently, we have estimates in a data frame like this
+```{r}
+data(exBoot)
+head(exBoot)
+```
+
+We can use `as_bmat()` with this data frame to extract the `$OMEGA` matrices
+```{r}
+omegas <- as_bmat(exBoot, "OMEGA")
+length(omegas)
+dim(exBoot)
+
+omegas[[6]]
+
+omegas[[16]]
+```
+
+The result is a list of matrices, one for each row in the data frame.
+
+Note in this example, we could have called
+```{r,eval=FALSE}
+sigmas <- as_bmat(exBoot,"SIGMA") 
+```
+to grab the `$SIGMA` matrices.
+
+
+For help on these helper functions, see `?dmat`, `?bmat`, `?cmat`, `?as_bmat`, `?as_dmat` in the `R` help system after loading `mrgsolve`.
+
+
+### Example: unnamed matrix
+Here is a model with only a 3x3 `$OMEGA` matrix
+```{r}
+code <- '
+$OMEGA
+1 2 3
+'
+
+mod <- mcode("matrix", code)
+```
+
+Let's check the values in the matrix using `omat()`
+```{r}
+mod %>% omat
+```
+
+We also use `omat()` to update the values in the matrix.  
+
+```{r}
+mod %>% omat(dmat(4,5,6)) %>% omat
+```
+
+To update `$OMEGA`, we must provide a matrix of the same dimension, in this case 3x3. An error is generated if we provide a matrix with the wrong dimension.
+
+```{r}
+ans <- try(mod %>% omat(dmat(11,23)))
+
+ans
+```
+
+### Example: named matrices
+When there are multiple `$OMEGA` matrices, it can be helpful to assign them names.  Here, there are two matrices: one for interindividual variability (`IIV`) and one for interoccasion variability (`IOV`). 
+
+```{r}
+code <- '
+$OMEGA name="IIV"
+1 2 3
+$OMEGA name="IOV"
+4 5
+'
+mod <- mcode("iov", code)
+
+revar(mod)
+```
+
+Now, we can update either `IIV` or `IOV` (or both) by name
+
+```{r}
+mod %>% 
+  omat(IOV = dmat(11,12), IIV = dmat(13,14,15)) %>% 
+  omat
+```
+
+Again, an error is generated if we try to assign a 3x3 matrix to the `IOV` position
+```{r}
+ans <- try(mod %>% omat(IIV=dmat(1,2)))
+ans
+```
+
+
+
+### Example: unnamed matrices
+If we do write the model with unnamed matrices, we can still update them
+```{r}
+code <- '
+$OMEGA
+1 2 3
+$OMEGA 
+4 5
+'
+mod <- mcode("multi", code)
+```
+
+In this case, the only way to update is to pass in a __list__ of matrices, where (in this example) the first matrix is 3x3 and the second is 2x2
+
+```{r}
+mod %>% omat(list(dmat(5,6,7),dmat(8,9))) %>% omat
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

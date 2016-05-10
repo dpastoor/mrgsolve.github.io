@@ -25,7 +25,7 @@
 
 <meta name="author" content="Metrum Research Group, LLC">
 
-<meta name="date" content="2016-05-04">
+<meta name="date" content="2016-05-10">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -195,12 +195,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="topics.html"><a href="topics.html#topic-parameter-update"><i class="fa fa-check"></i><b>6.2</b> Updating parameters</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="topics.html"><a href="topics.html#parameter-update-hierarchy"><i class="fa fa-check"></i><b>6.2.1</b> Parameter update hierarchy</a></li>
-<li class="chapter" data-level="6.2.2" data-path="topics.html"><a href="topics.html#updating-the-base-parameter-list"><i class="fa fa-check"></i><b>6.2.2</b> Updating the base parameter list</a></li>
+<li class="chapter" data-level="6.2.2" data-path="topics.html"><a href="topics.html#topic-parameter-update-base"><i class="fa fa-check"></i><b>6.2.2</b> Updating the base parameter list</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="topics.html"><a href="topics.html#topic-tgrid"><i class="fa fa-check"></i><b>6.3</b> Time grid objects</a></li>
 <li class="chapter" data-level="6.4" data-path="topics.html"><a href="topics.html#topic-designs"><i class="fa fa-check"></i><b>6.4</b> Individualized sampling designs</a></li>
 <li class="chapter" data-level="6.5" data-path="topics.html"><a href="topics.html#some-helpful-c"><i class="fa fa-check"></i><b>6.5</b> Some helpful <code>C++</code></a></li>
-<li class="chapter" data-level="6.6" data-path="topics.html"><a href="topics.html#topic-matrix-update"><i class="fa fa-check"></i><b>6.6</b> How to update <code>$OMEGA</code> and <code>$SIGMA</code> matrices</a></li>
+<li class="chapter" data-level="6.6" data-path="topics.html"><a href="topics.html#topic-matrix-update"><i class="fa fa-check"></i><b>6.6</b> Updating <code>$OMEGA</code> and <code>$SIGMA</code>  </a><ul>
+<li class="chapter" data-level="6.6.1" data-path="topics.html"><a href="topics.html#matrix-helper-functions"><i class="fa fa-check"></i><b>6.6.1</b> Matrix helper functions</a></li>
+<li class="chapter" data-level="6.6.2" data-path="topics.html"><a href="topics.html#example-unnamed-matrix"><i class="fa fa-check"></i><b>6.6.2</b> Example: unnamed matrix</a></li>
+<li class="chapter" data-level="6.6.3" data-path="topics.html"><a href="topics.html#example-named-matrices"><i class="fa fa-check"></i><b>6.6.3</b> Example: named matrices</a></li>
+<li class="chapter" data-level="6.6.4" data-path="topics.html"><a href="topics.html#example-unnamed-matrices"><i class="fa fa-check"></i><b>6.6.4</b> Example: unnamed matrices</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>7</b> Installation</a><ul>
 <li class="chapter" data-level="7.1" data-path="install.html"><a href="install.html#installing-packages-in-r"><i class="fa fa-check"></i><b>7.1</b> Installing packages in <code>R</code></a></li>
@@ -244,7 +249,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title"><font color='DarkGreen'>mrgsolve Users Guide</font></h1>
 <h4 class="author"><em><font color='DarkGreen'>Metrum Research Group, LLC</font></em></h4>
-<h4 class="date"><em>2016-05-04</em></h4>
+<h4 class="date"><em>2016-05-10</em></h4>
 </div>
 <div id="mrgsolve-users-guide" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> mrgsolve Users Guide</h1>
@@ -260,41 +265,41 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  language (EN)                        
 ##  collate  en_US.UTF-8                 
 ##  tz       America/Chicago             
-##  date     2016-05-04                  
+##  date     2016-05-10                  
 ## 
-##  package    * version     date       source                            
-##  assertthat   0.1         2013-11-08 local                             
-##  bookdown   * 0.0.70      2016-04-30 Github (rstudio/bookdown@82aed3e) 
-##  colorspace   1.2-6       2015-03-11 CRAN (R 3.1.2)                    
-##  DBI          0.3.1       2014-09-24 CRAN (R 3.1.1)                    
-##  devtools     1.10.0      2016-01-23 CRAN (R 3.2.1)                    
-##  digest       0.6.9       2016-01-08 CRAN (R 3.2.1)                    
-##  dplyr      * 0.4.3       2015-09-01 CRAN (R 3.2.1)                    
-##  evaluate     0.8.3       2016-03-05 CRAN (R 3.2.3)                    
-##  formatR      1.3         2016-03-05 CRAN (R 3.2.3)                    
-##  ggplot2    * 2.1.0       2016-03-01 CRAN (R 3.2.3)                    
-##  gtable       0.2.0       2016-02-26 CRAN (R 3.2.3)                    
-##  htmltools    0.3.5       2016-03-21 CRAN (R 3.2.3)                    
-##  httpuv       1.3.3       2015-08-04 CRAN (R 3.1.2)                    
-##  knitr        1.12.27     2016-04-30 Github (yihui/knitr@77de0a4)      
-##  lazyeval     0.1.10      2015-01-02 CRAN (R 3.1.2)                    
-##  magrittr   * 1.5         2014-11-22 CRAN (R 3.1.2)                    
-##  memoise      1.0.0       2016-01-29 CRAN (R 3.2.1)                    
-##  mime         0.4         2015-09-03 CRAN (R 3.2.1)                    
-##  miniUI       0.1.1       2016-01-15 CRAN (R 3.2.3)                    
-##  mrgsolve   * 0.5.12.9000 2016-05-03 local                             
-##  munsell      0.4.3       2016-02-13 CRAN (R 3.2.1)                    
-##  plyr         1.8.3       2015-06-12 CRAN (R 3.2.1)                    
-##  R6           2.1.2       2016-01-26 CRAN (R 3.2.3)                    
-##  Rcpp         0.12.4      2016-03-26 CRAN (R 3.2.3)                    
-##  rmarkdown    0.9.6       2016-04-30 Github (rstudio/rmarkdown@e07c5f6)
-##  scales       0.4.0       2016-02-26 CRAN (R 3.2.3)                    
-##  shiny        0.13.2      2016-03-28 CRAN (R 3.2.4)                    
-##  stringi      1.0-1       2015-10-22 CRAN (R 3.2.1)                    
-##  stringr      1.0.0       2015-04-30 CRAN (R 3.1.3)                    
-##  xtable       1.8-2       2016-02-05 CRAN (R 3.2.1)                    
-##  yaml         2.1.13      2014-06-12 CRAN (R 3.0.2)</code></pre>
-<pre><code>## [1] &quot;Wed May  4 10:31:09 2016&quot;</code></pre>
+##  package    * version    date       source                            
+##  assertthat   0.1        2013-11-08 local                             
+##  bookdown   * 0.0.70     2016-04-30 Github (rstudio/bookdown@82aed3e) 
+##  colorspace   1.2-6      2015-03-11 CRAN (R 3.1.2)                    
+##  DBI          0.4        2016-05-02 CRAN (R 3.2.5)                    
+##  devtools     1.10.0     2016-01-23 CRAN (R 3.2.1)                    
+##  digest       0.6.9      2016-01-08 CRAN (R 3.2.1)                    
+##  dplyr      * 0.4.3      2015-09-01 CRAN (R 3.2.1)                    
+##  evaluate     0.8.3      2016-03-05 CRAN (R 3.2.3)                    
+##  formatR      1.3        2016-03-05 CRAN (R 3.2.3)                    
+##  ggplot2    * 2.1.0      2016-03-01 CRAN (R 3.2.3)                    
+##  gtable       0.2.0      2016-02-26 CRAN (R 3.2.3)                    
+##  htmltools    0.3.5      2016-03-21 CRAN (R 3.2.3)                    
+##  httpuv       1.3.3      2015-08-04 CRAN (R 3.1.2)                    
+##  knitr        1.12.27    2016-04-30 Github (yihui/knitr@77de0a4)      
+##  lazyeval     0.1.10     2015-01-02 CRAN (R 3.1.2)                    
+##  magrittr   * 1.5        2014-11-22 CRAN (R 3.1.2)                    
+##  memoise      1.0.0      2016-01-29 CRAN (R 3.2.1)                    
+##  mime         0.4        2015-09-03 CRAN (R 3.2.1)                    
+##  miniUI       0.1.1      2016-05-09 Github (rstudio/miniUI@94a9de1)   
+##  mrgsolve   * 0.6.0.9000 2016-05-09 local                             
+##  munsell      0.4.3      2016-02-13 CRAN (R 3.2.1)                    
+##  plyr         1.8.3      2015-06-12 CRAN (R 3.2.1)                    
+##  R6           2.1.2      2016-01-26 CRAN (R 3.2.3)                    
+##  Rcpp         0.12.4     2016-03-26 CRAN (R 3.2.3)                    
+##  rmarkdown    0.9.6      2016-04-30 Github (rstudio/rmarkdown@e07c5f6)
+##  scales       0.4.0      2016-02-26 CRAN (R 3.2.3)                    
+##  shiny        0.13.2     2016-03-28 CRAN (R 3.2.4)                    
+##  stringi      1.0-1      2015-10-22 CRAN (R 3.2.1)                    
+##  stringr      1.0.0      2015-04-30 CRAN (R 3.1.3)                    
+##  xtable       1.8-2      2016-02-05 CRAN (R 3.2.1)                    
+##  yaml         2.1.13     2014-06-12 CRAN (R 3.0.2)</code></pre>
+<pre><code>## [1] &quot;Tue May 10 09:13:00 2016&quot;</code></pre>
 
 </div>
             </section>
