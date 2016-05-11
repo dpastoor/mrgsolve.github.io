@@ -651,7 +651,7 @@ omegas[[6]]
 omegas[[16]]
 ```
 
-The result is a list of matrices, one for each row in the data frame.
+The result of calling `as_bmat` or `as_dmat` is a list of matrices, one for each row in the data frame.
 
 Note in this example, we could have called
 ```{r,eval=FALSE}
@@ -679,7 +679,7 @@ Let's check the values in the matrix using `omat()`
 mod %>% omat
 ```
 
-We also use `omat()` to update the values in the matrix.  
+We also use `omat()` to update the values in the matrix 
 
 ```{r}
 mod %>% omat(dmat(4,5,6)) %>% omat

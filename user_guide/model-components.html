@@ -25,7 +25,7 @@
 
 <meta name="author" content="Metrum Research Group, LLC">
 
-<meta name="date" content="2016-05-10">
+<meta name="date" content="2016-05-11">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -184,7 +184,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="input-data-sets.html"><a href="input-data-sets.html#numeric-only"><i class="fa fa-check"></i><b>4.4</b> Numeric data only</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simulated-output.html"><a href="simulated-output.html"><i class="fa fa-check"></i><b>5</b> Simulated output</a></li>
+<li class="chapter" data-level="5" data-path="simulated-output.html"><a href="simulated-output.html"><i class="fa fa-check"></i><b>5</b> Simulated output</a><ul>
+<li class="chapter" data-level="5.1" data-path="simulated-output.html"><a href="simulated-output.html#coersion-methods"><i class="fa fa-check"></i><b>5.1</b> Coersion methods</a></li>
+<li class="chapter" data-level="5.2" data-path="simulated-output.html"><a href="simulated-output.html#query-methods"><i class="fa fa-check"></i><b>5.2</b> Query methods</a></li>
+<li class="chapter" data-level="5.3" data-path="simulated-output.html"><a href="simulated-output.html#methods-for-dplyr-verbs"><i class="fa fa-check"></i><b>5.3</b> Methods for <code>dplyr</code> verbs</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="topics.html"><a href="topics.html"><i class="fa fa-check"></i><b>6</b> Topics</a><ul>
 <li class="chapter" data-level="6.1" data-path="topics.html"><a href="topics.html#topic-init"><i class="fa fa-check"></i><b>6.1</b> Set initial conditions</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="topics.html"><a href="topics.html#summary"><i class="fa fa-check"></i><b>6.1.1</b> Summary</a></li>
@@ -248,7 +252,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="model-components" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Model components</h1>
-<p>This chapter details the different components of a model in <code>mrgsolve</code>.</p>
+<p>This chapter details the different components of a model in <code>mrgsolve</code>. Each component listed here is maintained within a “model object”. This is an updatable S4 object in <code>R</code> that contains all of the basic information required to properly configure and simulate from the model.</p>
 <div id="component-param" class="section level2">
 <h2><span class="header-section-number">2.1</span> Parameter list</h2>
 <p>The parameter list is an updatable set of name-value pairs. Referencing the name of an item in the parameter list will substitute the current value associated with that name. While the name “paramter” may have a certain connotation in the modeling world, in <code>mrgsolve</code> a “parameter” could be any category of numeric data: covariates (e.g. <code>WT</code>, <code>AGE</code>, <code>SEX</code>), flags, other numeric data that we commonly call “parameter” (e.g. <code>CL</code> or <code>VC</code>).</p>

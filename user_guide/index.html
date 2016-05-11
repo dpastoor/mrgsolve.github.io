@@ -25,7 +25,7 @@
 
 <meta name="author" content="Metrum Research Group, LLC">
 
-<meta name="date" content="2016-05-10">
+<meta name="date" content="2016-05-11">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -184,7 +184,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="input-data-sets.html"><a href="input-data-sets.html#numeric-only"><i class="fa fa-check"></i><b>4.4</b> Numeric data only</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simulated-output.html"><a href="simulated-output.html"><i class="fa fa-check"></i><b>5</b> Simulated output</a></li>
+<li class="chapter" data-level="5" data-path="simulated-output.html"><a href="simulated-output.html"><i class="fa fa-check"></i><b>5</b> Simulated output</a><ul>
+<li class="chapter" data-level="5.1" data-path="simulated-output.html"><a href="simulated-output.html#coersion-methods"><i class="fa fa-check"></i><b>5.1</b> Coersion methods</a></li>
+<li class="chapter" data-level="5.2" data-path="simulated-output.html"><a href="simulated-output.html#query-methods"><i class="fa fa-check"></i><b>5.2</b> Query methods</a></li>
+<li class="chapter" data-level="5.3" data-path="simulated-output.html"><a href="simulated-output.html#methods-for-dplyr-verbs"><i class="fa fa-check"></i><b>5.3</b> Methods for <code>dplyr</code> verbs</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="topics.html"><a href="topics.html"><i class="fa fa-check"></i><b>6</b> Topics</a><ul>
 <li class="chapter" data-level="6.1" data-path="topics.html"><a href="topics.html#topic-init"><i class="fa fa-check"></i><b>6.1</b> Set initial conditions</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="topics.html"><a href="topics.html#summary"><i class="fa fa-check"></i><b>6.1.1</b> Summary</a></li>
@@ -249,7 +253,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title"><font color='DarkGreen'>mrgsolve Users Guide</font></h1>
 <h4 class="author"><em><font color='DarkGreen'>Metrum Research Group, LLC</font></em></h4>
-<h4 class="date"><em>2016-05-10</em></h4>
+<h4 class="date"><em>2016-05-11</em></h4>
 </div>
 <div id="mrgsolve-users-guide" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> mrgsolve Users Guide</h1>
@@ -259,19 +263,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>For more information: <a href="http://www.github.com/metrumresearchgroup/mrgsolve" class="uri">http://www.github.com/metrumresearchgroup/mrgsolve</a></p>
 <p><strong>The following environment was used to generate this documentation</strong>:</p>
 <pre><code>##  setting  value                       
-##  version  R version 3.2.3 (2015-12-10)
+##  version  R version 3.3.0 (2016-05-03)
 ##  system   x86_64, darwin13.4.0        
 ##  ui       X11                         
 ##  language (EN)                        
 ##  collate  en_US.UTF-8                 
 ##  tz       America/Chicago             
-##  date     2016-05-10                  
+##  date     2016-05-11                  
 ## 
 ##  package    * version    date       source                            
 ##  assertthat   0.1        2013-11-08 local                             
 ##  bookdown   * 0.0.70     2016-04-30 Github (rstudio/bookdown@82aed3e) 
 ##  colorspace   1.2-6      2015-03-11 CRAN (R 3.1.2)                    
-##  DBI          0.4        2016-05-02 CRAN (R 3.2.5)                    
+##  DBI          0.4-1      2016-05-08 CRAN (R 3.3.0)                    
 ##  devtools     1.10.0     2016-01-23 CRAN (R 3.2.1)                    
 ##  digest       0.6.9      2016-01-08 CRAN (R 3.2.1)                    
 ##  dplyr      * 0.4.3      2015-09-01 CRAN (R 3.2.1)                    
@@ -287,7 +291,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  memoise      1.0.0      2016-01-29 CRAN (R 3.2.1)                    
 ##  mime         0.4        2015-09-03 CRAN (R 3.2.1)                    
 ##  miniUI       0.1.1      2016-05-09 Github (rstudio/miniUI@94a9de1)   
-##  mrgsolve   * 0.6.0.9000 2016-05-09 local                             
+##  mrgsolve   * 0.6.1.9000 2016-05-11 local                             
 ##  munsell      0.4.3      2016-02-13 CRAN (R 3.2.1)                    
 ##  plyr         1.8.3      2015-06-12 CRAN (R 3.2.1)                    
 ##  R6           2.1.2      2016-01-26 CRAN (R 3.2.3)                    
@@ -299,7 +303,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  stringr      1.0.0      2015-04-30 CRAN (R 3.1.3)                    
 ##  xtable       1.8-2      2016-02-05 CRAN (R 3.2.1)                    
 ##  yaml         2.1.13     2014-06-12 CRAN (R 3.0.2)</code></pre>
-<pre><code>## [1] &quot;Tue May 10 09:13:00 2016&quot;</code></pre>
+<pre><code>## [1] &quot;Wed May 11 16:37:05 2016&quot;</code></pre>
 
 </div>
             </section>

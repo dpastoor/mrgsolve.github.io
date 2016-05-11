@@ -25,7 +25,7 @@
 
 <meta name="author" content="Metrum Research Group, LLC">
 
-<meta name="date" content="2016-05-10">
+<meta name="date" content="2016-05-11">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -184,7 +184,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="input-data-sets.html"><a href="input-data-sets.html#numeric-only"><i class="fa fa-check"></i><b>4.4</b> Numeric data only</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simulated-output.html"><a href="simulated-output.html"><i class="fa fa-check"></i><b>5</b> Simulated output</a></li>
+<li class="chapter" data-level="5" data-path="simulated-output.html"><a href="simulated-output.html"><i class="fa fa-check"></i><b>5</b> Simulated output</a><ul>
+<li class="chapter" data-level="5.1" data-path="simulated-output.html"><a href="simulated-output.html#coersion-methods"><i class="fa fa-check"></i><b>5.1</b> Coersion methods</a></li>
+<li class="chapter" data-level="5.2" data-path="simulated-output.html"><a href="simulated-output.html#query-methods"><i class="fa fa-check"></i><b>5.2</b> Query methods</a></li>
+<li class="chapter" data-level="5.3" data-path="simulated-output.html"><a href="simulated-output.html#methods-for-dplyr-verbs"><i class="fa fa-check"></i><b>5.3</b> Methods for <code>dplyr</code> verbs</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="topics.html"><a href="topics.html"><i class="fa fa-check"></i><b>6</b> Topics</a><ul>
 <li class="chapter" data-level="6.1" data-path="topics.html"><a href="topics.html#topic-init"><i class="fa fa-check"></i><b>6.1</b> Set initial conditions</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="topics.html"><a href="topics.html#summary"><i class="fa fa-check"></i><b>6.1.1</b> Summary</a></li>
@@ -248,7 +252,68 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="simulated-output" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Simulated output</h1>
+<p>When <code>mrgsim</code> is used to simulate from a model, it returns an object with class <code>mrgsims</code>. It is an S4 object containing a matrix of simulated output and a handful of other pieces of data related to the simulation run.</p>
+<p><code>mrgsolve</code> provides several methods for working with <code>mrgsims</code> objects or coercing the simulation matrix into other <code>R</code> objects.</p>
+<div id="coersion-methods" class="section level2">
+<h2><span class="header-section-number">5.1</span> Coersion methods</h2>
+<ul>
+<li><code>as.data.frame</code> convert to <code>data.frame</code></li>
+<li><code>as.matrix</code> convert to <code>matrix</code></li>
+<li><code>as.tbl</code> convert to <code>tbl</code></li>
+</ul>
+</div>
+<div id="query-methods" class="section level2">
+<h2><span class="header-section-number">5.2</span> Query methods</h2>
+<ul>
+<li><code>head</code></li>
+<li><code>tail</code></li>
+<li><code>names</code></li>
+<li><code>dim</code></li>
+<li><code>summary</code></li>
+<li><code>show</code></li>
+<li><code>$</code></li>
+</ul>
+</div>
+<div id="methods-for-dplyr-verbs" class="section level2">
+<h2><span class="header-section-number">5.3</span> Methods for <code>dplyr</code> verbs</h2>
+<p><code>mrgsolve</code> provides several S3 methods to make it possible to include <code>dplyr</code> verbs in your simulation pipeline.</p>
+<p>For example</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 
+mod &lt;-<span class="st"> </span>mrgsolve:::<span class="kw">house</span>()
+
+mod %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ev</span>(<span class="dt">amt=</span><span class="dv">100</span>) %&gt;%
+<span class="st">  </span>mrgsim %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(time &gt;=<span class="dv">10</span>)</code></pre></div>
+<pre><code>. Source: local data frame [441 x 7]
+. 
+.       ID  time          GUT     CENT     RESP       CP       DV
+.    (dbl) (dbl)        (dbl)    (dbl)    (dbl)    (dbl)    (dbl)
+. 1      1 10.00 6.144207e-04 63.28951 37.74994 3.164476 3.164476
+. 2      1 10.25 4.551739e-04 62.50348 37.86511 3.125174 3.125174
+. 3      1 10.50 3.372008e-04 61.72716 37.97956 3.086358 3.086358
+. 4      1 10.75 2.498044e-04 60.96046 38.09328 3.048023 3.048023
+. 5      1 11.00 1.850595e-04 60.20327 38.20626 3.010163 3.010163
+. 6      1 11.25 1.370954e-04 59.45546 38.31851 2.972773 2.972773
+. 7      1 11.50 1.015627e-04 58.71692 38.43001 2.935846 2.935846
+. 8      1 11.75 7.523940e-05 57.98756 38.54078 2.899378 2.899378
+. 9      1 12.00 5.573863e-05 57.26724 38.65080 2.863362 2.863362
+. 10     1 12.25 4.129281e-05 56.55587 38.76007 2.827794 2.827794
+. ..   ...   ...          ...      ...      ...      ...      ...</code></pre>
+<p>Here, <code>mrgsim</code> returns an <code>mrgsims</code> object. When <code>dplyr</code> is also loaded, this object can be piped directly to <code>dplyr::summarise</code>.</p>
+<p>Other <code>dplyr</code> functions that can be used with <code>mrgsims</code> objects</p>
+<ul>
+<li><code>group_by</code></li>
+<li><code>mutate</code></li>
+<li><code>filter</code></li>
+<li><code>summarise</code></li>
+<li><code>select</code></li>
+<li><code>slice</code></li>
+<li><code>summarise.each</code> (use a <code>&lt;dot&gt;</code> not an <code>&lt;underscore&gt;</code>)</li>
+</ul>
+
+</div>
 </div>
             </section>
 
